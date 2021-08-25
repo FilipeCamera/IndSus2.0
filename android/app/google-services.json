@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "436172204652",
+    "project_id": "indsus-6696a",
+    "storage_bucket": "indsus-6696a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436172204652:android:932cab41cec5ebfc22c649",
+        "android_client_info": {
+          "package_name": "com.indsus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436172204652-d22cvi1dop2geicg04p8spaq4dtc33lb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.indsus",
+            "certificate_hash": "98d05e29bb26868cf8fe985405e43e1b481b1fbf"
+          }
+        },
+        {
+          "client_id": "436172204652-fmh6uko4r1pkltmejnuqgucli7hc7psd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAolFJ_L4xNOxqIp_2ptAODSNpw76IDdPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436172204652-fmh6uko4r1pkltmejnuqgucli7hc7psd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

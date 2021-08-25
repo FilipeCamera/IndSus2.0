@@ -15,6 +15,8 @@ const theme = {
     ...DefaultTheme.colors,
     background: Colors.background,
     primary: Colors.outlineColor,
+    text: Colors.textSecundaryBlack,
+    error: Colors.red,
   },
 };
 

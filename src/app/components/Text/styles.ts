@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const family = {
   100: 'Montserrat-Thin',
@@ -20,7 +21,8 @@ interface TextProps {
 }
 
 export const TextStyle = styled.Text<TextProps>`
-  font-size: ${(props: any) => `${props.size}px` || '14px'};
+  font-size: ${(props: any) =>
+    `${RFValue(props.size)}px` || `${RFValue(14)}px`};
   font-family: ${(props: TextProps) => family[props.weight || 400]};
   color: ${(props: any) => props.color || '#000'};
   ${(props: any) => (props.center ? 'text-align: center' : '')};

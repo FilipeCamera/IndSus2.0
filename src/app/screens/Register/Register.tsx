@@ -8,12 +8,29 @@ import {
   Space,
   Text,
 } from 'components';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 
 import Line from 'assets/svg/line.svg';
+import {emailValidate, fieldPass} from 'validation';
 
 const Register = ({navigation}: any) => {
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [errors, setErrors] = useState({email: '', pass: '', confirmPass: ''});
+
+  const verify = () => {
+    const emailValidated = emailValidate(email);
+    const passValidated = fieldPass(pass, 6);
+    const confirmPassValidated = fieldPass(confirmPass, 6);
+    setErrors({
+      ...errors,
+      email: emailValidated.error,
+      pass: passValidated.error,
+      confirmPass: confirmPassValidated.error,
+    });
+  };
   return (
     <LinearBackground>
       <Scroll>
@@ -38,11 +55,32 @@ const Register = ({navigation}: any) => {
             />
           </View>
           <Space vertical={25} />
-          <Input label="E-mail" type="outlined" />
+          <Input
+            label="E-mail"
+            type="outlined"
+            value={email}
+            keyType="email-address"
+            onText={e => setEmail(e)}
+            error={errors.email}
+          />
           <Space vertical={4} />
-          <Input label="Senha" type="outlined" />
+          <Input
+            label="Senha"
+            type="outlined"
+            value={pass}
+            onText={e => setPass(e)}
+            password
+            error={errors.pass}
+          />
           <Space vertical={4} />
-          <Input label="Confirmar senha" type="outlined" />
+          <Input
+            label="Confirmar senha"
+            type="outlined"
+            value={confirmPass}
+            onText={e => setConfirmPass(e)}
+            password
+            error={errors.confirmPass}
+          />
           <Space vertical={25} />
           <Button
             background={Colors.blue}
@@ -51,6 +89,7 @@ const Register = ({navigation}: any) => {
             color={Colors.background}
             title="Cadastrar"
             shadow={4}
+            onPress={() => verify()}
           />
           <Space vertical={12} />
           <View
@@ -99,6 +138,7 @@ const Register = ({navigation}: any) => {
             size={15}
             background={Colors.background}
             border
+            google
           />
           <Space vertical={4} />
         </Card>

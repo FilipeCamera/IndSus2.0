@@ -9,16 +9,22 @@ interface ButtonProps {
 }
 
 export const ButtonStyle = styled.TouchableOpacity<ButtonProps>`
-  background: ${props =>
+  background: ${(props: ButtonProps) =>
     props.mode === 'text'
       ? Colors.background
       : props.background
       ? props.background
       : Colors.blue};
-  elevation: ${props => (props.shadow ? props.shadow : 0)};
+  elevation: ${(props: ButtonProps) => (props.shadow ? props.shadow : 0)};
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  padding: ${props => (props.mode === 'text' ? '0px' : '16px')};
-  ${props => (props.border ? `border: 1px solid ${Colors.lightGray}` : '')}
+  padding: ${(props: ButtonProps) => (props.mode === 'text' ? '0px' : '16px')};
+  ${(props: ButtonProps) =>
+    props.border ? `border: 1px solid ${Colors.lightGray}` : ''}
+`;
+
+export const ButtonIcon = styled.View`
+  position: absolute;
+  left: 25px;
 `;
