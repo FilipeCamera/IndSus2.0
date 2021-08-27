@@ -5,5 +5,15 @@ import Input from './Input';
 import Space from './Space';
 import Scroll from './Scroll';
 import Button from './Button';
+import AvatarSelect from './AvatarSelect';
 
-export {LinearBackground, Card, Text, Input, Space, Scroll, Button};
+export {
+  LinearBackground,
+  Card,
+  Text,
+  Input,
+  Space,
+  Scroll,
+  Button,
+  AvatarSelect,
+};

@@ -12,7 +12,11 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 
 import Line from 'assets/svg/line.svg';
-import {emailValidate, fieldPass} from 'validation';
+import {emailValidate, equalPass, fieldPass} from 'validation';
+import {auth, firestore} from 'firebase';
+import {userPersist} from 'functions';
+
+import {showMessage} from 'react-native-flash-message';
 
 const Register = ({navigation}: any) => {
   const [email, setEmail] = useState('');
@@ -24,12 +28,61 @@ const Register = ({navigation}: any) => {
     const emailValidated = emailValidate(email);
     const passValidated = fieldPass(pass, 6);
     const confirmPassValidated = fieldPass(confirmPass, 6);
+    const equals = equalPass(pass, confirmPass);
+
     setErrors({
       ...errors,
       email: emailValidated.error,
       pass: passValidated.error,
       confirmPass: confirmPassValidated.error,
     });
+    if (
+      !emailValidated.value ||
+      !passValidated.value ||
+      !confirmPassValidated.value
+    ) {
+      return false;
+    }
+
+    if (!equals.value) {
+      setErrors({...errors, pass: equals.error, confirmPass: equals.error});
+      return false;
+    }
+    return true;
+  };
+  const saveUser = (uid: string) => {
+    const user = {
+      uid: uid,
+      email: email,
+      completeRegister: false,
+      createdAt: firestore.FieldValue.serverTimestamp(),
+    };
+    firestore()
+      .collection('users')
+      .doc(uid)
+      .set(user)
+      .then(() => {
+        userPersist(user);
+      })
+      .catch((error: any) => {});
+  };
+  const signUp = (email: string, password: string) => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async (res: any) => {
+        const {uid} = await res.user;
+        saveUser(uid);
+        navigation.navigate('Private');
+      })
+      .catch(error => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            return showMessage({
+              type: 'danger',
+              message: 'Usuário já cadastrado!',
+            });
+        }
+      });
   };
   return (
     <LinearBackground>
@@ -89,7 +142,13 @@ const Register = ({navigation}: any) => {
             color={Colors.background}
             title="Cadastrar"
             shadow={4}
-            onPress={() => verify()}
+            onPress={() => {
+              const verified = verify();
+
+              if (verified) {
+                signUp(email, pass);
+              }
+            }}
           />
           <Space vertical={12} />
           <View
