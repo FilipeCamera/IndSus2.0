@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const privateFeature = ['Onboarding', 'Home'];
+const privateFeature = ['Onboarding', 'Dashboard'];
 
 const routes = Object.keys(privateFeatures).map(
   (feature: keyof PublicFeatureGroup) => {
@@ -23,7 +23,7 @@ const PrivateRoutes = () => {
   const user = useSelector((state: any) => state.auth.user);
   return (
     <Navigator
-      initialRouteName={user.completeRegister ? 'Home' : 'Onboarding'}
+      initialRouteName={user.completeRegister ? 'Dashboard' : 'Onboarding'}
       screenOptions={{headerShown: false}}>
       {routes.map(route => (
         <Screen

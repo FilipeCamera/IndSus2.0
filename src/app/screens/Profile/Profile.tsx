@@ -1,26 +1,17 @@
 import {Colors} from '@styles';
-import {
-  Board,
-  Card,
-  Header,
-  RoundedButton,
-  Scroll,
-  Space,
-  Text,
-} from 'components';
+import {Header, Space, Card, Text} from 'components';
 import React from 'react';
 import {View} from 'react-native';
 import {Avatar} from 'react-native-paper';
-import {useSelector} from 'react-redux';
 
 import GraphIcon from 'assets/svg/graph.svg';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useSelector} from 'react-redux';
 
-const Home = () => {
+const Profile = () => {
   const user = useSelector((state: any) => state.auth.user);
   return (
-    <Scroll>
-      <Header />
+    <View style={{backgroundColor: Colors.background, padding: 16, flex: 1}}>
+      <Header mode="profile" alert />
       <Space vertical={15} />
       <Card style={{width: '100%', elevation: 6}}>
         <View
@@ -67,13 +58,8 @@ const Home = () => {
           </View>
         </View>
       </Card>
-      <Space vertical={25} />
-      <Board title="Pesquisas" />
-      <RoundedButton>
-        <Icon name="add" size={36} color={Colors.background} />
-      </RoundedButton>
-    </Scroll>
+    </View>
   );
 };
 
-export default Home;
+export default Profile;

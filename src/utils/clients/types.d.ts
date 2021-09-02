@@ -12,9 +12,14 @@ type PublicGroup = CommonGroup & {
 
 type PrivateGroup = CommonGroup & {};
 
+type TabsGroup = CommonGroup & {};
+
 type ConfigGroup = PublicGroup;
 type ConfigPrivateGroup = PrivateGroup;
+type ConfigTabsGroup = TabsGroup;
 
 type PublicFeatureGroup = Record<string, ConfigGroup>;
 
 type PrivateFeatureGroup = Record<string, ConfigPrivateGroup>;
+
+type TabsFeatureGroup = Record<string, ConfigTabsGroup>;

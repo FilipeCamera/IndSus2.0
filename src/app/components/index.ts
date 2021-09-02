@@ -6,6 +6,11 @@ import Space from './Space';
 import Scroll from './Scroll';
 import Button from './Button';
 import AvatarSelect from './AvatarSelect';
+import Header from './Header';
+import Vertical from './Vertical';
+import Row from './Row';
+import Board from './Board';
+import RoundedButton from './RoundedButton';
 
 export {
   LinearBackground,
@@ -16,4 +21,9 @@ export {
   Scroll,
   Button,
   AvatarSelect,
+  Header,
+  Vertical,
+  Row,
+  Board,
+  RoundedButton,
 };

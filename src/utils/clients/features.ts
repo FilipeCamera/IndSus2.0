@@ -1,4 +1,4 @@
-import {Home, Login, Onboarding, Register} from 'screens';
+import {Dashboard, Home, Login, Onboarding, Register} from 'screens';
 
 const publicFeatures: PublicFeatureGroup = {
   Register: {
@@ -23,10 +23,17 @@ const privateFeatures: PrivateFeatureGroup = {
     enabled: true,
     component: Onboarding,
   },
+  Dashboard: {
+    enabled: true,
+    component: Dashboard,
+  },
+};
+
+const tabsFeatures: TabsFeatureGroup = {
   Home: {
     enabled: true,
     component: Home,
   },
 };
 
-export {publicFeatures, privateFeatures};
+export {publicFeatures, privateFeatures, tabsFeatures};

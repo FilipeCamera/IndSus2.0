@@ -16,7 +16,7 @@ import Line from 'assets/svg/line.svg';
 const Login = ({navigation}: any) => {
   return (
     <LinearBackground>
-      <Scroll>
+      <Scroll initial>
         <Card>
           <Space vertical={8} />
           <View
