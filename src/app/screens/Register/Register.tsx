@@ -9,7 +9,7 @@ import {
   Text,
 } from 'components';
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 
 import Line from 'assets/svg/line.svg';
 import {emailValidate, equalPass, fieldPass} from 'validation';

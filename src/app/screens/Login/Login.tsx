@@ -8,12 +8,74 @@ import {
   Space,
   Text,
 } from 'components';
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 
 import Line from 'assets/svg/line.svg';
+import {emailValidate, fieldPass} from 'validation';
+import {auth, firestore} from 'firebase';
+import {userPersist} from 'functions';
+import {showMessage} from 'react-native-flash-message';
 
 const Login = ({navigation}: any) => {
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [errors, setErrors] = useState({email: '', pass: ''});
+
+  const verify = () => {
+    const emailValidated = emailValidate(email);
+    const passValidated = fieldPass(pass, 6);
+
+    setErrors({
+      ...errors,
+      email: emailValidated.error,
+      pass: passValidated.error,
+    });
+    if (!emailValidated.value || !passValidated.value) {
+      return false;
+    }
+    return true;
+  };
+
+  const saveUser = (uid: string) => {
+    firestore()
+      .collection('users')
+      .doc(uid)
+      .get()
+      .then(res => {
+        const user = res.data();
+        userPersist(user);
+        navigation.navigate('Private');
+      })
+      .catch((error: any) => {});
+  };
+
+  const signIn = () => {
+    auth()
+      .signInWithEmailAndPassword(email, pass)
+      .then(res => {
+        const {uid} = res.user;
+        saveUser(uid);
+      })
+      .catch(error => {
+        switch (error.code) {
+          case 'auth/user-not-found':
+            return showMessage({
+              type: 'danger',
+              message: 'Erro',
+              description: 'Usuário não encontrado.',
+              titleStyle: {fontFamily: 'Montserrat-SemiBold', fontSize: 16},
+            });
+          case 'auth/wrong-password':
+            return showMessage({
+              type: 'danger',
+              message: 'Erro',
+              description: 'E-mail ou senha incorreta',
+              titleStyle: {fontFamily: 'Montserrat-SemiBold', fontSize: 16},
+            });
+        }
+      });
+  };
   return (
     <LinearBackground>
       <Scroll initial>
@@ -38,9 +100,22 @@ const Login = ({navigation}: any) => {
             />
           </View>
           <Space vertical={25} />
-          <Input label="E-mail" type="outlined" />
+          <Input
+            label="E-mail"
+            value={email}
+            onText={e => setEmail(e)}
+            type="outlined"
+            error={errors.email}
+          />
           <Space vertical={4} />
-          <Input label="Senha" type="outlined" />
+          <Input
+            label="Senha"
+            value={pass}
+            onText={e => setPass(e)}
+            type="outlined"
+            error={errors.pass}
+            password
+          />
           <Space vertical={4} />
           <View style={{alignItems: 'flex-start'}}>
             <Button
@@ -59,6 +134,12 @@ const Login = ({navigation}: any) => {
             color={Colors.background}
             title="Acessar"
             shadow={4}
+            onPress={() => {
+              const verified = verify();
+              if (verified) {
+                return signIn();
+              }
+            }}
           />
           <Space vertical={12} />
           <View

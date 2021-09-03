@@ -9,6 +9,8 @@ import {
 } from './styles';
 
 import AlertIcon from 'assets/svg/alert.svg';
+import BackIcon from 'assets/svg/back.svg';
+
 import {useSelector} from 'react-redux';
 import {Avatar} from 'react-native-paper';
 import {View} from 'react-native';
@@ -17,10 +19,30 @@ interface HeaderProps {
   mode: string;
   alert: boolean;
   back: boolean;
+  onBack: () => any;
+  title: string;
 }
 
-const Header = ({mode, alert, back}: HeaderProps) => {
+const Header = ({title, mode, alert, back, onBack}: HeaderProps) => {
   const user = useSelector((state: any) => state.auth.user);
+
+  if (mode === 'common') {
+    return (
+      <HeaderCommonStyle>
+        {!!back && (
+          <HeaderCommonButton back={back} onPress={onBack}>
+            <BackIcon />
+          </HeaderCommonButton>
+        )}
+        <Text title={title} size={20} weight={700} color={Colors.textBlack} />
+        {!!alert && (
+          <HeaderCommonButton alert={alert} onPress={() => {}}>
+            <AlertIcon />
+          </HeaderCommonButton>
+        )}
+      </HeaderCommonStyle>
+    );
+  }
 
   if (mode === 'profile') {
     return (

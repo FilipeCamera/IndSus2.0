@@ -1,14 +1,26 @@
 import {Colors} from '@styles';
-import {Header, Space, Card, Text} from 'components';
-import React from 'react';
+import {Header, Space, Card, Text, CustomButton} from 'components';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Avatar} from 'react-native-paper';
 
 import GraphIcon from 'assets/svg/graph.svg';
 import {useSelector} from 'react-redux';
+import ProfileEdit from './ProfileEdit';
+import ProfileResearches from './ProfileResearches';
+import {Logout} from 'functions';
 
-const Profile = () => {
+const Profile = ({navigation}: any) => {
   const user = useSelector((state: any) => state.auth.user);
+  const [state, setState] = useState('');
+
+  if (state === 'researches') {
+    return <ProfileResearches setState={setState} />;
+  }
+  if (state === 'edit') {
+    return <ProfileEdit setState={setState} />;
+  }
+
   return (
     <View style={{backgroundColor: Colors.background, padding: 16, flex: 1}}>
       <Header mode="profile" alert />
@@ -58,6 +70,25 @@ const Profile = () => {
           </View>
         </View>
       </Card>
+      <Space vertical={40} />
+      <CustomButton
+        title="Pesquisas Recebidas"
+        type="archive"
+        onPress={() => setState('researches')}
+      />
+      <Space vertical={8} />
+      <CustomButton
+        title="Editar Dados"
+        type="edit"
+        onPress={() => setState('edit')}
+      />
+      <View style={{position: 'absolute', bottom: 25, alignSelf: 'center'}}>
+        <CustomButton
+          title="Sair"
+          type="logout"
+          onPress={() => Logout().then(_ => navigation.navigate('Public'))}
+        />
+      </View>
     </View>
   );
 };

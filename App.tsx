@@ -6,6 +6,7 @@ import Routes from 'routes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import FlashMessage from 'react-native-flash-message';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -15,6 +16,7 @@ import store, {persist} from 'store';
 import {useGetUser} from 'hooks';
 import {permissions, userPersist} from 'functions';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {StatusBar} from 'react-native';
 
 const theme = {
   ...DefaultTheme,
@@ -69,14 +71,14 @@ const App = () => {
             </NavigationContainer>
           </SafeAreaView>
           <FlashMessage
-            statusBarHeight={10}
+            statusBarHeight={getStatusBarHeight()}
             position="top"
             duration={3000}
             titleStyle={{
               fontFamily: 'Montserrat-Medium',
-              fontSize: RFValue(15),
+              fontSize: RFValue(18),
             }}
-            textStyle={{fontFamily: 'Montserrat-Medium', fontSize: RFValue(18)}}
+            textStyle={{fontFamily: 'Montserrat-Medium', fontSize: RFValue(16)}}
           />
         </PaperProvider>
       </PersistGate>

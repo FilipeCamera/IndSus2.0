@@ -1,23 +1,20 @@
 import {Colors} from '@styles';
-import {AvatarSelect, Button, Input, Space} from 'components';
+import {AvatarSelect, Button, Header, Input, Space} from 'components';
 import {firestore} from 'firebase';
 import {userPersist} from 'functions';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
 import {fieldValidate} from 'validation';
 
-const Step1 = ({navigation}: any) => {
+const ProfileEdit = ({setState}: any) => {
   const user = useSelector((state: any) => state.auth.user);
-  const [name, setName] = useState('');
-  const [work, setWork] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [complete, setComplete] = useState(false);
+  const [name, setName] = useState(user.name);
+  const [work, setWork] = useState(user.work);
+  const [avatar, setAvatar] = useState(user.avatar);
   const [errors, setErrors] = useState({name: '', work: '', avatar: ''});
-  useEffect(() => {
-    setComplete(true);
-  }, []);
+
   const verify = () => {
     const nameVerified = fieldValidate(name);
     const workVerified = fieldValidate(work);
@@ -40,7 +37,6 @@ const Step1 = ({navigation}: any) => {
       name: name,
       work: work,
       avatar: avatar,
-      completeRegister: complete,
     };
     firestore()
       .collection('users')
@@ -48,14 +44,25 @@ const Step1 = ({navigation}: any) => {
       .update(data)
       .then(() => {
         userPersist(data);
-        showMessage({type: 'success', message: 'Cadastro concluído!'});
-        navigation.navigate('Home');
+        showMessage({
+          type: 'success',
+          message: 'Salvo!',
+          description: 'Alterações feitas com sucesso.',
+        });
       });
   };
   return (
     <ScrollView
-      style={{backgroundColor: Colors.background, flexGrow: 1, padding: 16}}
+      contentContainerStyle={{padding: 16}}
+      style={{backgroundColor: Colors.background, flexGrow: 1}}
       showsVerticalScrollIndicator={false}>
+      <Header
+        back
+        alert
+        title="Editar Dados"
+        mode="common"
+        onBack={() => setState('')}
+      />
       <Space vertical={20} />
       <AvatarSelect
         avatar={avatar}
@@ -80,7 +87,7 @@ const Step1 = ({navigation}: any) => {
       />
       <Space vertical={30} />
       <Button
-        title="Finalizar"
+        title="Salvar"
         background={Colors.blue}
         weight={600}
         size={16}
@@ -98,4 +105,4 @@ const Step1 = ({navigation}: any) => {
   );
 };
 
-export default Step1;
+export default ProfileEdit;

@@ -11,6 +11,7 @@ import Vertical from './Vertical';
 import Row from './Row';
 import Board from './Board';
 import RoundedButton from './RoundedButton';
+import CustomButton from './CustomButton';
 
 export {
   LinearBackground,
@@ -26,4 +27,5 @@ export {
   Row,
   Board,
   RoundedButton,
+  CustomButton,
 };
