@@ -41,6 +41,7 @@ const Input = ({
           borderRadius: 8,
           fontFamily: 'Montserrat-Regular',
           fontSize: RFValue(16),
+          width: '100%',
         }}
         autoCapitalize="none"
         onChangeText={e => onText(e)}

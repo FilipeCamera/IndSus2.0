@@ -12,6 +12,8 @@ import Row from './Row';
 import Board from './Board';
 import RoundedButton from './RoundedButton';
 import CustomButton from './CustomButton';
+import UFDropdown from './UFDropdown';
+import BiomesDropdown from './BiomesDropdown';
 
 export {
   LinearBackground,
@@ -28,4 +30,6 @@ export {
   Board,
   RoundedButton,
   CustomButton,
+  UFDropdown,
+  BiomesDropdown,
 };

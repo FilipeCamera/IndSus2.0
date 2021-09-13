@@ -29,6 +29,8 @@ const plugins = [
         '@mask': './src/utils/mask',
         hooks: './src/hooks',
         '@styles': './src/styles',
+        '@ufs': './src/utils/UFs',
+        '@biomes': './src/utils/biomes',
       },
     },
   ],

@@ -16,7 +16,7 @@ import {useSelector} from 'react-redux';
 import GraphIcon from 'assets/svg/graph.svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const user = useSelector((state: any) => state.auth.user);
   return (
     <Scroll>
@@ -69,7 +69,7 @@ const Home = () => {
       </Card>
       <Space vertical={25} />
       <Board title="Pesquisas" />
-      <RoundedButton>
+      <RoundedButton onPress={() => navigation.navigate('Research')}>
         <Icon name="add" size={36} color={Colors.background} />
       </RoundedButton>
     </Scroll>
