@@ -6,22 +6,21 @@ import {ButtonUf, DropdownUfStyle} from './styles';
 
 import Ufs from '@ufs';
 import {FlatList} from 'react-native';
-const UFDropdown = () => {
-  const [value, setValue] = useState('');
+const UFDropdown = ({error, setUf, uf}: any) => {
   const [show, setShow] = useState(false);
 
   const _renderItem = ({item}: any) => {
     return (
       <ButtonUf
         onPress={() => {
-          setValue(item.value);
+          setUf(item.value);
           setShow(!show);
         }}>
         <Text
           title={item.label}
           size={16}
           weight={500}
-          color={Colors.textBlack}
+          color={Colors.textMediumBlack}
         />
       </ButtonUf>
     );
@@ -29,7 +28,13 @@ const UFDropdown = () => {
   return (
     <>
       <DropdownUfStyle onPress={() => setShow(!show)}>
-        <Input label="Estado" value={value} type="outlined" disabled />
+        <Input
+          label="Estado"
+          value={uf}
+          type="outlined"
+          disabled
+          error={error}
+        />
       </DropdownUfStyle>
       <Portal>
         <Modal

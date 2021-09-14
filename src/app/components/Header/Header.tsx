@@ -10,7 +10,7 @@ import {
 
 import AlertIcon from 'assets/svg/alert.svg';
 import BackIcon from 'assets/svg/back.svg';
-
+import AddIcon from 'assets/svg/add.svg';
 import {useSelector} from 'react-redux';
 import {Avatar} from 'react-native-paper';
 import {View} from 'react-native';
@@ -19,11 +19,21 @@ interface HeaderProps {
   mode: string;
   alert: boolean;
   back: boolean;
+  add: boolean;
+  onAdd: () => any;
   onBack: () => any;
   title: string;
 }
 
-const Header = ({title, mode, alert, back, onBack}: HeaderProps) => {
+const Header = ({
+  title,
+  mode,
+  alert,
+  back,
+  add,
+  onBack,
+  onAdd,
+}: HeaderProps) => {
   const user = useSelector((state: any) => state.auth.user);
 
   if (mode === 'common') {
@@ -38,6 +48,11 @@ const Header = ({title, mode, alert, back, onBack}: HeaderProps) => {
         {!!alert && (
           <HeaderCommonButton alert={alert} onPress={() => {}}>
             <AlertIcon />
+          </HeaderCommonButton>
+        )}
+        {!!add && (
+          <HeaderCommonButton alert={add} onPress={() => {}}>
+            <AddIcon />
           </HeaderCommonButton>
         )}
       </HeaderCommonStyle>

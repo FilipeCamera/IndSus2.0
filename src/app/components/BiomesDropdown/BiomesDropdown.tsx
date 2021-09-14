@@ -1,27 +1,37 @@
 import {Colors} from '@styles';
-import {Input, Text} from 'components';
+import {Text} from 'components';
 import React, {useState} from 'react';
 import {Modal, Portal} from 'react-native-paper';
 import {BiomesDropdownStyle, ButtonBiome} from './styles';
 
 import Biomes from '@biomes';
-import {FlatList} from 'react-native';
-const BiomesDropdown = () => {
-  const [value, setValue] = useState('');
+import {FlatList, View} from 'react-native';
+
+const BiomesDropdown = ({error, setBiome, biome}: any) => {
+  const [color, setColor] = useState('#f2f2f2');
   const [show, setShow] = useState(false);
 
   const _renderItem = ({item}: any) => {
     return (
       <ButtonBiome
         onPress={() => {
-          setValue(item.value);
+          setBiome(item.value);
           setShow(!show);
+          setColor(item.color);
         }}>
         <Text
           title={item.label}
-          size={16}
+          size={18}
           weight={500}
           color={Colors.textBlack}
+        />
+        <View
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            backgroundColor: item.color,
+          }}
         />
       </ButtonBiome>
     );
@@ -29,7 +39,31 @@ const BiomesDropdown = () => {
   return (
     <>
       <BiomesDropdownStyle onPress={() => setShow(!show)}>
-        <Input label="Bioma" value={value} type="outlined" disabled />
+        <View
+          style={{
+            width: 140,
+            height: 140,
+            borderRadius: 70,
+            backgroundColor: error ? Colors.lightRed : color,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View style={{width: 100}}>
+            <Text
+              title={biome === '' ? 'Selecione um bioma' : biome}
+              size={15}
+              weight={500}
+              center
+              color={
+                error !== ''
+                  ? Colors.red
+                  : biome === ''
+                  ? Colors.secundaryTextGray
+                  : Colors.background
+              }
+            />
+          </View>
+        </View>
       </BiomesDropdownStyle>
       <Portal>
         <Modal
@@ -39,7 +73,6 @@ const BiomesDropdown = () => {
           contentContainerStyle={{
             backgroundColor: Colors.background,
             padding: 16,
-            height: '80%',
             borderRadius: 20,
           }}>
           <FlatList

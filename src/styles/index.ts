@@ -18,4 +18,5 @@ export const Colors = {
   green: '#4CAF50',
   green2: '#5CAC60',
   red: '#EA4335',
+  lightRed: '#FFD9D9',
 };
