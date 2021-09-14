@@ -23,6 +23,7 @@ const plugins = [
         'assets/*': './src/assets',
         firebase: './src/config',
         '@actions/auth': './src/store/ducks/auth.ts',
+        '@actions/research': './src/store/ducks/research.ts',
         functions: './src/functions',
         store: './src/store',
         validation: './src/utils/validation',

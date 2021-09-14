@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const config = {
   key: 'IndSus',
   storage: AsyncStorage,
-  whiteList: ['auth'],
+  whiteList: ['auth', 'research'],
 };
 
 const persistReducers = persistReducer(config, reducers);

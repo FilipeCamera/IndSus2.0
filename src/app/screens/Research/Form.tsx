@@ -8,6 +8,7 @@ import {
   Space,
   UFDropdown,
 } from 'components';
+import {researchPersist} from 'functions';
 import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -130,6 +131,15 @@ const Form = ({navigation, setState}: FormProps) => {
             const verified = verify();
 
             if (verified) {
+              const data = {
+                ownerName: ownerName,
+                propertyName: propertyName,
+                address: address,
+                city: city,
+                uf: uf,
+                biome: biome,
+              };
+              researchPersist(data);
               setState('research');
             } else {
               showMessage({

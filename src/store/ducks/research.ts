@@ -19,7 +19,7 @@ const initialState: any = {
 const reducer = createReducer(initialState)
   .handleAction(setResearch, (state: any, {payload: data}: any) => ({
     ...state,
-    user: data,
+    research: data,
   }))
   .handleAction(delResearch, () => initialState);
 
