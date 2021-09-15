@@ -1,9 +1,10 @@
 import indicators from '@indicators';
 import {Colors} from '@styles';
-import {Header, Scroll, Space, Text} from 'components';
+import {Button, Header, Scroll, Space, Text} from 'components';
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {Modal, Portal, ProgressBar} from 'react-native-paper';
+import StepData from './StepData';
 
 interface StepTwoProps {
   setState: any;
@@ -13,7 +14,13 @@ interface StepTwoProps {
 
 const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   const [visible, setVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [dados, setDados] = useState(false);
+  const [title, setTitle] = useState('');
 
+  if (dados === true) {
+    return <StepData title={title} setDados={setDados} data={data} />;
+  }
   return (
     <Scroll>
       <Portal>
@@ -113,7 +120,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
             }}>
             <Text
               title={indicator.title}
-              size={16}
+              size={18}
               weight={700}
               color={Colors.textSecundaryBlack}
             />
@@ -130,6 +137,11 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
                 width: '100%',
                 padding: 16,
                 marginBottom: 32,
+              }}
+              onPress={() => {
+                setData(item.ind);
+                setTitle(item.title);
+                setDados(!dados);
               }}>
               <Text
                 title={item.title}
@@ -138,8 +150,9 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
                 color={Colors.textGray}
               />
               <Space vertical={8} />
-              {item.ind.map(ind => (
+              {item.desc.map(ind => (
                 <Text
+                  key={ind.title}
                   title={`${ind.title} - ${ind.quant}`}
                   size={16}
                   weight={500}
@@ -169,8 +182,20 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
               </View>
             </TouchableOpacity>
           ))}
+          <Space vertical={15} />
         </>
       ))}
+      <View style={{width: '100%'}}>
+        <Button
+          background={Colors.blue}
+          title="Concluir"
+          weight={600}
+          size={15}
+          shadow={4}
+          color={Colors.background}
+        />
+      </View>
+      <Space vertical={4} />
     </Scroll>
   );
 };
