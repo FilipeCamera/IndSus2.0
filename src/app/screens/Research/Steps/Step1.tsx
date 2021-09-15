@@ -10,7 +10,7 @@ import ResearchBack from 'assets/svg/researchBack.svg';
 interface StepOneProps {
   setState: any;
   setArea: any;
-  area: any;
+  area: number;
 }
 
 const Step1 = ({setState, area, setArea}: StepOneProps) => {

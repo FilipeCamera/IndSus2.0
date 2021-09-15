@@ -51,7 +51,7 @@ const Header = ({
           </HeaderCommonButton>
         )}
         {!!add && (
-          <HeaderCommonButton alert={add} onPress={() => {}}>
+          <HeaderCommonButton alert={add} onPress={onAdd}>
             <AddIcon />
           </HeaderCommonButton>
         )}

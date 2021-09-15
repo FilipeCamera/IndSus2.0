@@ -11,7 +11,9 @@ const Research = ({navigation}: any) => {
       {state === 'research' && (
         <Step1 setState={setState} area={area} setArea={setArea} />
       )}
-      {state === 'data' && <Step2 />}
+      {state === 'data' && (
+        <Step2 setState={setState} area={area} setArea={setArea} />
+      )}
     </>
   );
 };

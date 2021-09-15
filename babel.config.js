@@ -32,6 +32,7 @@ const plugins = [
         '@styles': './src/styles',
         '@ufs': './src/utils/UFs',
         '@biomes': './src/utils/biomes',
+        '@indicators': './src/utils/templates',
       },
     },
   ],
