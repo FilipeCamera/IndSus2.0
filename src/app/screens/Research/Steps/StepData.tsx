@@ -1,5 +1,5 @@
 import {Colors} from '@styles';
-import {Header, Scroll, Space, Text} from 'components';
+import {Button, Header, Scroll, Space, Text} from 'components';
 import React from 'react';
 import {TextInput, View} from 'react-native';
 
@@ -60,50 +60,85 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
               />
             </View>
             <Space vertical={16} />
-            <Text
-              title={item.desc}
-              weight={600}
-              size={18}
-              color={Colors.textMediumBlack}
-            />
-            {item.cri.map((itm, index) => {
-              <View key={itm.title}>
-                <View>
+            {item.data.map(dta => (
+              <>
+                <Text
+                  title={dta.desc}
+                  weight={600}
+                  size={18}
+                  center
+                  color={Colors.textMediumBlack}
+                />
+                <Space vertical={4} />
+                {dta.cri.map((cr, index) => (
                   <View
+                    key={cr.title}
                     style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 15,
-                      backgroundColor: Colors.lightGray,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '90%',
+                      marginVertical: 8,
                     }}>
-                    <Text
-                      title={index + 1}
-                      size={16}
-                      weight={600}
-                      color={Colors.background}
-                    />
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <View
+                        style={{
+                          width: 30,
+                          height: 30,
+                          borderRadius: 15,
+                          backgroundColor: Colors.textGray,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                        <Text
+                          title={index + 1}
+                          size={16}
+                          weight={600}
+                          color={Colors.background}
+                        />
+                      </View>
+                      <Space horizontal={5} />
+                      <View style={{width: 140}}>
+                        <Text
+                          title={cr.title}
+                          weight={600}
+                          size={15}
+                          color={Colors.textMediumBlack}
+                        />
+                      </View>
+                    </View>
+                    <View>
+                      <TextInput
+                        value={cr.value}
+                        style={{
+                          borderRadius: 8,
+                          borderWidth: 1,
+                          borderStyle: 'dashed',
+                          width: 80,
+                          height: 42,
+                          textAlign: 'center',
+                          fontFamily: 'Montserrat-Bold',
+                          fontSize: 16,
+                          color: Colors.textSecundaryBlack,
+                        }}
+                      />
+                    </View>
                   </View>
-                  <Text
-                    title={itm.title}
-                    weight={600}
-                    size={18}
-                    color={Colors.textMediumBlack}
-                  />
-                </View>
-                <View>
-                  <TextInput
-                    value={itm.value}
-                    style={{
-                      borderRadius: 8,
-                      borderWidth: 1,
-                      borderStyle: 'dashed',
-                    }}
-                  />
-                </View>
-              </View>;
-            })}
+                ))}
+                <Space vertical={20} />
+              </>
+            ))}
           </>
         ))}
+      <View style={{width: '100%'}}>
+        <Button
+          title="Concluir"
+          weight={600}
+          shadow={4}
+          size={16}
+          color={Colors.background}
+        />
+      </View>
     </Scroll>
   );
 };
