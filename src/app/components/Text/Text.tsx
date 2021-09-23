@@ -2,11 +2,11 @@ import React from 'react';
 import {TextStyle} from './styles';
 
 interface TextProps {
-  title: string;
-  size: number;
-  weight: number;
-  color: string;
-  center: boolean;
+  title?: string;
+  size?: number;
+  weight?: number;
+  color?: string;
+  center?: boolean;
 }
 
 const Text = ({title, ...props}: TextProps) => {

@@ -128,7 +128,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
           <Space vertical={16} />
           {indicator.data.map(item => (
             <TouchableOpacity
-              key={item.ind}
+              key={item.title}
               style={{
                 borderWidth: 1,
                 borderStyle: 'dashed',

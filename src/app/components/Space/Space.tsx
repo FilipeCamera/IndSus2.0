@@ -2,8 +2,8 @@ import React from 'react';
 import {View} from 'react-native';
 
 interface SpaceProps {
-  vertical: number;
-  horizontal: number;
+  vertical?: number;
+  horizontal?: number;
 }
 
 const Space = ({vertical, horizontal}: SpaceProps) => {
