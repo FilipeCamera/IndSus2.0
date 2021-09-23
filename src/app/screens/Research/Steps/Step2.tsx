@@ -106,10 +106,10 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
         }}
       />
       <Space vertical={20} />
-      {indicators.map(indicator => (
+      {indicators.map((indicator, index) => (
         <>
           <View
-            key={indicator.title}
+            key={index}
             style={{
               borderBottomWidth: 1,
               width: '100%',
@@ -126,9 +126,9 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
             />
           </View>
           <Space vertical={16} />
-          {indicator.data.map(item => (
+          {indicator.data.map((item, index)  => (
             <TouchableOpacity
-              key={item.title}
+              key={index}
               style={{
                 borderWidth: 1,
                 borderStyle: 'dashed',
@@ -150,9 +150,9 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
                 color={Colors.textGray}
               />
               <Space vertical={8} />
-              {item.desc.map(ind => (
+              {item.desc.map((ind, index) => (
                 <Text
-                  key={ind.title}
+                  key={index}
                   title={`${ind.title} - ${ind.quant}`}
                   size={16}
                   weight={500}

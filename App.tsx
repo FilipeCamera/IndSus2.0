@@ -16,7 +16,6 @@ import store, {persist} from 'store';
 import {useGetUser} from 'hooks';
 import {permissions, userPersist} from 'functions';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {StatusBar} from 'react-native';
 
 const theme = {
   ...DefaultTheme,

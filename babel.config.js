@@ -33,6 +33,7 @@ const plugins = [
         '@ufs': './src/utils/UFs',
         '@biomes': './src/utils/biomes',
         '@indicators': './src/utils/templates',
+        '@reactotron': './src/config/ReactotronConfig.ts',
       },
     },
   ],

@@ -1,6 +1,7 @@
 import {Colors} from '@styles';
 import {Button, Header, Scroll, Space, Text} from 'components';
-import React from 'react';
+import { Reactotron } from 'firebase';
+import React, { useState } from 'react';
 import {TextInput, View} from 'react-native';
 
 interface StepDataProps {
@@ -10,6 +11,8 @@ interface StepDataProps {
 }
 
 const StepData = ({title, setDados, data}: StepDataProps) => {
+  const [stepDados, setStepDados] = useState(data);
+  
   return (
     <Scroll>
       <Header mode="common" title={title} back onBack={() => setDados(false)} />
@@ -40,11 +43,11 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
         />
       </View>
       <Space vertical={20} />
-      {!!data &&
-        data.map(item => (
+      {!!stepDados &&
+        stepDados.map((item, index) => (
           <>
             <View
-              key={item.title}
+              key={index}
               style={{
                 borderBottomWidth: 1,
                 borderColor: Colors.lightGray,
@@ -60,9 +63,10 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
               />
             </View>
             <Space vertical={16} />
-            {item.data.map(dta => (
+            {item.data.map((dta, index) => (
               <>
                 <Text
+                key={index}
                   title={dta.desc}
                   weight={600}
                   size={18}
@@ -72,7 +76,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                 <Space vertical={4} />
                 {dta.cri.map((cr, index) => (
                   <View
-                    key={cr.title}
+                    key={index}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -120,6 +124,16 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                           fontFamily: 'Montserrat-Bold',
                           fontSize: 16,
                           color: Colors.textSecundaryBlack,
+                        }}
+                        onChangeText={(e: number) => {
+                          if(e > 10) {
+                            e = 10
+                          }
+                          if(e < 0) {
+                            e = 0
+                          }
+                          cr.value = e
+
                         }}
                       />
                     </View>

@@ -3,6 +3,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {getType} from 'typesafe-actions';
 import reducers from './ducks';
 import AsyncStorage from '@react-native-community/async-storage';
+import {Reactotron} from 'firebase';
 
 const config = {
   key: 'IndSus',
@@ -11,7 +12,7 @@ const config = {
 };
 
 const persistReducers = persistReducer(config, reducers);
-const store = createStore(persistReducers);
+const store = createStore(persistReducers, Reactotron.createEnhancer());
 const persist = persistStore(store);
 
 const dispatchAction = (type: any, payload: any) => {

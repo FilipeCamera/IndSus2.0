@@ -13,7 +13,6 @@ const Board = ({title}: BoardProps) => {
   const [active, setActive] = useState({
     today: true,
     week: false,
-    month: false,
   });
   return (
     <BoardStyle style={styles.shadow}>
@@ -44,20 +43,10 @@ const Board = ({title}: BoardProps) => {
           active={active.week}
           onPress={() => setActive({today: false, week: true, month: false})}>
           <Text
-            title="1 Semana"
+            title="Semana"
             size={15}
             weight={500}
             color={active.week ? Colors.blue : Colors.secundaryTextGray}
-          />
-        </ButtonTap>
-        <ButtonTap
-          active={active.month}
-          onPress={() => setActive({today: false, week: false, month: true})}>
-          <Text
-            title="1 Mês"
-            size={15}
-            weight={500}
-            color={active.month ? Colors.blue : Colors.secundaryTextGray}
           />
         </ButtonTap>
       </View>
