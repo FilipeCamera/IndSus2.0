@@ -14,6 +14,7 @@ import RoundedButton from './RoundedButton';
 import CustomButton from './CustomButton';
 import UFDropdown from './UFDropdown';
 import BiomesDropdown from './BiomesDropdown';
+import InputNota from './InputNota';
 
 export {
   LinearBackground,
@@ -32,4 +33,5 @@ export {
   CustomButton,
   UFDropdown,
   BiomesDropdown,
+  InputNota,
 };

@@ -1,5 +1,5 @@
 import {Colors} from '@styles';
-import {Button, Header, Scroll, Space, Text} from 'components';
+import {Button, Header, InputNota, Scroll, Space, Text} from 'components';
 import { Reactotron } from 'firebase';
 import React, { useState } from 'react';
 import {TextInput, View} from 'react-native';
@@ -12,7 +12,9 @@ interface StepDataProps {
 
 const StepData = ({title, setDados, data}: StepDataProps) => {
   const [stepDados, setStepDados] = useState(data);
-  
+  const [dataForm, setDataForm] = useState([]);
+  console.tron.log(stepDados);
+  console.tron.log(dataForm);
   return (
     <Scroll>
       <Header mode="common" title={title} back onBack={() => setDados(false)} />
@@ -112,30 +114,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                       </View>
                     </View>
                     <View>
-                      <TextInput
-                        value={cr.value}
-                        style={{
-                          borderRadius: 8,
-                          borderWidth: 1,
-                          borderStyle: 'dashed',
-                          width: 80,
-                          height: 42,
-                          textAlign: 'center',
-                          fontFamily: 'Montserrat-Bold',
-                          fontSize: 16,
-                          color: Colors.textSecundaryBlack,
-                        }}
-                        onChangeText={(e: number) => {
-                          if(e > 10) {
-                            e = 10
-                          }
-                          if(e < 0) {
-                            e = 0
-                          }
-                          cr.value = e
-
-                        }}
-                      />
+                      <InputNota setDataForm={setDataForm} dataForm={dataForm} item={item} itemDta={dta} itemCr={cr}/>
                     </View>
                   </View>
                 ))}

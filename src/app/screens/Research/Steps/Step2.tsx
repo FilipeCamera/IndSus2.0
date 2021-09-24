@@ -19,7 +19,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   const [title, setTitle] = useState('');
 
   if (dados === true) {
-    return <StepData title={title} setDados={setDados} data={data} />;
+    return <StepData title={title} setDados={setDados} data={data}/>;
   }
   return (
     <Scroll>
