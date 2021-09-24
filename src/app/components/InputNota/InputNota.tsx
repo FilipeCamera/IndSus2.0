@@ -3,16 +3,12 @@ import React, { useState } from 'react';
 import { TextInput } from 'react-native';
 
 interface InputNotaProps {
-  setDataForm: any;
-  dataForm: any;
-  item: any;
-  itemDta: any;
-  itemCr: any;
-  cri: any;
+  onText: (e: any) => any
+  valor: any
 }
 
-const InputNota = ({setDataForm, item, itemDta, itemCr, dataForm}: InputNotaProps) => {
-  const [value, setValue] = useState('');
+const InputNota = ({onText, valor}: InputNotaProps) => {
+  const [value, setValue] = useState(valor);
 
   return (
     <TextInput
@@ -36,6 +32,7 @@ const InputNota = ({setDataForm, item, itemDta, itemCr, dataForm}: InputNotaProp
           setValue('')
         }else {
           setValue(e)
+          onText(e)
         }
       }}
     />

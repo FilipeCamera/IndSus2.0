@@ -1,5 +1,5 @@
 import {Colors} from '@styles';
-import {Button, Header, InputNota, Scroll, Space, Text} from 'components';
+import {Button, Header, InputNota, Modals, Scroll, Space, Text} from 'components';
 import { Reactotron } from 'firebase';
 import React, { useState } from 'react';
 import {TextInput, View} from 'react-native';
@@ -12,12 +12,24 @@ interface StepDataProps {
 
 const StepData = ({title, setDados, data}: StepDataProps) => {
   const [stepDados, setStepDados] = useState(data);
-  const [dataForm, setDataForm] = useState([]);
+  const [visible, setVisible] = useState(false);
   console.tron.log(stepDados);
-  console.tron.log(dataForm);
   return (
     <Scroll>
-      <Header mode="common" title={title} back onBack={() => setDados(false)} />
+      <Modals visible={visible} setVisible={setVisible} onFunction={() => {
+        stepDados.map(item => {
+          item.data.map(dta => {
+            dta.cri.map(cr => {
+              cr.value = ''
+            })
+          })
+        })
+        setDados(false);
+        setVisible(!visible);
+      }}/>
+      <Header mode="common" title={title} back onBack={() => {
+        setVisible(!visible);
+        }} />
       <Space vertical={20} />
       <View
         style={{
@@ -114,7 +126,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                       </View>
                     </View>
                     <View>
-                      <InputNota setDataForm={setDataForm} dataForm={dataForm} item={item} itemDta={dta} itemCr={cr}/>
+                      <InputNota valor={cr.value} onText={(e) => {cr.value = e}}/>
                     </View>
                   </View>
                 ))}
@@ -130,6 +142,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
           shadow={4}
           size={16}
           color={Colors.background}
+          onPress={() => console.tron.log(stepDados)}
         />
       </View>
     </Scroll>

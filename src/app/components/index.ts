@@ -15,6 +15,7 @@ import CustomButton from './CustomButton';
 import UFDropdown from './UFDropdown';
 import BiomesDropdown from './BiomesDropdown';
 import InputNota from './InputNota';
+import Modals from './Modal';
 
 export {
   LinearBackground,
@@ -34,4 +35,5 @@ export {
   UFDropdown,
   BiomesDropdown,
   InputNota,
+  Modals,
 };
