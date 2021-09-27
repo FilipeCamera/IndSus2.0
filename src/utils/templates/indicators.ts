@@ -520,6 +520,58 @@ const indicators = [
             quant: '2 indicadores',
           },
         ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Produção para o auto-sustento',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'APDAS - % da produção destinada ao auto-sustento',
+                cri: [
+                  {
+                    criId: 0,
+                    title:
+                      'não há produção para auto-sustento, apenas para comercialização',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'produz parte e compra parte do que precisa',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title:
+                      'produz tudo o que precisa e comercializa o excedente',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'DAS - Diversificação da produção para auto-sustento',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'não é diversificada',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'pouco diversificada',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'muito diversificada',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'Qualidade de vida',
@@ -531,6 +583,104 @@ const indicators = [
           {
             title: 'Infra-estrutura básica',
             quant: '3 indicadores',
+          },
+        ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Saúde',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'GTX - Grau de exposição a componentes tóxicos',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'diminuiu',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'interrompeu',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'interrompeu há mais de 2 anos',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            indDataId: 1,
+            title: 'Infra-estrutura básica',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'PCSO - Participação em cursos, seminários, oficinas',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não há',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Continuou igual',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Melhorou/aumentou',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'AA - Acesso à água',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não há',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Continuou igual',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Melhorou/aumentou',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 2,
+                desc: 'ABP - Área de beneficiamento de produtos',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não há',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Continuou igual',
+                    value: '',
+                  },
+                  {
+                    criId: 0,
+                    title: 'Melhorou/aumentou',
+                    value: '',
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
@@ -550,6 +700,132 @@ const indicators = [
             quant: '2 indicadores',
           },
         ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Trabalho coletivo',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'MOF - Mão de obra familiar',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não há participação dos jovens e mulheres',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Houve pouca participação de jovens e mulheres',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Há total participação dos jovens e mulheres',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            indDataId: 1,
+            title: 'Operação de investimento externos',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'DDI - Destino dado ao investimento',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Ações emergenciais',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Ações de resposta de curto prazo',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Ações de resposta a longo prazo',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'DROSP - Distribuição de renda originada do sistema produtivo',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Gerou prejuizo para as famílias',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title:
+                      'Poucas famílias foram beneficiadas e/ou pouco significativo',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Todas as famílias foram beneficiadas',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            indDataId: 2,
+            title: 'Percepção ambiental e relação com a natureza',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'ORPA - Objetivo da realização da produção agroecológica',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Redução dos custos da produção',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Recuperação do solo',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Iniciar processo de transição agroecológica',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'PFAP - Planos futuros para a área produtiva',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Voltará para a produção convencional',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Dará continuidade ao manejo orgânico/agroecológica',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Ampliará a área de manejo orgânico/agroecológico',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -565,6 +841,80 @@ const indicators = [
             quant: '3 indicadores',
           },
         ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Capacidade de investimento e gestão',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'RPPSAP - Reservas para a próxima safra',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não há reservas',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Há poucas reservas',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title:
+                      'Próxima safra já planejada e com reservas garantidas',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'IRINR - Investimento em recursos/insumos não renováveis',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Todo investimento feito em recursos não renováveis',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title:
+                      'Parte do recurso destinado à recursos não renováveis',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title:
+                      'Pequena parte do investimento para recursos não renováveis',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 2,
+                desc: 'ECPM - Execução do sistema produtivo conforme Plano de Manejo',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não foi respeitado o planejamento',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Foram necessárias algumas alterações',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'O planejamento foi seguido',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         title:
@@ -575,6 +925,56 @@ const indicators = [
             quant: '2 indicadores',
           },
         ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Produtividade',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'PHEC – Produção (hectares)',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Muito baixa',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Baixa e/ou igual as culturas convencionais',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Alta / satisfatória',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'CGR - Comercialização (geração de renda)',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Comercialização na área produtiva',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'PNAE',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Cestas, feiras e PNAE',
+                    value: '',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'Estabilidade econômica da área/local de produção',
@@ -582,6 +982,78 @@ const indicators = [
           {
             title: 'Risco econômico',
             quant: '3 indicadores',
+          },
+        ],
+        ind: [
+          {
+            indDataId: 0,
+            title: 'Risco econômico',
+            data: [
+              {
+                descDataId: 0,
+                desc: 'Diversidade produtiva',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Baixa (especificar o nº de espécies)',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title:
+                      'Média / a mesma das culturas convencionais (especificar o nº de espécies)',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Alta (especificar o nº de espécies)',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 1,
+                desc: 'Beneficiamento de produtos',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Não houve beneficiamento',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Houve parte do beneficiamento (não satisfatório)',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'houve beneficiamento, agregando valor ao produto',
+                    value: '',
+                  },
+                ],
+              },
+              {
+                descDataId: 2,
+                desc: 'Dependência de insumos e informações externas',
+                cri: [
+                  {
+                    criId: 0,
+                    title: 'Alta dependência',
+                    value: '',
+                  },
+                  {
+                    criId: 1,
+                    title: 'Média / em partes',
+                    value: '',
+                  },
+                  {
+                    criId: 2,
+                    title: 'Não há dependência',
+                    value: '',
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
