@@ -18,6 +18,8 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
 
+  console.tron.log(indicators);
+
   if (dados === true) {
     return <StepData title={title} setDados={setDados} data={data}/>;
   }
@@ -39,7 +41,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
       {indicators.map((indicator, index) => (
         <>
           <View
-            key={index}
+            key={indicator.indId}
             style={{
               borderBottomWidth: 1,
               width: '100%',
@@ -58,7 +60,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
           <Space vertical={16} />
           {indicator.data.map((item, index)  => (
             <TouchableOpacity
-              key={index}
+              key={item.dataId}
               style={{
                 borderWidth: 1,
                 borderStyle: 'dashed',
@@ -82,7 +84,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
               <Space vertical={8} />
               {item.desc.map((ind, index) => (
                 <Text
-                  key={index}
+                  key={ind.descId}
                   title={`${ind.title} - ${ind.quant}`}
                   size={16}
                   weight={500}

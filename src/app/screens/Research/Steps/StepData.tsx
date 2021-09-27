@@ -61,7 +61,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
         stepDados.map((item, index) => (
           <>
             <View
-              key={index}
+              key={item.indId}
               style={{
                 borderBottomWidth: 1,
                 borderColor: Colors.lightGray,
@@ -80,7 +80,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
             {item.data.map((dta, index) => (
               <>
                 <Text
-                key={index}
+                key={dta.dataId}
                   title={dta.desc}
                   weight={600}
                   size={18}
@@ -90,7 +90,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                 <Space vertical={4} />
                 {dta.cri.map((cr, index) => (
                   <View
-                    key={index}
+                    key={cr.criId}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
