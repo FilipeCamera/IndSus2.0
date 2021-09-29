@@ -4,7 +4,17 @@ import React from 'react'
 import { TouchableOpacity, View } from 'react-native';
 import { Portal, Modal } from 'react-native-paper';
 
-const Modals = ({visible, setVisible, onFunction}: any) => {
+interface ModalProps {
+  visible: boolean;
+  setVisible: any;
+  onFunction: () => any;
+  title: string;
+  desc: string;
+  textCancel: string;
+  textOk: string;
+}
+
+const Modals = ({visible, setVisible, onFunction, title, desc, textCancel, textOk}: ModalProps) => {
   return (
     <Portal>
         <Modal
@@ -19,14 +29,14 @@ const Modals = ({visible, setVisible, onFunction}: any) => {
           }}>
           <Space vertical={8} />
           <Text
-            title="Deseja realmente sair?"
+            title={title}
             size={18}
             weight={600}
             color={Colors.textBlack}
           />
           <Space vertical={4} />
           <Text
-            title="Caso queira sair, os dados preenchidos serão perdidos."
+            title={desc}
             size={15}
             weight={500}
             center
@@ -49,7 +59,7 @@ const Modals = ({visible, setVisible, onFunction}: any) => {
               }}
               onPress={() => setVisible(!visible)}>
               <Text
-                title="Cancelar"
+                title={textCancel}
                 size={15}
                 weight={500}
                 center
@@ -67,7 +77,7 @@ const Modals = ({visible, setVisible, onFunction}: any) => {
               }}
               onPress={onFunction}>
               <Text
-                title="Sair"
+                title={textOk}
                 size={15}
                 weight={700}
                 center

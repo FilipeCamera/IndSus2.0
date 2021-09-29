@@ -1,35 +1,54 @@
 import {Colors} from '@styles';
-import {Button, Header, InputNota, Modals, Scroll, Space, Text} from 'components';
-import { Reactotron } from 'firebase';
-import React, { useState } from 'react';
-import {TextInput, View} from 'react-native';
+import {
+  Button,
+  Header,
+  InputNota,
+  Modals,
+  Scroll,
+  Space,
+  Text,
+} from 'components';
+import {Reactotron} from 'firebase';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, TextInput, View} from 'react-native';
 
 interface StepDataProps {
   title: string;
   setDados: any;
-  data: any;
+  dataForm: any;
 }
 
-const StepData = ({title, setDados, data}: StepDataProps) => {
-  const [stepDados, setStepDados] = useState(data);
-  const [visible, setVisible] = useState(false);
-  console.tron.log(stepDados);
+const StepData = ({
+  title,
+  setDados,
+  dataForm,
+}: StepDataProps) => {
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const load = setTimeout(() => setLoading(false), 1000)
+    return () => {
+      clearInterval(load)
+    }
+  }, [])
+
   return (
     <Scroll>
-      <Modals visible={visible} setVisible={setVisible} onFunction={() => {
-        stepDados.map(item => {
-          item.data.map(dta => {
-            dta.cri.map(cr => {
-              cr.value = ''
-            })
-          })
-        })
-        setDados(false);
-        setVisible(!visible);
-      }}/>
-      <Header mode="common" title={title} back onBack={() => {
-        setVisible(!visible);
-        }} />
+      <Header
+        mode="common"
+        title={title}
+        back
+        onBack={() => {
+          setDados(false);
+        }}
+      />
+      {!!loading && (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size={46} color={Colors.blue}/>
+        </View>
+      )}
+      {!loading && (
+        <>
       <Space vertical={20} />
       <View
         style={{
@@ -57,8 +76,8 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
         />
       </View>
       <Space vertical={20} />
-      {!!stepDados &&
-        stepDados.map((item, index) => (
+      {!!dataForm &&
+        dataForm.map((item, index) => (
           <>
             <View
               key={item.indId}
@@ -80,7 +99,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
             {item.data.map((dta, index) => (
               <>
                 <Text
-                key={dta.dataId}
+                  key={dta.dataId}
                   title={dta.desc}
                   weight={600}
                   size={18}
@@ -126,7 +145,12 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
                       </View>
                     </View>
                     <View>
-                      <InputNota valor={cr.value} onText={(e) => {cr.value = e}}/>
+                      <InputNota
+                        valor={cr.value}
+                        onText={e => {
+                          cr.value = e
+                        }}
+                      />
                     </View>
                   </View>
                 ))}
@@ -135,16 +159,7 @@ const StepData = ({title, setDados, data}: StepDataProps) => {
             ))}
           </>
         ))}
-      <View style={{width: '100%'}}>
-        <Button
-          title="Concluir"
-          weight={600}
-          shadow={4}
-          size={16}
-          color={Colors.background}
-          onPress={() => console.tron.log(stepDados)}
-        />
-      </View>
+        </>)}
     </Scroll>
   );
 };
