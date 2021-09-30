@@ -16,26 +16,25 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dataForm, setDataForm] = useState([]);
+  const [percent, setPercent] = useState<any>();
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
   const [count, setCount] = useState(0);
   const [countForm, setCountForm] = useState(0);
 
-  useEffect(() => {
+  const deleteValue = () => {
     indicators.map(indicator => {
       indicator.data.map(data => {
         data.ind.map(cri => {
           cri.data.map(cr => {
             cr.cri.map(item => {
-              if(item.value === '') {
-                setCount(count + 1)
-              }
-            })
-          })
-        })
-      })
-    })
-  }, [])
+              item.value = '';
+            });
+          });
+        });
+      });
+    });
+  };
 
   useEffect(() => {
     indicators.map(indicator => {
@@ -43,45 +42,57 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
         data.ind.map(cri => {
           cri.data.map(cr => {
             cr.cri.map(item => {
-              if(item.value === '') {
-                setCountForm(countForm + 1)
+              if (item.value === '') {
+                setCount(count + 1);
               }
-            })
-          })
-        })
-      })
-    })
-  }, [indicators])
+            });
+          });
+        });
+      });
+    });
+  }, []);
 
   useEffect(() => {
-    const load = setTimeout(() => setLoading(false), 1000)
+    indicators.map(indicator => {
+      indicator.data.map(data => {
+        data.ind.map(cri => {
+          cri.data.map(cr => {
+            cr.cri.map(item => {
+              if (item.value === '') {
+                setCountForm(countForm + 1);
+              }
+            });
+          });
+        });
+      });
+    });
+  }, [indicators]);
+
+  useEffect(() => {
+    const load = setTimeout(() => setLoading(false), 1000);
     return () => {
-      clearInterval(load)
-    }
-  }, [])
+      clearInterval(load);
+    };
+  }, []);
 
   if (dados === true) {
-    return (
-      <StepData 
-        title={title} 
-        setDados={setDados} 
-        dataForm={dataForm} 
-      />
-    );
+    return <StepData title={title} percent={percent} setDados={setDados} dataForm={dataForm} />;
   }
   return (
     <Scroll>
-      <Modals 
-        visible={visible} 
-        setVisible={setVisible} 
-        title="Deseja realmente sair?" 
-        desc="Caso queira sair, os dados preenchidos serão perdidos"
+      <Modals
+        visible={visible}
+        setVisible={setVisible}
+        title="Deseja realmente voltar?"
+        desc="Caso queira voltar, os dados preenchidos serão perdidos"
         textCancel="Cancelar"
         textOk="Sair"
         onFunction={() => {
-          setArea(area -1)
-          setState('research')
-        }}/>
+          setArea(area - 1);
+          deleteValue();
+          setState('research');
+        }}
+      />
       <Header
         mode="common"
         title="Dados"
@@ -91,86 +102,86 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
         }}
       />
       <Space vertical={20} />
-      {!!loading && <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><ActivityIndicator size={46} color={Colors.blue}/></View>}
-      {!loading && indicators.map((indicator, index) => (
-        <>
-          <View
-            key={indicator.indId}
-            style={{
-              borderBottomWidth: 1,
-              width: '100%',
-              padding: 8,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderBottomColor: Colors.lightGray,
-            }}>
-            <Text
-              title={indicator.title}
-              size={18}
-              weight={700}
-              color={Colors.textSecundaryBlack}
-            />
-          </View>
-          <Space vertical={16} />
-          {indicator.data.map((item, index)  => (
-            <TouchableOpacity
-              key={item.dataId}
+      {!!loading && (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size={46} color={Colors.blue} />
+        </View>
+      )}
+      {!loading &&
+        indicators.map((indicator, index) => (
+          <>
+            <View
+              key={indicator.indId}
               style={{
-                borderWidth: 1,
-                borderStyle: 'dashed',
-                borderColor: Colors.textGray,
-                borderRadius: 20,
+                borderBottomWidth: 1,
                 width: '100%',
-                padding: 16,
-                marginBottom: 32,
-              }}
-              onPress={() => {
-                setDataForm(item.ind);
-                setTitle(item.title);
-                setDados(!dados);
+                padding: 8,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottomColor: Colors.lightGray,
               }}>
               <Text
-                title={item.title}
+                title={indicator.title}
                 size={18}
                 weight={700}
-                color={Colors.textGray}
+                color={Colors.textSecundaryBlack}
               />
-              <Space vertical={8} />
-              {item.desc.map((ind, index) => (
-                <Text
-                  key={ind.descId}
-                  title={`${ind.title} - ${ind.quant}`}
-                  size={16}
-                  weight={500}
-                  color={Colors.textGray}
-                />
-              ))}
-              <Space vertical={8} />
-              <View
+            </View>
+            <Space vertical={16} />
+            {indicator.data.map((item, index) => (
+              <TouchableOpacity
+                key={item.dataId}
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  borderWidth: 1,
+                  borderStyle: 'dashed',
+                  borderColor: Colors.textGray,
+                  borderRadius: 20,
+                  width: '100%',
+                  padding: 16,
+                  marginBottom: 32,
+                }}
+                onPress={() => {
+                  setDataForm(item.ind);
+                  setPercent(item);
+                  setTitle(item.title);
+                  setDados(!dados);
                 }}>
-                <View style={{width: '85%'}}>
-                  <ProgressBar
-                    progress={0}
-                    color={Colors.textGray}
-                    style={{borderRadius: 4, height: 8}}
-                  />
-                </View>
                 <Text
-                  title="0%"
-                  size={22}
+                  title={item.title}
+                  size={18}
                   weight={700}
                   color={Colors.textGray}
                 />
-              </View>
-            </TouchableOpacity>
-          ))}
-          <Space vertical={15} />
-        </>
-      ))}
+                <Space vertical={8} />
+                {item.desc.map((ind, index) => (
+                  <Text
+                    key={ind.descId}
+                    title={`${ind.title} - ${ind.quant}`}
+                    size={16}
+                    weight={500}
+                    color={Colors.textGray}
+                  />
+                ))}
+                <Space vertical={8} />
+                <Text
+                  title={item.complete}
+                  size={15}
+                  weight={600}
+                  color={
+                    item.complete === 'Sem preencher'
+                      ? Colors.secundaryTextGray
+                      : item.complete === 'Incompleto'
+                      ? Colors.red
+                      : item.complete === 'Parcialmente completo'
+                      ? Colors.blue
+                      : Colors.green
+                  }
+                />
+              </TouchableOpacity>
+            ))}
+            <Space vertical={15} />
+          </>
+        ))}
       {!loading && (
         <>
           <View style={{width: '100%'}}>
@@ -180,6 +191,7 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
               weight={600}
               size={15}
               shadow={4}
+              onPress={() => console.tron.log(indicators)}
               color={Colors.background}
             />
           </View>

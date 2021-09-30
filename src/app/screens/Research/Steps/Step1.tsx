@@ -1,11 +1,12 @@
 import Biomes from '@biomes';
 import {Colors} from '@styles';
-import {Button, Card, Header, Scroll, Space, Text} from 'components';
+import {Button, Card, Header, Modals, Scroll, Space, Text} from 'components';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import ResearchBack from 'assets/svg/researchBack.svg';
+import { deleteResearch } from 'functions';
 
 interface StepOneProps {
   setState: any;
@@ -15,18 +16,31 @@ interface StepOneProps {
 
 const Step1 = ({setState, area, setArea}: StepOneProps) => {
   const research = useSelector((state: any) => state.research.research);
+  const [visible, setVisible] = useState(false);
   return (
     <Scroll>
       <Header
         title="Pesquisa"
         mode="common"
         back
-        onBack={() => setState('form')}
+        onBack={() => setVisible(!visible)}
         onAdd={() => {
           setArea(area + 1);
           setState('data');
         }}
         add
+      />
+      <Modals
+        title="Deseja voltar?"
+        desc="A pesquisa criada será perdida"
+        textCancel="Não"
+        textOk="Sim"
+        visible={visible}
+        setVisible={setVisible}
+        onFunction={() => {
+          deleteResearch()
+          setState('form')
+        }}
       />
       <Space vertical={20} />
       <Card style={{width: '100%'}}>

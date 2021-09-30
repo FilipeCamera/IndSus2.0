@@ -16,15 +16,42 @@ interface StepDataProps {
   title: string;
   setDados: any;
   dataForm: any;
+  percent: string;
 }
 
 const StepData = ({
   title,
   setDados,
   dataForm,
+  percent,
 }: StepDataProps) => {
   const [loading, setLoading] = useState(true);
-  
+  const [total, setTotal] = useState(0);
+  const [complete, setComplete] = useState(0);
+  useEffect(() => {
+    dataForm.map(item => {
+      item.data.map(dta => {
+        dta.cri.map(cr => {
+          if(cr.value){
+            setTotal(total + 1)
+          }
+        })
+      })
+    })
+  }, [])
+
+  useEffect(() => {
+    if(complete > 3 && complete < total/2) {
+      percent.percent = 'Parcialmente completo'
+    }
+    if(complete === total) {
+      percent.percent = 'Completo'
+    }
+    if(complete > 1 && complete < 3){
+      percent.percent = 'Imcompleto'
+    }
+  }, [complete])
+
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000)
     return () => {
@@ -149,6 +176,12 @@ const StepData = ({
                         valor={cr.value}
                         onText={e => {
                           cr.value = e
+                          if(e === '') {
+                            if(complete !== 0) {
+                              setComplete(complete - 1)
+                            }
+                          }
+                          setComplete(complete + 1)
                         }}
                       />
                     </View>

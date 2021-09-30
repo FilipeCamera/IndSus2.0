@@ -6,6 +6,7 @@ const indicators = [
       {
         dataId: 0,
         title: 'Solo',
+        complete: 'Sem preencher',
         desc: [
           {
             descId: 0,
@@ -148,6 +149,7 @@ const indicators = [
       {
         dataId: 1,
         title: 'Biodiversidade e Paisagem',
+        complete: 'Sem preencher',
         desc: [
           {
             descId: 0,
@@ -331,6 +333,7 @@ const indicators = [
       {
         dataId: 2,
         title: 'Micro-clima',
+        complete: 'Sem preencher',
         desc: [
           {
             descId: 0,
@@ -373,6 +376,7 @@ const indicators = [
       {
         dataId: 3,
         title: 'Recursos naturais disponíveis',
+        complete: 'Sem preencher',
         desc: [
           {
             descId: 0,
@@ -444,6 +448,7 @@ const indicators = [
     data: [
       {
         title: 'Trajetória de vida das famílias',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Origem das famílias',
@@ -458,6 +463,7 @@ const indicators = [
           {
             indDataId: 0,
             title: 'Origem das familías',
+            complete: 'Sem preencher',
             data: [
               {
                 descDataId: 0,
@@ -486,6 +492,7 @@ const indicators = [
           {
             indDataId: 1,
             title: 'Manejo agroecológico',
+            complete: 'Sem preencher',
             data: [
               {
                 descDataId: 0,
@@ -514,6 +521,7 @@ const indicators = [
       },
       {
         title: 'Segurança alimentar',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Produção para o auto-sustento',
@@ -575,6 +583,7 @@ const indicators = [
       },
       {
         title: 'Qualidade de vida',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Saúde',
@@ -616,6 +625,7 @@ const indicators = [
           {
             indDataId: 1,
             title: 'Infra-estrutura básica',
+            complete: 'Sem preencher',
             data: [
               {
                 descDataId: 0,
@@ -686,6 +696,7 @@ const indicators = [
       },
       {
         title: 'Organização do trabalho',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Trabalho coletivo',
@@ -731,6 +742,7 @@ const indicators = [
           {
             indDataId: 1,
             title: 'Operação de investimento externos',
+            complete: 'Sem preencher',
             data: [
               {
                 descDataId: 0,
@@ -780,6 +792,7 @@ const indicators = [
           {
             indDataId: 2,
             title: 'Percepção ambiental e relação com a natureza',
+            complete: 'Sem preencher',
             data: [
               {
                 descDataId: 0,
@@ -835,6 +848,7 @@ const indicators = [
     data: [
       {
         title: 'Planejamento produtivo',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Capacidade de investimento e gestão',
@@ -919,6 +933,7 @@ const indicators = [
       {
         title:
           'Eficiência econômica da produção agrícola da área/local de produção',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Produtividade',
@@ -978,6 +993,7 @@ const indicators = [
       },
       {
         title: 'Estabilidade econômica da área/local de produção',
+        complete: 'Sem preencher',
         desc: [
           {
             title: 'Risco econômico',

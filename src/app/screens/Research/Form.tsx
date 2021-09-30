@@ -4,6 +4,7 @@ import {
   Button,
   Header,
   Input,
+  Modals,
   Row,
   Space,
   UFDropdown,
@@ -21,6 +22,7 @@ interface FormProps {
 }
 
 const Form = ({navigation, setState}: FormProps) => {
+  const [visible, setVisible] = useState(false);
   const [ownerName, setOwnerName] = useState('');
   const [propertyName, setPropertyName] = useState('');
   const [address, setAddress] = useState('');
@@ -74,7 +76,19 @@ const Form = ({navigation, setState}: FormProps) => {
           mode="common"
           title="Formulário"
           back
-          onBack={() => navigation.goBack()}
+          onBack={() => setVisible(!visible)}
+        />
+        <Modals
+          visible={visible}
+          setVisible={setVisible}
+          title="Deseja voltar?"
+          desc="Caso deseje voltar, os dados preenchidos serão perdidos"
+          textCancel="Cancelar"
+          textOk="Voltar"
+          onFunction={() => {
+            setVisible(!visible)
+            navigation.goBack()
+          }}
         />
         <Space vertical={20} />
         <BiomesDropdown
