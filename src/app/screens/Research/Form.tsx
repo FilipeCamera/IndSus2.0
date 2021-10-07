@@ -19,9 +19,10 @@ import {FormStyle} from './styles';
 interface FormProps {
   navigation: any;
   setState: any;
+  setDataInfo: any;
 }
 
-const Form = ({navigation, setState}: FormProps) => {
+const Form = ({navigation, setState, setDataInfo}: FormProps) => {
   const [visible, setVisible] = useState(false);
   const [ownerName, setOwnerName] = useState('');
   const [propertyName, setPropertyName] = useState('');
@@ -153,7 +154,7 @@ const Form = ({navigation, setState}: FormProps) => {
                 uf: uf,
                 biome: biome,
               };
-              researchPersist(data);
+              setDataInfo(data);
               setState('research');
             } else {
               showMessage({

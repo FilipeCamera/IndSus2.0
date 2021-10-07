@@ -8,7 +8,7 @@ import {
   Space,
   Text,
 } from 'components';
-import {Reactotron} from 'firebase';
+
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, KeyboardAvoidingView, TextInput, View} from 'react-native';
 

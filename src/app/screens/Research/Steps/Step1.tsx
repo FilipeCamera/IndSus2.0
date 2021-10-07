@@ -2,21 +2,23 @@ import Biomes from '@biomes';
 import {Colors} from '@styles';
 import {Button, Card, Header, Modals, Scroll, Space, Text} from 'components';
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import ResearchBack from 'assets/svg/researchBack.svg';
-import { deleteResearch } from 'functions';
+import {deleteResearch} from 'functions';
 
 interface StepOneProps {
   setState: any;
   setArea: any;
   area: number;
+  dataInfo: any;
+  dataArea: any[];
 }
 
-const Step1 = ({setState, area, setArea}: StepOneProps) => {
-  const research = useSelector((state: any) => state.research.research);
+const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
   const [visible, setVisible] = useState(false);
+  console.tron.log(dataArea);
   return (
     <Scroll>
       <Header
@@ -38,15 +40,15 @@ const Step1 = ({setState, area, setArea}: StepOneProps) => {
         visible={visible}
         setVisible={setVisible}
         onFunction={() => {
-          deleteResearch()
-          setState('form')
+          deleteResearch();
+          setState('form');
         }}
       />
       <Space vertical={20} />
       <Card style={{width: '100%'}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {Biomes.map(biome => {
-            if (biome.value === research.biome) {
+            if (biome.value === dataInfo.biome) {
               return (
                 <View
                   key={biome.color}
@@ -63,21 +65,41 @@ const Step1 = ({setState, area, setArea}: StepOneProps) => {
           <Space horizontal={4} />
           <View>
             <Text
-              title={research.propertyName}
+              title={dataInfo.propertyName}
               size={16}
               weight={500}
               color={Colors.secundaryText}
             />
             <Text
-              title={`${research.city}, ${research.uf}`}
+              title={`${dataInfo.city}, ${dataInfo.uf}`}
               size={14}
               weight={500}
               color={Colors.secundaryTextGray}
             />
           </View>
         </View>
-        <Space vertical={15} />
-        {!research.data && (
+        <Space vertical={10} />
+        {!!dataArea && dataArea.length !== 0 && (
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {dataArea.map(area => (
+              <TouchableOpacity
+                style={{
+                  padding: 8,
+                  backgroundColor: Colors.lightBlue,
+                  borderRadius: 8,
+                  marginRight: 8,
+                }}>
+                <Text
+                  title={area.title}
+                  size={14}
+                  weight={600}
+                  color={Colors.blue}
+                />
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        )}
+        {dataArea.length === 0 && (
           <View>
             <Text
               title="Você não tem nenhuma área de estudo criada"

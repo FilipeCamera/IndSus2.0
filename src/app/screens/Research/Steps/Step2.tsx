@@ -10,9 +10,17 @@ interface StepTwoProps {
   setState: any;
   area: number;
   setArea: any;
+  setDataArea: any;
+  dataArea: any[];
 }
 
-const Step2 = ({setState, setArea, area}: StepTwoProps) => {
+const Step2 = ({
+  setState,
+  setArea,
+  area,
+  setDataArea,
+  dataArea,
+}: StepTwoProps) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dataForm, setDataForm] = useState([]);
@@ -21,6 +29,11 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   const [title, setTitle] = useState('');
   const [count, setCount] = useState(0);
   const [countForm, setCountForm] = useState(0);
+
+  const data = {
+    title: `Área ${area}`,
+    info: indicators,
+  };
 
   const deleteValue = () => {
     indicators.map(indicator => {
@@ -76,7 +89,14 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
   }, []);
 
   if (dados === true) {
-    return <StepData title={title} percent={percent} setDados={setDados} dataForm={dataForm} />;
+    return (
+      <StepData
+        title={title}
+        percent={percent}
+        setDados={setDados}
+        dataForm={dataForm}
+      />
+    );
   }
   return (
     <Scroll>
@@ -191,7 +211,10 @@ const Step2 = ({setState, setArea, area}: StepTwoProps) => {
               weight={600}
               size={15}
               shadow={4}
-              onPress={() => console.tron.log(indicators)}
+              onPress={() => {
+                setDataArea([...dataArea, data]);
+                setState('research');
+              }}
               color={Colors.background}
             />
           </View>
