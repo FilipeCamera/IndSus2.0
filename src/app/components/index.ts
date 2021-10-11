@@ -16,7 +16,7 @@ import UFDropdown from './UFDropdown';
 import BiomesDropdown from './BiomesDropdown';
 import InputNota from './InputNota';
 import Modals from './Modal';
-
+import BoxNota from './BoxNota';
 export {
   LinearBackground,
   Card,
@@ -36,4 +36,5 @@ export {
   BiomesDropdown,
   InputNota,
   Modals,
+  BoxNota,
 };

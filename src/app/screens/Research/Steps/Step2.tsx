@@ -28,11 +28,12 @@ const Step2 = ({
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
   const [count, setCount] = useState(0);
+  const [info, setInfo] = useState<any[]>([]);
   const [countForm, setCountForm] = useState(0);
 
   const data = {
     title: `Área ${area}`,
-    info: indicators,
+    info: info,
   };
 
   const deleteValue = () => {
@@ -48,7 +49,9 @@ const Step2 = ({
       });
     });
   };
-
+  useEffect(() => {
+    setInfo(indicators);
+  }, [indicators]);
   useEffect(() => {
     indicators.map(indicator => {
       indicator.data.map(data => {

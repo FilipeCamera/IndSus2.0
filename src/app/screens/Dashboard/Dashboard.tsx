@@ -22,9 +22,16 @@ const Dashboard = () => {
       <StatusBar
         translucent
         barStyle="dark-content"
-        backgroundColor="transparent"
+        backgroundColor={Colors.background}
       />
-      <Tabs.Navigator initialRouteName="Home">
+      <Tabs.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          tabBarStyle: {
+            height: 60,
+            paddingBottom: 5,
+          },
+        }}>
         <Tabs.Screen
           name="Home"
           component={Home}
@@ -34,7 +41,7 @@ const Dashboard = () => {
             tabBarLabel: ({focused}: any) => (
               <Text
                 title="Home"
-                size={12}
+                size={14}
                 weight={500}
                 color={focused ? Colors.textBlack : Colors.secundaryTextGray}
               />
@@ -52,7 +59,7 @@ const Dashboard = () => {
             tabBarLabel: ({focused}: any) => (
               <Text
                 title="Pesquisas"
-                size={12}
+                size={14}
                 weight={500}
                 color={focused ? Colors.textBlack : Colors.secundaryTextGray}
               />
@@ -70,7 +77,7 @@ const Dashboard = () => {
             tabBarLabel: ({focused}: any) => (
               <Text
                 title="Perfil"
-                size={12}
+                size={14}
                 weight={500}
                 color={focused ? Colors.textBlack : Colors.secundaryTextGray}
               />

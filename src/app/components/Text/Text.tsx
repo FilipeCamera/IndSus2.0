@@ -7,10 +7,15 @@ interface TextProps {
   weight?: number;
   color?: string;
   center?: boolean;
+  lines?: number;
 }
 
-const Text = ({title, ...props}: TextProps) => {
-  return <TextStyle {...props}>{title}</TextStyle>;
+const Text = ({title, lines, ...props}: TextProps) => {
+  return (
+    <TextStyle numberOfLines={lines} {...props}>
+      {title}
+    </TextStyle>
+  );
 };
 
 export default Text;
