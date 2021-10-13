@@ -153,7 +153,6 @@ const Step2 = ({
             <Space vertical={16} />
             {indicator.data.map((item, index) => (
               <TouchableOpacity
-                key={item.dataId}
                 style={{
                   borderWidth: 1,
                   borderStyle: 'dashed',
@@ -178,7 +177,6 @@ const Step2 = ({
                 <Space vertical={8} />
                 {item.desc.map((ind, index) => (
                   <Text
-                    key={ind.descId}
                     title={`${ind.title} - ${ind.quant}`}
                     size={16}
                     weight={500}

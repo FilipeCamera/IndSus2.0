@@ -141,7 +141,7 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
           </View>
         )}
         {!loading && <Space vertical={4} />}
-        {!loading && (
+        {!loading && dataArea.length !== 0 && (
           <View
             style={{
               flexDirection: 'row',
@@ -161,7 +161,6 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
                             if (area.title === areaTitle) {
                               return (
                                 <View
-                                  key={cr.desc}
                                   style={{
                                     flexDirection: 'column',
                                     height: 45,
@@ -185,32 +184,36 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
               </View>
             </View>
             <View style={{flexDirection: 'column', alignItems: 'center'}}>
-              <StarIcon />
-              <Space vertical={2.5} />
-              <View
-                style={{
-                  backgroundColor: Colors.lightBlue2,
-                  borderTopLeftRadius: 15,
-                  borderTopRightRadius: 15,
-                  borderBottomLeftRadius: 15,
-                  borderBottomRightRadius: 15,
-                }}>
-                {!!dataArea &&
-                  dataArea.length !== 0 &&
-                  dataArea.map((area, i) => {
-                    return area.info.map(info => {
-                      return info.data.map(data => {
-                        return data.ind.map(ind => {
-                          return ind.data.map(cr => {
-                            if (area.title === areaTitle) {
-                              return <BoxNota cri={cr.cri} />;
-                            }
+              {!!dataArea && dataArea.length !== 0 && (
+                <>
+                  <StarIcon />
+                  <Space vertical={2.5} />
+                  <View
+                    style={{
+                      backgroundColor: Colors.lightBlue2,
+                      borderTopLeftRadius: 15,
+                      borderTopRightRadius: 15,
+                      borderBottomLeftRadius: 15,
+                      borderBottomRightRadius: 15,
+                    }}>
+                    {!!dataArea &&
+                      dataArea.length !== 0 &&
+                      dataArea.map((area, i) => {
+                        return area.info.map(info => {
+                          return info.data.map(data => {
+                            return data.ind.map(ind => {
+                              return ind.data.map(cr => {
+                                if (area.title === areaTitle) {
+                                  return <BoxNota cri={cr.cri} />;
+                                }
+                              });
+                            });
                           });
                         });
-                      });
-                    });
-                  })}
-              </View>
+                      })}
+                  </View>
+                </>
+              )}
             </View>
           </View>
         )}
@@ -254,7 +257,10 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
         )}
       </Card>
       <Space vertical={30} />
-      <View style={{width: '100%'}}>
+      <View
+        style={{
+          width: '100%',
+        }}>
         <Button
           title="Finalizar"
           weight={500}
@@ -264,6 +270,7 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
           color={Colors.background}
         />
       </View>
+      <Space vertical={4} />
     </Scroll>
   );
 };
