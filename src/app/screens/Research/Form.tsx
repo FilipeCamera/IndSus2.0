@@ -26,7 +26,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
   const [visible, setVisible] = useState(false);
   const [ownerName, setOwnerName] = useState('');
   const [propertyName, setPropertyName] = useState('');
-  const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [uf, setUf] = useState('');
   const [biome, setBiome] = useState('');
@@ -34,7 +33,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     biome: '',
     ownerName: '',
     propertyName: '',
-    address: '',
     city: '',
     uf: '',
   });
@@ -42,7 +40,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     const biomeVerified = fieldValidate(biome);
     const ownerNameVerified = fieldValidate(ownerName);
     const propertyNameVerified = fieldValidate(propertyName);
-    const adressVerified = fieldValidate(address);
     const cityVerified = fieldValidate(city);
     const ufVerified = fieldValidate(uf);
     setErrors({
@@ -50,7 +47,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
       biome: biomeVerified.error,
       ownerName: ownerNameVerified.error,
       propertyName: propertyNameVerified.error,
-      address: adressVerified.error,
       city: cityVerified.error,
       uf: ufVerified.error,
     });
@@ -59,7 +55,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
       !biomeVerified.value &&
       !ownerNameVerified.value &&
       !propertyNameVerified.value &&
-      !adressVerified.value &&
       !cityVerified.value &&
       !ufVerified.value
     ) {
@@ -87,8 +82,8 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
           textCancel="Cancelar"
           textOk="Voltar"
           onFunction={() => {
-            setVisible(!visible)
-            navigation.goBack()
+            setVisible(!visible);
+            navigation.goBack();
           }}
         />
         <Space vertical={20} />
@@ -113,14 +108,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
           onText={e => setPropertyName(e)}
           error={errors.propertyName}
         />
-        <Space vertical={4} />
-        <Input
-          type="outlined"
-          label="Endereço"
-          value={address}
-          onText={e => setAddress(e)}
-          error={errors.address}
-        />
+
         <Space vertical={4} />
         <Row noMargin>
           <View style={{width: '65%'}}>
@@ -149,7 +137,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
               const data = {
                 ownerName: ownerName,
                 propertyName: propertyName,
-                address: address,
+
                 city: city,
                 uf: uf,
                 biome: biome,

@@ -29,9 +29,17 @@ interface StepOneProps {
   area: number;
   dataInfo: any;
   dataArea: any[];
+  setDataArea: any;
 }
 
-const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
+const Step1 = ({
+  setState,
+  area,
+  setArea,
+  dataInfo,
+  dataArea,
+  setDataArea,
+}: StepOneProps) => {
   const [visible, setVisible] = useState(false);
   const [areaTitle, setAreaTitle] = useState('Área 1');
   const [loading, setLoading] = useState(true);
@@ -65,6 +73,7 @@ const Step1 = ({setState, area, setArea, dataInfo, dataArea}: StepOneProps) => {
         setVisible={setVisible}
         onFunction={() => {
           deleteResearch();
+          setDataArea([]);
           setState('form');
         }}
       />

@@ -22,9 +22,18 @@ interface StepDataProps {
   setDados: any;
   dataForm: any;
   percent: string;
+  info: any;
+  setInfo: any;
 }
 
-const StepData = ({title, setDados, dataForm, percent}: StepDataProps) => {
+const StepData = ({
+  title,
+  setDados,
+  dataForm,
+  percent,
+  info,
+  setInfo,
+}: StepDataProps) => {
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [complete, setComplete] = useState(0);
@@ -185,7 +194,6 @@ const StepData = ({title, setDados, dataForm, percent}: StepDataProps) => {
                             <InputNota
                               valor={cr.value}
                               onText={e => {
-                                cr.value = e;
                                 if (e === '') {
                                   setComplete(complete - 1);
                                 } else {

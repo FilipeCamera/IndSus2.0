@@ -35,10 +35,11 @@ const Step2 = ({
     title: `Área ${area}`,
     info: info,
   };
-
+  console.tron.log(info);
   const deleteValue = () => {
     indicators.map(indicator => {
       indicator.data.map(data => {
+        data.complete = 'Sem preencher';
         data.ind.map(cri => {
           cri.data.map(cr => {
             cr.cri.map(item => {
@@ -49,9 +50,7 @@ const Step2 = ({
       });
     });
   };
-  useEffect(() => {
-    setInfo(indicators);
-  }, [indicators]);
+
   useEffect(() => {
     indicators.map(indicator => {
       indicator.data.map(data => {
@@ -98,6 +97,8 @@ const Step2 = ({
         percent={percent}
         setDados={setDados}
         dataForm={dataForm}
+        info={info}
+        setInfo={setInfo}
       />
     );
   }
@@ -215,6 +216,7 @@ const Step2 = ({
               onPress={() => {
                 setDataArea([...dataArea, data]);
                 setState('research');
+                deleteValue();
               }}
               color={Colors.background}
             />

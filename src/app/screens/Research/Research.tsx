@@ -20,6 +20,7 @@ const Research = ({navigation}: any) => {
         <Step1
           setState={setState}
           area={area}
+          setDataArea={setDataArea}
           setArea={setArea}
           dataInfo={dataInfo}
           dataArea={dataArea}
