@@ -16,6 +16,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 
 interface StepDataProps {
   title: string;
@@ -194,6 +195,7 @@ const StepData = ({
                             <InputNota
                               valor={cr.value}
                               onText={e => {
+                                cr.value = e;
                                 if (e === '') {
                                   setComplete(complete - 1);
                                 } else {
@@ -204,6 +206,7 @@ const StepData = ({
                           </View>
                         </View>
                       ))}
+
                       <Space vertical={20} />
                     </>
                   ))}

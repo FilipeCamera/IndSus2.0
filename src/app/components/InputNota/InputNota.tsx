@@ -1,10 +1,10 @@
-import { Colors } from '@styles';
-import React, { useState } from 'react';
-import { TextInput } from 'react-native';
+import {Colors} from '@styles';
+import React, {useState} from 'react';
+import {TextInput} from 'react-native';
 
 interface InputNotaProps {
-  onText: (e: any) => any
-  valor: any
+  onText: (e: any) => any;
+  valor: any;
 }
 
 const InputNota = ({onText, valor}: InputNotaProps) => {
@@ -26,18 +26,17 @@ const InputNota = ({onText, valor}: InputNotaProps) => {
         color: Colors.textSecundaryBlack,
       }}
       onChangeText={(e: any) => {
-        if(e > 10) {
-          setValue('')
-        }
-        else if(e < 0) {
-          setValue('')
-        }else {
-          setValue(e)
-          onText(e)
+        if (e > 10) {
+          setValue('');
+        } else if (e < 0) {
+          setValue('');
+        } else {
+          setValue(e);
+          onText(e);
         }
       }}
     />
-  )
-}
+  );
+};
 
-export default InputNota
+export default InputNota;
