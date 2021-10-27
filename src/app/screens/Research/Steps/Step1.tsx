@@ -45,7 +45,7 @@ const Step1 = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = setTimeout(() => setLoading(false), 500);
+    const load = setTimeout(() => setLoading(false), 200);
     return () => {
       clearInterval(load);
     };
@@ -146,6 +146,7 @@ const Step1 = ({
         {!!loading && (
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Space vertical={8} />
             <ActivityIndicator color={Colors.blue} size="large" />
           </View>
         )}

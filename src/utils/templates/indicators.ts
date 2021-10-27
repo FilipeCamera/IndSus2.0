@@ -1,4 +1,6 @@
-const indicators = [
+import {useState} from 'react';
+
+const [indicators, setIndicators] = useState([
   {
     indId: 0,
     title: 'Indicadores Ecológicos',
@@ -1075,6 +1077,6 @@ const indicators = [
       },
     ],
   },
-];
+]);
 
-export default indicators;
+export {indicators as default, setIndicators};

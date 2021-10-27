@@ -1,4 +1,3 @@
-import indicators from '@indicators';
 import {Colors} from '@styles';
 import {Button, Header, Modals, Scroll, Space, Text} from 'components';
 import React, {useEffect, useState} from 'react';
@@ -28,7 +27,1088 @@ const Step2 = ({
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
   const [count, setCount] = useState(0);
-  const [info, setInfo] = useState<any[]>([]);
+  const [info, setInfo] = useState<any[]>([
+    {
+      indId: 'ind_01',
+      title: 'Indicadores Ecológicos',
+      data: [
+        {
+          dataId: 'data_01',
+          title: 'Solo',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              descId: 'desc_01',
+              title: 'Propriedades do solo',
+              quant: '3 indicadores',
+            },
+            {
+              descId: 'desc_02',
+              title: 'Manejo do solo',
+              quant: '2 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_1',
+              title: 'Propriedades do solo',
+              data: [
+                {
+                  descDataId: 'descData_1',
+                  desc: 'FNPK - Fontes de Nitrogênio (N), Fósforo (P) e Potássio (K)',
+                  cri: [
+                    {
+                      criId: 'cri_1',
+                      title: 'composto',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_2',
+                      title: 'adubação verde',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_3',
+                      title:
+                        'composto + adubação verde + aplicação de biofertilizante no solo',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_2',
+                  desc: 'AS - Estrutura, textura e compactação do solo',
+                  cri: [
+                    {
+                      criId: 'cri_4',
+                      title: 'terra cansada, seca, em torrões e com erosão',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_5',
+                      title:
+                        'presença de matéria orgânica sem rotação e consórcio de culturas / solo descoberto',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_6',
+                      title: 'solo sadio, grumoso como cobertura morta',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_3',
+                  desc: 'MO - Matéria orgânica no solo',
+                  cri: [
+                    {
+                      criId: 'cri_7',
+                      title:
+                        'solo claro, esbranquiçados, cinzas, amarelados e arenosos',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_8',
+                      title:
+                        'asolo vermelho e amarelo, com óxidos de ferro, boa aeração e drenagem',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_9',
+                      title:
+                        'coloração escura com alta concentração de MO e bioindicadores',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_2',
+              title: 'Manejo do solo',
+              data: [
+                {
+                  dataId: 'data_02',
+                  desc: 'PM - Preparo mecânico da área produtiva',
+                  cri: [
+                    {
+                      criId: 'cri_10',
+                      title: 'subsolagem (nº de vezes)',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_11',
+                      title:
+                        'controle mecânico, tração animal, biquiação e/ou controle biológico',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_12',
+                      title:
+                        'sistema equilibrado: consórcio, rotação de culturas e áreas de refúgio',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  dataId: 'data_03',
+                  desc: 'CPE - Controle de plantas espontâneas',
+                  cri: [
+                    {
+                      criId: 'cri_13',
+                      title: 'não há ou não é respeitada',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_14',
+                      title: 'há, mas está longe da área produtiva',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_15',
+                      title: 'há e está nas proximidades da área produtiva',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          dataId: 'data_04',
+          title: 'Biodiversidade e Paisagem',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              descId: 'desc_03',
+              title: 'Vegetação Natural',
+              quant: '1 indicador',
+            },
+            {
+              descId: 'desc_04',
+              title: 'Cultivos',
+              quant: '6 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_3',
+              title: 'Vegetação natural',
+              data: [
+                {
+                  descDataId: 'descData_4',
+                  desc: 'RLAPP - Área de RL e APP',
+                  cri: [
+                    {
+                      criId: 'cri_16',
+                      title: 'não há',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_17',
+                      title: 'há na % obrigatória',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_18',
+                      title: 'há % além da obrigatória e/ou com manejo',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_4',
+              title: 'Cultivos',
+              data: [
+                {
+                  dataDescId: 0,
+                  desc: 'EAP - Áreas de entorno da área produtiva',
+                  cri: [
+                    {
+                      criId: 'cri_19',
+                      title:
+                        'convencional com o mesmo tipo do cultivo da área produtiva',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_20',
+                      title:
+                        'convencional com outros tipos de cultivo e uso do solo',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_21',
+                      title:
+                        'outros tipos de cultivos e de uso do solo sem uso de insumos químicos',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_5',
+                  desc: 'BV - Barreiras vegetais',
+                  cri: [
+                    {
+                      criId: 'cri_22',
+                      title: 'não há',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_23',
+                      title: 'há (1 espécie)',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_24',
+                      title: 'há (diversificada)',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_6',
+                  desc: 'DA - Desenho do agroecossistema',
+                  cri: [
+                    {
+                      criId: 'cri_25',
+                      title: 'monocultura orgânica',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_26',
+                      title: 'pouco diversificado',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_27',
+                      title:
+                        'muito diversificado / consorciado / planejamento rotacionado',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_7',
+                  desc: 'PAI - Diversidade de plantas espontâneas e insetos indesejáveis',
+                  cri: [
+                    {
+                      criId: 'cri_28',
+                      title: 'alto e descontrolado',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_29',
+                      title: 'ausência',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_30',
+                      title: 'baixo e controlado',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_8',
+                  desc: 'ID - Incidência de doenças',
+                  cri: [
+                    {
+                      criId: 'cri_31',
+                      title: 'alto índice de doenças',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_32',
+                      title:
+                        'incidência de doenças de fácil controle / domínio de técnicas',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_33',
+                      title: 'não ocorreram doenças',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_9',
+                  desc: 'CDC - Crescimento dos cultivos',
+                  cri: [
+                    {
+                      criId: 'cri_34',
+                      title:
+                        'crescimento das plantas foi alterado e prejudicado',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_35',
+                      title:
+                        'crescimento das plantas permaneceram = ao cultivo convencional',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_36',
+                      title: 'plantas cresceram mais sadias',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          dataId: 'data_05',
+          title: 'Micro-clima',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              descId: 'desc_05',
+              title: 'Alterações',
+              quant: '1 indicador',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_5',
+              title: 'Alterações',
+              data: [
+                {
+                  descDataId: 'descData_10',
+                  desc: 'IDAC - Influência nos resultados produtivos das áreas de produção.',
+                  cri: [
+                    {
+                      criId: 'cri_37',
+                      title:
+                        'alterações climáticas influenciaram na produtividade / qualidade dos cultivos',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_38',
+                      title: 'houve influência, mas sem perda significativa',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_39',
+                      title:
+                        'os cultivos estão protegidos das influências climáticas (adaptações técnicas)',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          dataId: 'data_06',
+          title: 'Recursos naturais disponíveis',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              descId: 'desc_06',
+              title: 'Recursos externos',
+              quant: '2 indicadores',
+            },
+            {
+              descId: 'desc_07',
+              title: 'Recursos internos',
+              quant: '2 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_6',
+              title: 'Recursos externos',
+              data: [
+                {
+                  descDataId: 'descData_11',
+                  desc: 'EPM - Fontes de energia / combustível (para uso de maquinários)',
+                  cri: [
+                    {
+                      criId: 'cri_40',
+                      title: 'dependência de fonte de energia externa',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_41',
+                      title: 'parte da energia utilizada é externa',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_42',
+                      title: 'fonte de energia produzida localmente',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_12',
+                  desc: 'UI - Uso de insumos',
+                  cri: [
+                    {
+                      criId: 'cri_43',
+                      title: 'totalmente externos',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_44',
+                      title: 'parcialmente externos',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_45',
+                      title: 'produzidos localmente',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      indId: 'ind_02',
+      title: 'Indicadores Sociais',
+      data: [
+        {
+          title: 'Trajetória de vida das famílias',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Origem das famílias',
+              quant: '1 indicador',
+            },
+            {
+              title: 'Manejo agroecológico',
+              quant: '1 indicador',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_7',
+              title: 'Origem das familías',
+              complete: 'Sem preencher',
+              data: [
+                {
+                  descDataId: 'descData_13',
+                  desc: 'PLOAP - Proximidade do local de residência com a área produtiva',
+                  cri: [
+                    {
+                      criId: 'cri_46',
+                      title:
+                        'centros urbanos, sem ligação com o meio rural e com atividades agrícolas',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_47',
+                      title: 'agricultores de outras regiões e Estados',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_48',
+                      title: 'agricultores locais',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_8',
+              title: 'Manejo agroecológico',
+              complete: 'Sem preencher',
+              data: [
+                {
+                  descDataId: 'descData_14',
+                  desc: 'NICE - Qual nível se considera estar',
+                  cri: [
+                    {
+                      criId: 'cri_49',
+                      title: 'produção/aquisição de insumos orgânicos',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_50',
+                      title: 'diversificação da produção',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_51',
+                      title: 'redesenho do agroecossistema',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Segurança alimentar',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Produção para o auto-sustento',
+              quant: '2 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_9',
+              title: 'Produção para o auto-sustento',
+              data: [
+                {
+                  descDataId: 'descData_15',
+                  desc: 'APDAS - % da produção destinada ao auto-sustento',
+                  cri: [
+                    {
+                      criId: 'cri_52',
+                      title:
+                        'não há produção para auto-sustento, apenas para comercialização',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_53',
+                      title: 'produz parte e compra parte do que precisa',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_54',
+                      title:
+                        'produz tudo o que precisa e comercializa o excedente',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_16',
+                  desc: 'DAS - Diversificação da produção para auto-sustento',
+                  cri: [
+                    {
+                      criId: 'cri_55',
+                      title: 'não é diversificada',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_56',
+                      title: 'pouco diversificada',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_57',
+                      title: 'muito diversificada',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Qualidade de vida',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Saúde',
+              quant: '1 indicador',
+            },
+            {
+              title: 'Infra-estrutura básica',
+              quant: '3 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_10',
+              title: 'Saúde',
+              data: [
+                {
+                  descDataId: 'descData_17',
+                  desc: 'GTX - Grau de exposição a componentes tóxicos',
+                  cri: [
+                    {
+                      criId: 'cri_58',
+                      title: 'diminuiu',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_59',
+                      title: 'interrompeu',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_60',
+                      title: 'interrompeu há mais de 2 anos',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_11',
+              title: 'Infra-estrutura básica',
+              complete: 'Sem preencher',
+              data: [
+                {
+                  descDataId: 'descData_18',
+                  desc: 'PCSO - Participação em cursos, seminários, oficinas',
+                  cri: [
+                    {
+                      criId: 'cri_61',
+                      title: 'Não há',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_62',
+                      title: 'Continuou igual',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_63',
+                      title: 'Melhorou/aumentou',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_19',
+                  desc: 'AA - Acesso à água',
+                  cri: [
+                    {
+                      criId: 'cri_64',
+                      title: 'Não há',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_65',
+                      title: 'Continuou igual',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_66',
+                      title: 'Melhorou/aumentou',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_20',
+                  desc: 'ABP - Área de beneficiamento de produtos',
+                  cri: [
+                    {
+                      criId: 'cri_67',
+                      title: 'Não há',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_68',
+                      title: 'Continuou igual',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_69',
+                      title: 'Melhorou/aumentou',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          indDataId: 'indData_40',
+          title: 'Organização do trabalho',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Trabalho coletivo',
+              quant: '1 indicador',
+            },
+            {
+              title: 'Operação de investimento externos',
+              quant: '2 indicadores',
+            },
+            {
+              title: 'Percepção ambiental e relação com a natureza',
+              quant: '2 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_12',
+              title: 'Trabalho coletivo',
+              data: [
+                {
+                  descDataId: 'descData_21',
+                  desc: 'MOF - Mão de obra familiar',
+                  cri: [
+                    {
+                      criId: 'cri_70',
+                      title: 'Não há participação dos jovens e mulheres',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_71',
+                      title: 'Houve pouca participação de jovens e mulheres',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_72',
+                      title: 'Há total participação dos jovens e mulheres',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_13',
+              title: 'Operação de investimento externos',
+              complete: 'Sem preencher',
+              data: [
+                {
+                  descDataId: 'descData_22',
+                  desc: 'DDI - Destino dado ao investimento',
+                  cri: [
+                    {
+                      criId: 'cri_73',
+                      title: 'Ações emergenciais',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_74',
+                      title: 'Ações de resposta de curto prazo',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_75',
+                      title: 'Ações de resposta a longo prazo',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_23',
+                  desc: 'DROSP - Distribuição de renda originada do sistema produtivo',
+                  cri: [
+                    {
+                      criId: 'cri_76',
+                      title: 'Gerou prejuizo para as famílias',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_77',
+                      title:
+                        'Poucas famílias foram beneficiadas e/ou pouco significativo',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_78',
+                      title: 'Todas as famílias foram beneficiadas',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              indDataId: 'indData_14',
+              title: 'Percepção ambiental e relação com a natureza',
+              complete: 'Sem preencher',
+              data: [
+                {
+                  descDataId: 'descData_24',
+                  desc: 'ORPA - Objetivo da realização da produção agroecológica',
+                  cri: [
+                    {
+                      criId: 'cri_79',
+                      title: 'Redução dos custos da produção',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_80',
+                      title: 'Recuperação do solo',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_81',
+                      title: 'Iniciar processo de transição agroecológica',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_25',
+                  desc: 'PFAP - Planos futuros para a área produtiva',
+                  cri: [
+                    {
+                      criId: 'cri_82',
+                      title: 'Voltará para a produção convencional',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_83',
+                      title:
+                        'Dará continuidade ao manejo orgânico/agroecológica',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_84',
+                      title: 'Ampliará a área de manejo orgânico/agroecológico',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      indId: 'ind_03',
+      title: 'Indicadores Econômicos',
+      data: [
+        {
+          title: 'Planejamento produtivo',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Capacidade de investimento e gestão',
+              quant: '3 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_15',
+              title: 'Capacidade de investimento e gestão',
+              data: [
+                {
+                  descDataId: 'descData_26',
+                  desc: 'RPPSAP - Reservas para a próxima safra',
+                  cri: [
+                    {
+                      criId: 'cri_85',
+                      title: 'Não há reservas',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_86',
+                      title: 'Há poucas reservas',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_87',
+                      title:
+                        'Próxima safra já planejada e com reservas garantidas',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_27',
+                  desc: 'IRINR - Investimento em recursos/insumos não renováveis',
+                  cri: [
+                    {
+                      criId: 'cri_88',
+                      title:
+                        'Todo investimento feito em recursos não renováveis',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_89',
+                      title:
+                        'Parte do recurso destinado à recursos não renováveis',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_90',
+                      title:
+                        'Pequena parte do investimento para recursos não renováveis',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_28',
+                  desc: 'ECPM - Execução do sistema produtivo conforme Plano de Manejo',
+                  cri: [
+                    {
+                      criId: 'cri_91',
+                      title: 'Não foi respeitado o planejamento',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_92',
+                      title: 'Foram necessárias algumas alterações',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_93',
+                      title: 'O planejamento foi seguido',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title:
+            'Eficiência econômica da produção agrícola da área/local de produção',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Produtividade',
+              quant: '2 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_16',
+              title: 'Produtividade',
+              data: [
+                {
+                  descDataId: 'descData_29',
+                  desc: 'PHEC – Produção (hectares)',
+                  cri: [
+                    {
+                      criId: 'cri_94',
+                      title: 'Muito baixa',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_95',
+                      title: 'Baixa e/ou igual as culturas convencionais',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_96',
+                      title: 'Alta / satisfatória',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_30',
+                  desc: 'CGR - Comercialização (geração de renda)',
+                  cri: [
+                    {
+                      criId: 'cri_97',
+                      title: 'Comercialização na área produtiva',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_98',
+                      title: 'PNAE',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_99',
+                      title: 'Cestas, feiras e PNAE',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Estabilidade econômica da área/local de produção',
+          complete: 'Sem preencher',
+          desc: [
+            {
+              title: 'Risco econômico',
+              quant: '3 indicadores',
+            },
+          ],
+          ind: [
+            {
+              indDataId: 'indData_17',
+              title: 'Risco econômico',
+              data: [
+                {
+                  descDataId: 'descData_31',
+                  desc: 'Diversidade produtiva',
+                  cri: [
+                    {
+                      criId: 'cri_100',
+                      title: 'Baixa (especificar o nº de espécies)',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_101',
+                      title:
+                        'Média / a mesma das culturas convencionais (especificar o nº de espécies)',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_102',
+                      title: 'Alta (especificar o nº de espécies)',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_32',
+                  desc: 'Beneficiamento de produtos',
+                  cri: [
+                    {
+                      criId: 'cri_103',
+                      title: 'Não houve beneficiamento',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_104',
+                      title: 'Houve parte do beneficiamento (não satisfatório)',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_105',
+                      title: 'houve beneficiamento, agregando valor ao produto',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_33',
+                  desc: 'Dependência de insumos e informações externas',
+                  cri: [
+                    {
+                      criId: 'cri_106',
+                      title: 'Alta dependência',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_107',
+                      title: 'Média / em partes',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_108',
+                      title: 'Não há dependência',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ]);
   const [countForm, setCountForm] = useState(0);
 
   const data = {
@@ -36,52 +1116,6 @@ const Step2 = ({
     info: info,
   };
   console.tron.log(info);
-  const deleteValue = () => {
-    indicators.map(indicator => {
-      indicator.data.map(data => {
-        data.complete = 'Sem preencher';
-        data.ind.map(cri => {
-          cri.data.map(cr => {
-            cr.cri.map(item => {
-              item.value = '';
-            });
-          });
-        });
-      });
-    });
-  };
-
-  useEffect(() => {
-    indicators.map(indicator => {
-      indicator.data.map(data => {
-        data.ind.map(cri => {
-          cri.data.map(cr => {
-            cr.cri.map(item => {
-              if (item.value === '') {
-                setCount(count + 1);
-              }
-            });
-          });
-        });
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    indicators.map(indicator => {
-      indicator.data.map(data => {
-        data.ind.map(cri => {
-          cri.data.map(cr => {
-            cr.cri.map(item => {
-              if (item.value === '') {
-                setCountForm(countForm + 1);
-              }
-            });
-          });
-        });
-      });
-    });
-  }, [indicators]);
 
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
@@ -113,7 +1147,6 @@ const Step2 = ({
         textOk="Sair"
         onFunction={() => {
           setArea(area - 1);
-          deleteValue();
           setState('research');
         }}
       />
@@ -132,7 +1165,7 @@ const Step2 = ({
         </View>
       )}
       {!loading &&
-        indicators.map((indicator, index) => (
+        info.map(indicator => (
           <>
             <View
               key={indicator.indId}
@@ -154,6 +1187,7 @@ const Step2 = ({
             <Space vertical={16} />
             {indicator.data.map((item, index) => (
               <TouchableOpacity
+                key={item.dataId}
                 style={{
                   borderWidth: 1,
                   borderStyle: 'dashed',
@@ -178,6 +1212,7 @@ const Step2 = ({
                 <Space vertical={8} />
                 {item.desc.map((ind, index) => (
                   <Text
+                    key={ind.indDescId}
                     title={`${ind.title} - ${ind.quant}`}
                     size={16}
                     weight={500}
@@ -216,7 +1251,6 @@ const Step2 = ({
               onPress={() => {
                 setDataArea([...dataArea, data]);
                 setState('research');
-                deleteValue();
               }}
               color={Colors.background}
             />
