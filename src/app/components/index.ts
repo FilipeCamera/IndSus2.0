@@ -17,6 +17,8 @@ import BiomesDropdown from './BiomesDropdown';
 import InputNota from './InputNota';
 import Modals from './Modal';
 import BoxNota from './BoxNota';
+import DateTime from './DateTime';
+
 export {
   LinearBackground,
   Card,
@@ -37,4 +39,5 @@ export {
   InputNota,
   Modals,
   BoxNota,
+  DateTime,
 };

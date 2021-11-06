@@ -29,21 +29,21 @@ const Step2 = ({
   const [count, setCount] = useState(0);
   const [info, setInfo] = useState<any[]>([
     {
-      indId: 'ind_01',
+      indId: 'ind_1',
       title: 'Indicadores Ecológicos',
       data: [
         {
-          dataId: 'data_01',
+          dataId: 'data_1',
           title: 'Solo',
           complete: 'Sem preencher',
           desc: [
             {
-              descId: 'desc_01',
+              descId: 'desc_1',
               title: 'Propriedades do solo',
               quant: '3 indicadores',
             },
             {
-              descId: 'desc_02',
+              descId: 'desc_2',
               title: 'Manejo do solo',
               quant: '2 indicadores',
             },
@@ -128,7 +128,7 @@ const Step2 = ({
               title: 'Manejo do solo',
               data: [
                 {
-                  dataId: 'data_02',
+                  descDataId: 'descData_4',
                   desc: 'PM - Preparo mecânico da área produtiva',
                   cri: [
                     {
@@ -151,7 +151,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  dataId: 'data_03',
+                  descDataId: 'descData_5',
                   desc: 'CPE - Controle de plantas espontâneas',
                   cri: [
                     {
@@ -176,17 +176,17 @@ const Step2 = ({
           ],
         },
         {
-          dataId: 'data_04',
+          dataId: 'data_2',
           title: 'Biodiversidade e Paisagem',
           complete: 'Sem preencher',
           desc: [
             {
-              descId: 'desc_03',
+              descId: 'desc_3',
               title: 'Vegetação Natural',
               quant: '1 indicador',
             },
             {
-              descId: 'desc_04',
+              descId: 'desc_4',
               title: 'Cultivos',
               quant: '6 indicadores',
             },
@@ -197,7 +197,7 @@ const Step2 = ({
               title: 'Vegetação natural',
               data: [
                 {
-                  descDataId: 'descData_4',
+                  descDataId: 'descData_6',
                   desc: 'RLAPP - Área de RL e APP',
                   cri: [
                     {
@@ -224,7 +224,7 @@ const Step2 = ({
               title: 'Cultivos',
               data: [
                 {
-                  dataDescId: 0,
+                  descDataId: 'descData_7',
                   desc: 'EAP - Áreas de entorno da área produtiva',
                   cri: [
                     {
@@ -248,7 +248,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_5',
+                  descDataId: 'descData_8',
                   desc: 'BV - Barreiras vegetais',
                   cri: [
                     {
@@ -269,7 +269,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_6',
+                  descDataId: 'descData_9',
                   desc: 'DA - Desenho do agroecossistema',
                   cri: [
                     {
@@ -291,7 +291,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_7',
+                  descDataId: 'descData_10',
                   desc: 'PAI - Diversidade de plantas espontâneas e insetos indesejáveis',
                   cri: [
                     {
@@ -312,7 +312,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_8',
+                  descDataId: 'descData_11',
                   desc: 'ID - Incidência de doenças',
                   cri: [
                     {
@@ -334,7 +334,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_9',
+                  descDataId: 'descData_12',
                   desc: 'CDC - Crescimento dos cultivos',
                   cri: [
                     {
@@ -361,12 +361,12 @@ const Step2 = ({
           ],
         },
         {
-          dataId: 'data_05',
+          dataId: 'data_3',
           title: 'Micro-clima',
           complete: 'Sem preencher',
           desc: [
             {
-              descId: 'desc_05',
+              descId: 'desc_5',
               title: 'Alterações',
               quant: '1 indicador',
             },
@@ -377,7 +377,7 @@ const Step2 = ({
               title: 'Alterações',
               data: [
                 {
-                  descDataId: 'descData_10',
+                  descDataId: 'descData_13',
                   desc: 'IDAC - Influência nos resultados produtivos das áreas de produção.',
                   cri: [
                     {
@@ -404,17 +404,17 @@ const Step2 = ({
           ],
         },
         {
-          dataId: 'data_06',
+          dataId: 'data_4',
           title: 'Recursos naturais disponíveis',
           complete: 'Sem preencher',
           desc: [
             {
-              descId: 'desc_06',
+              descId: 'desc_6',
               title: 'Recursos externos',
               quant: '2 indicadores',
             },
             {
-              descId: 'desc_07',
+              descId: 'desc_7',
               title: 'Recursos internos',
               quant: '2 indicadores',
             },
@@ -425,7 +425,7 @@ const Step2 = ({
               title: 'Recursos externos',
               data: [
                 {
-                  descDataId: 'descData_11',
+                  descDataId: 'descData_14',
                   desc: 'EPM - Fontes de energia / combustível (para uso de maquinários)',
                   cri: [
                     {
@@ -446,7 +446,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_12',
+                  descDataId: 'descData_15',
                   desc: 'UI - Uso de insumos',
                   cri: [
                     {
@@ -473,18 +473,21 @@ const Step2 = ({
       ],
     },
     {
-      indId: 'ind_02',
+      indId: 'ind_2',
       title: 'Indicadores Sociais',
       data: [
         {
+          dataId: 'data_5',
           title: 'Trajetória de vida das famílias',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_8',
               title: 'Origem das famílias',
               quant: '1 indicador',
             },
             {
+              descId: 'desc_9',
               title: 'Manejo agroecológico',
               quant: '1 indicador',
             },
@@ -496,7 +499,7 @@ const Step2 = ({
               complete: 'Sem preencher',
               data: [
                 {
-                  descDataId: 'descData_13',
+                  descDataId: 'descData_16',
                   desc: 'PLOAP - Proximidade do local de residência com a área produtiva',
                   cri: [
                     {
@@ -525,7 +528,7 @@ const Step2 = ({
               complete: 'Sem preencher',
               data: [
                 {
-                  descDataId: 'descData_14',
+                  descDataId: 'descData_17',
                   desc: 'NICE - Qual nível se considera estar',
                   cri: [
                     {
@@ -550,10 +553,12 @@ const Step2 = ({
           ],
         },
         {
+          dataId: 'data_6',
           title: 'Segurança alimentar',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_10',
               title: 'Produção para o auto-sustento',
               quant: '2 indicadores',
             },
@@ -564,7 +569,7 @@ const Step2 = ({
               title: 'Produção para o auto-sustento',
               data: [
                 {
-                  descDataId: 'descData_15',
+                  descDataId: 'descData_18',
                   desc: 'APDAS - % da produção destinada ao auto-sustento',
                   cri: [
                     {
@@ -587,7 +592,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_16',
+                  descDataId: 'descData_19',
                   desc: 'DAS - Diversificação da produção para auto-sustento',
                   cri: [
                     {
@@ -612,14 +617,17 @@ const Step2 = ({
           ],
         },
         {
+          dataId: 'data_7',
           title: 'Qualidade de vida',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_11',
               title: 'Saúde',
               quant: '1 indicador',
             },
             {
+              descId: 'desc_12',
               title: 'Infra-estrutura básica',
               quant: '3 indicadores',
             },
@@ -630,7 +638,7 @@ const Step2 = ({
               title: 'Saúde',
               data: [
                 {
-                  descDataId: 'descData_17',
+                  descDataId: 'descData_20',
                   desc: 'GTX - Grau de exposição a componentes tóxicos',
                   cri: [
                     {
@@ -658,7 +666,7 @@ const Step2 = ({
               complete: 'Sem preencher',
               data: [
                 {
-                  descDataId: 'descData_18',
+                  descDataId: 'descData_21',
                   desc: 'PCSO - Participação em cursos, seminários, oficinas',
                   cri: [
                     {
@@ -679,7 +687,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_19',
+                  descDataId: 'descData_22',
                   desc: 'AA - Acesso à água',
                   cri: [
                     {
@@ -700,7 +708,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_20',
+                  descDataId: 'descData_23',
                   desc: 'ABP - Área de beneficiamento de produtos',
                   cri: [
                     {
@@ -725,19 +733,22 @@ const Step2 = ({
           ],
         },
         {
-          indDataId: 'indData_40',
+          dataId: 'data_8',
           title: 'Organização do trabalho',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_13',
               title: 'Trabalho coletivo',
               quant: '1 indicador',
             },
             {
+              descId: 'desc_14',
               title: 'Operação de investimento externos',
               quant: '2 indicadores',
             },
             {
+              descId: 'desc_15',
               title: 'Percepção ambiental e relação com a natureza',
               quant: '2 indicadores',
             },
@@ -748,7 +759,7 @@ const Step2 = ({
               title: 'Trabalho coletivo',
               data: [
                 {
-                  descDataId: 'descData_21',
+                  descDataId: 'descData_24',
                   desc: 'MOF - Mão de obra familiar',
                   cri: [
                     {
@@ -776,7 +787,7 @@ const Step2 = ({
               complete: 'Sem preencher',
               data: [
                 {
-                  descDataId: 'descData_22',
+                  descDataId: 'descData_25',
                   desc: 'DDI - Destino dado ao investimento',
                   cri: [
                     {
@@ -797,7 +808,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_23',
+                  descDataId: 'descData_26',
                   desc: 'DROSP - Distribuição de renda originada do sistema produtivo',
                   cri: [
                     {
@@ -826,7 +837,7 @@ const Step2 = ({
               complete: 'Sem preencher',
               data: [
                 {
-                  descDataId: 'descData_24',
+                  descDataId: 'descData_27',
                   desc: 'ORPA - Objetivo da realização da produção agroecológica',
                   cri: [
                     {
@@ -847,7 +858,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_25',
+                  descDataId: 'descData_28',
                   desc: 'PFAP - Planos futuros para a área produtiva',
                   cri: [
                     {
@@ -875,14 +886,16 @@ const Step2 = ({
       ],
     },
     {
-      indId: 'ind_03',
+      indId: 'ind_3',
       title: 'Indicadores Econômicos',
       data: [
         {
+          dataId: 'data_9',
           title: 'Planejamento produtivo',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_16',
               title: 'Capacidade de investimento e gestão',
               quant: '3 indicadores',
             },
@@ -893,7 +906,7 @@ const Step2 = ({
               title: 'Capacidade de investimento e gestão',
               data: [
                 {
-                  descDataId: 'descData_26',
+                  descDataId: 'descData_29',
                   desc: 'RPPSAP - Reservas para a próxima safra',
                   cri: [
                     {
@@ -915,7 +928,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_27',
+                  descDataId: 'descData_30',
                   desc: 'IRINR - Investimento em recursos/insumos não renováveis',
                   cri: [
                     {
@@ -939,7 +952,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_28',
+                  descDataId: 'descData_31',
                   desc: 'ECPM - Execução do sistema produtivo conforme Plano de Manejo',
                   cri: [
                     {
@@ -964,11 +977,13 @@ const Step2 = ({
           ],
         },
         {
+          dataId: 'data_10',
           title:
             'Eficiência econômica da produção agrícola da área/local de produção',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_17',
               title: 'Produtividade',
               quant: '2 indicadores',
             },
@@ -979,7 +994,7 @@ const Step2 = ({
               title: 'Produtividade',
               data: [
                 {
-                  descDataId: 'descData_29',
+                  descDataId: 'descData_32',
                   desc: 'PHEC – Produção (hectares)',
                   cri: [
                     {
@@ -1000,7 +1015,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_30',
+                  descDataId: 'descData_33',
                   desc: 'CGR - Comercialização (geração de renda)',
                   cri: [
                     {
@@ -1025,10 +1040,12 @@ const Step2 = ({
           ],
         },
         {
+          dataId: 'data_11',
           title: 'Estabilidade econômica da área/local de produção',
           complete: 'Sem preencher',
           desc: [
             {
+              descId: 'desc_18',
               title: 'Risco econômico',
               quant: '3 indicadores',
             },
@@ -1039,7 +1056,7 @@ const Step2 = ({
               title: 'Risco econômico',
               data: [
                 {
-                  descDataId: 'descData_31',
+                  descDataId: 'descData_34',
                   desc: 'Diversidade produtiva',
                   cri: [
                     {
@@ -1061,7 +1078,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_32',
+                  descDataId: 'descData_35',
                   desc: 'Beneficiamento de produtos',
                   cri: [
                     {
@@ -1082,7 +1099,7 @@ const Step2 = ({
                   ],
                 },
                 {
-                  descDataId: 'descData_33',
+                  descDataId: 'descData_36',
                   desc: 'Dependência de insumos e informações externas',
                   cri: [
                     {
@@ -1109,7 +1126,6 @@ const Step2 = ({
       ],
     },
   ]);
-  const [countForm, setCountForm] = useState(0);
 
   const data = {
     title: `Área ${area}`,
@@ -1165,10 +1181,10 @@ const Step2 = ({
         </View>
       )}
       {!loading &&
-        info.map(indicator => (
+        info.map((indicator, indId) => (
           <>
             <View
-              key={indicator.indId}
+              key={`indId_${indId}`}
               style={{
                 borderBottomWidth: 1,
                 width: '100%',
@@ -1185,9 +1201,9 @@ const Step2 = ({
               />
             </View>
             <Space vertical={16} />
-            {indicator.data.map((item, index) => (
+            {indicator.data.map((item, dataId) => (
               <TouchableOpacity
-                key={item.dataId}
+                key={`indId_${indId}dataId_${dataId}`}
                 style={{
                   borderWidth: 1,
                   borderStyle: 'dashed',
@@ -1210,9 +1226,9 @@ const Step2 = ({
                   color={Colors.textGray}
                 />
                 <Space vertical={8} />
-                {item.desc.map((ind, index) => (
+                {item.desc.map((ind, descId) => (
                   <Text
-                    key={ind.indDescId}
+                    key={`indId_${indId}dataId_${dataId}descId_${descId}`}
                     title={`${ind.title} - ${ind.quant}`}
                     size={16}
                     weight={500}

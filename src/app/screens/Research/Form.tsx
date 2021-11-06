@@ -2,6 +2,7 @@ import {Colors} from '@styles';
 import {
   BiomesDropdown,
   Button,
+  DateTime,
   Header,
   Input,
   Modals,
@@ -9,7 +10,6 @@ import {
   Space,
   UFDropdown,
 } from 'components';
-import {researchPersist} from 'functions';
 import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
@@ -28,6 +28,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
   const [propertyName, setPropertyName] = useState('');
   const [city, setCity] = useState('');
   const [uf, setUf] = useState('');
+  const [createDate, setCreateDate] = useState(new Date());
   const [biome, setBiome] = useState('');
   const [errors, setErrors] = useState({
     biome: '',
@@ -35,6 +36,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     propertyName: '',
     city: '',
     uf: '',
+    createDate: '',
   });
   const verify = () => {
     const biomeVerified = fieldValidate(biome);
@@ -122,6 +124,8 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
           </View>
           <UFDropdown error={errors.uf} setUf={setUf} uf={uf} />
         </Row>
+        <Space vertical={8} />
+        <DateTime createDate={createDate} setCreateDate={setCreateDate} />
         <Space vertical={40} />
         <Button
           title="Avançar"
@@ -137,10 +141,10 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
               const data = {
                 ownerName: ownerName,
                 propertyName: propertyName,
-
                 city: city,
                 uf: uf,
                 biome: biome,
+                createDate: createDate,
               };
               setDataInfo(data);
               setState('research');

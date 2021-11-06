@@ -16,6 +16,8 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =

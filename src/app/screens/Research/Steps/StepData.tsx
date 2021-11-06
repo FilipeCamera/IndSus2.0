@@ -1,13 +1,5 @@
 import {Colors} from '@styles';
-import {
-  Button,
-  Header,
-  InputNota,
-  Modals,
-  Scroll,
-  Space,
-  Text,
-} from 'components';
+import {Header, InputNota, Scroll, Space, Text} from 'components';
 
 import React, {useEffect, useState} from 'react';
 import {
@@ -16,7 +8,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {showMessage} from 'react-native-flash-message';
 
 interface StepDataProps {
   title: string;
@@ -27,46 +18,8 @@ interface StepDataProps {
   setInfo: any;
 }
 
-const StepData = ({
-  title,
-  setDados,
-  dataForm,
-  percent,
-  info,
-  setInfo,
-}: StepDataProps) => {
+const StepData = ({title, setDados, dataForm, percent}: StepDataProps) => {
   const [loading, setLoading] = useState(true);
-  const [total, setTotal] = useState(0);
-  const [complete, setComplete] = useState(0);
-
-  useEffect(() => {
-    let comp = 0;
-    dataForm.map(item => {
-      item.data.map(dta => {
-        dta.cri.map(cr => {
-          if (cr.value !== '') {
-            comp = comp + 1;
-          }
-          setTotal(total + (dta.cri.length + 1) * item.data.length);
-        });
-      });
-    });
-    setComplete(comp);
-  }, []);
-
-  useEffect(() => {
-    if (complete > 0) {
-      if (complete > total / 2) {
-        percent.complete = 'Parcialmente completo';
-      } else if (complete >= total) {
-        percent.complete = 'Completo';
-      } else if (complete < total / 2) {
-        percent.complete = 'Incompleto';
-      }
-    } else {
-      percent.complete = 'Sem preencher';
-    }
-  }, [complete]);
 
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
@@ -122,7 +75,7 @@ const StepData = ({
             </View>
             <Space vertical={20} />
             {!!dataForm &&
-              dataForm.map((item, index) => (
+              dataForm.map((item, indexData) => (
                 <>
                   <View
                     key={item.title}
@@ -141,7 +94,7 @@ const StepData = ({
                     />
                   </View>
                   <Space vertical={16} />
-                  {item.data.map((dta, index) => (
+                  {item.data.map(dta => (
                     <>
                       <Text
                         title={dta.desc}
@@ -196,10 +149,16 @@ const StepData = ({
                               valor={cr.value}
                               onText={e => {
                                 cr.value = e;
-                                if (e === '') {
-                                  setComplete(complete - 1);
+                                if (
+                                  indexData ===
+                                  dataForm.length +
+                                    item.data.length +
+                                    dta.cri.length -
+                                    1
+                                ) {
+                                  percent.complete = 'Completo';
                                 } else {
-                                  setComplete(complete + 1);
+                                  percent.complete = 'Incompleto';
                                 }
                               }}
                             />
