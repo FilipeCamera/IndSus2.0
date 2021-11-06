@@ -6,6 +6,7 @@ import {
   Card,
   Header,
   Modals,
+  RadarChart,
   Scroll,
   Space,
   Text,
@@ -13,6 +14,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
+  Image,
   ScrollView,
   TouchableOpacity,
   View,
@@ -44,6 +46,7 @@ const Step1 = ({
   setDataArea,
 }: StepOneProps) => {
   const [visible, setVisible] = useState(false);
+  const [dataRadar, setDataRadar] = useState<any[]>([]);
   const [areaTitle, setAreaTitle] = useState(
     dataArea.length !== 0 ? dataArea[0].title : 'Área 1',
   );
@@ -87,21 +90,12 @@ const Step1 = ({
       {!!cardPlus && (
         <Card style={{width: '100%'}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {Biomes.map(biome => {
-              if (biome.value === dataInfo.biome) {
-                return (
-                  <View
-                    key={biome.color}
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 15,
-                      backgroundColor: biome.color,
-                    }}
-                  />
-                );
-              }
-            })}
+            <View style={{width: 40, height: 40, borderRadius: 20}}>
+              <Image
+                source={{uri: dataInfo.image}}
+                style={{width: '100%', height: '100%', borderRadius: 999}}
+              />
+            </View>
             <Space horizontal={4} />
             <View>
               <Text
@@ -223,21 +217,12 @@ const Step1 = ({
         )}
         {!cardPlus && (
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            {Biomes.map(biome => {
-              if (biome.value === dataInfo.biome) {
-                return (
-                  <View
-                    key={biome.color}
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 15,
-                      backgroundColor: biome.color,
-                    }}
-                  />
-                );
-              }
-            })}
+            <View style={{width: 40, height: 40, borderRadius: 20}}>
+              <Image
+                source={{uri: dataInfo.image}}
+                style={{width: '100%', height: '100%', borderRadius: 999}}
+              />
+            </View>
             <Space horizontal={4} />
             <View>
               <Text
@@ -320,13 +305,36 @@ const Step1 = ({
                                     height: 45,
                                     justifyContent: 'center',
                                   }}>
-                                  <Text
-                                    lines={1}
-                                    title={cr.desc}
-                                    weight={600}
-                                    size={14}
-                                    color={Colors.secundaryText2}
-                                  />
+                                  <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      alignItems: 'center',
+                                    }}>
+                                    <View
+                                      style={{
+                                        backgroundColor: Colors.lightBlue3,
+                                        width: 20,
+                                        height: 20,
+                                        borderRadius: 10,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                      }}>
+                                      <Text
+                                        title={1}
+                                        size={14}
+                                        weight={600}
+                                        color={Colors.background}
+                                      />
+                                    </View>
+                                    <Space horizontal={4} />
+                                    <Text
+                                      lines={1}
+                                      title={cr.desc}
+                                      weight={600}
+                                      size={14}
+                                      color={Colors.secundaryText2}
+                                    />
+                                  </View>
                                 </View>
                               );
                             }
@@ -414,6 +422,8 @@ const Step1 = ({
         )}
       </Card>
       <Space vertical={30} />
+      {!!cardPlus && <RadarChart />}
+      {!!cardPlus && <Space vertical={30} />}
       <View
         style={{
           width: '100%',

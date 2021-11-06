@@ -9,6 +9,7 @@ import {
   Row,
   Space,
   UFDropdown,
+  UploadImage,
 } from 'components';
 import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
@@ -26,6 +27,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
   const [visible, setVisible] = useState(false);
   const [ownerName, setOwnerName] = useState('');
   const [propertyName, setPropertyName] = useState('');
+  const [image, setImage] = useState('');
   const [city, setCity] = useState('');
   const [uf, setUf] = useState('');
   const [createDate, setCreateDate] = useState(new Date());
@@ -37,6 +39,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     city: '',
     uf: '',
     createDate: '',
+    image: '',
   });
   const verify = () => {
     const biomeVerified = fieldValidate(biome);
@@ -44,6 +47,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     const propertyNameVerified = fieldValidate(propertyName);
     const cityVerified = fieldValidate(city);
     const ufVerified = fieldValidate(uf);
+    const imageVerified = fieldValidate(image);
     setErrors({
       ...errors,
       biome: biomeVerified.error,
@@ -51,6 +55,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
       propertyName: propertyNameVerified.error,
       city: cityVerified.error,
       uf: ufVerified.error,
+      image: imageVerified.error,
     });
 
     if (
@@ -58,7 +63,8 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
       !ownerNameVerified.value &&
       !propertyNameVerified.value &&
       !cityVerified.value &&
-      !ufVerified.value
+      !ufVerified.value &&
+      !imageVerified.value
     ) {
       return true;
     }
@@ -88,13 +94,16 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
             navigation.goBack();
           }}
         />
-        <Space vertical={20} />
-        <BiomesDropdown
-          error={errors.biome}
-          biome={biome}
-          setBiome={setBiome}
-        />
-        <Space vertical={20} />
+        <Space vertical={10} />
+        <Row>
+          <UploadImage image={image} setImage={setImage} />
+          <BiomesDropdown
+            error={errors.biome}
+            biome={biome}
+            setBiome={setBiome}
+          />
+        </Row>
+        <Space vertical={10} />
         <Input
           type="outlined"
           label="Nome do proprietário"
@@ -139,6 +148,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
 
             if (verified) {
               const data = {
+                image: image,
                 ownerName: ownerName,
                 propertyName: propertyName,
                 city: city,

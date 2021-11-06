@@ -12,7 +12,9 @@ const BoxNota = ({cri}: BoxNotaProps) => {
 
   useEffect(() => {
     const result =
-      parseInt(cri[0].value) + parseInt(cri[1].value) + parseInt(cri[2].value);
+      parseFloat(cri[0].value) +
+      parseFloat(cri[1].value) +
+      parseFloat(cri[2].value);
     setNota(result / cri.length);
   }, []);
 

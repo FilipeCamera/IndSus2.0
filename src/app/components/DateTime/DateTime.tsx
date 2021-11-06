@@ -12,10 +12,9 @@ import CalendarIcon from 'assets/svg/calendarIconWhite.svg';
 interface DateTimeProps {
   createDate: any;
   setCreateDate: any;
-  error: any;
 }
 
-const DateTime = ({createDate, setCreateDate, error}: DateTimeProps) => {
+const DateTime = ({createDate, setCreateDate}: DateTimeProps) => {
   const [date, setDate] = useState(createDate);
   const [currentDate, setCurrentDate] = useState<any>();
   const [show, setShow] = useState(false);
@@ -34,9 +33,9 @@ const DateTime = ({createDate, setCreateDate, error}: DateTimeProps) => {
         <DateTimeInContainer>
           <Text
             title={moment(currentDate).format('DD/MM/YYYY')}
-            size={14}
+            size={16}
             weight={500}
-            color={Colors.textGray}
+            color={Colors.textSecundaryBlack}
             center
           />
         </DateTimeInContainer>

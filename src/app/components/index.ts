@@ -18,6 +18,8 @@ import InputNota from './InputNota';
 import Modals from './Modal';
 import BoxNota from './BoxNota';
 import DateTime from './DateTime';
+import UploadImage from './UploadImage';
+import RadarChart from './RadarChart';
 
 export {
   LinearBackground,
@@ -40,4 +42,6 @@ export {
   Modals,
   BoxNota,
   DateTime,
+  UploadImage,
+  RadarChart,
 };

@@ -1131,7 +1131,6 @@ const Step2 = ({
     title: `Área ${area}`,
     info: info,
   };
-  console.tron.log(info);
 
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
