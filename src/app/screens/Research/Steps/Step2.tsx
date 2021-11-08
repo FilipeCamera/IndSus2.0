@@ -11,6 +11,8 @@ interface StepTwoProps {
   setArea: any;
   setDataArea: any;
   dataArea: any[];
+  setDataRadar: any;
+  dataRadar: any[];
 }
 
 const Step2 = ({
@@ -19,6 +21,8 @@ const Step2 = ({
   area,
   setDataArea,
   dataArea,
+  dataRadar,
+  setDataRadar,
 }: StepTwoProps) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,7 +30,44 @@ const Step2 = ({
   const [percent, setPercent] = useState<any>();
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
-  const [count, setCount] = useState(0);
+  const [infoRadar, setInfoRadar] = useState<{}>({
+    fnpk: 8,
+    as: 5.3,
+    mo: 4,
+    pm: 5.8,
+    cpe: 3,
+    rlapp: 10,
+    eap: 8,
+    bv: 5,
+    da: 5,
+    pai: 3,
+    id: 10,
+    cdc: 5,
+    idac: 8,
+    epm: 1,
+    ui: 9,
+    ploap: 6,
+    nice: 7.6,
+    apdas: 5,
+    das: 3,
+    gtx: 6,
+    pcso: 3,
+    AA: 4,
+    abp: 6,
+    mof: 8,
+    ddi: 9,
+    drosp: 10,
+    orpa: 5,
+    pfap: 5,
+    rppsap: 8,
+    irinr: 6,
+    ecpm: 8,
+    phec: 4,
+    cgr: 2,
+    dv: 5,
+    bp: 8,
+    dii: 1,
+  });
   const [info, setInfo] = useState<any[]>([
     {
       indId: 'ind_1',
@@ -1057,7 +1098,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_34',
-                  desc: 'Diversidade produtiva',
+                  desc: 'DP - Diversidade produtiva',
                   cri: [
                     {
                       criId: 'cri_100',
@@ -1079,7 +1120,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_35',
-                  desc: 'Beneficiamento de produtos',
+                  desc: 'BP - Beneficiamento de produtos',
                   cri: [
                     {
                       criId: 'cri_103',
@@ -1100,7 +1141,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_36',
-                  desc: 'Dependência de insumos e informações externas',
+                  desc: 'DII - Dependência de insumos e informações externas',
                   cri: [
                     {
                       criId: 'cri_106',
@@ -1265,6 +1306,7 @@ const Step2 = ({
               shadow={4}
               onPress={() => {
                 setDataArea([...dataArea, data]);
+                setDataRadar([...dataRadar, infoRadar]);
                 setState('research');
               }}
               color={Colors.background}

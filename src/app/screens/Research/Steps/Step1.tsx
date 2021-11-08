@@ -35,6 +35,8 @@ interface StepOneProps {
   dataInfo: any;
   dataArea: any[];
   setDataArea: any;
+  setDataRadar: any;
+  dataRadar: any[];
 }
 
 const Step1 = ({
@@ -44,15 +46,17 @@ const Step1 = ({
   dataInfo,
   dataArea,
   setDataArea,
+  dataRadar,
+  setDataRadar,
 }: StepOneProps) => {
   const [visible, setVisible] = useState(false);
-  const [dataRadar, setDataRadar] = useState<any[]>([]);
   const [areaTitle, setAreaTitle] = useState(
     dataArea.length !== 0 ? dataArea[0].title : 'Área 1',
   );
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
 
+  console.tron.log(dataRadar);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
     return () => {
@@ -422,7 +426,7 @@ const Step1 = ({
         )}
       </Card>
       <Space vertical={30} />
-      {!!cardPlus && <RadarChart />}
+      {!!cardPlus && <RadarChart radarData={dataRadar} />}
       {!!cardPlus && <Space vertical={30} />}
       <View
         style={{

@@ -6,6 +6,7 @@ const Research = ({navigation}: any) => {
   const [state, setState] = useState('form');
   const [dataInfo, setDataInfo] = useState<any>();
   const [dataArea, setDataArea] = useState<any[]>([]);
+  const [dataRadar, setDataRadar] = useState<any[]>([]);
   const [area, setArea] = useState(0);
   return (
     <>
@@ -24,6 +25,8 @@ const Research = ({navigation}: any) => {
           setArea={setArea}
           dataInfo={dataInfo}
           dataArea={dataArea}
+          dataRadar={dataRadar}
+          setDataRadar={setDataRadar}
         />
       )}
       {state === 'data' && (
@@ -33,6 +36,8 @@ const Research = ({navigation}: any) => {
           setArea={setArea}
           dataArea={dataArea}
           setDataArea={setDataArea}
+          dataRadar={dataRadar}
+          setDataRadar={setDataRadar}
         />
       )}
     </>
