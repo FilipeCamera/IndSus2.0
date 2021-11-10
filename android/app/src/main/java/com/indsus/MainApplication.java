@@ -16,6 +16,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 
 public class MainApplication extends Application implements ReactApplication {

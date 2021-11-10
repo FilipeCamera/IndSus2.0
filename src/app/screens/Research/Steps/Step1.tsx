@@ -55,7 +55,7 @@ const Step1 = ({
   );
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
-
+  const [position, setPosition] = useState(0);
   console.tron.log(dataRadar);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
@@ -247,7 +247,7 @@ const Step1 = ({
         <Space vertical={10} />
         {!!dataArea && dataArea.length !== 0 && (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {dataArea.map(area => (
+            {dataArea.map((area, pos) => (
               <TouchableOpacity
                 style={{
                   padding: 8,
@@ -260,6 +260,7 @@ const Step1 = ({
                 }}
                 onPress={() => {
                   setAreaTitle(area.title);
+                  setPosition(pos);
                   setLoading(true);
                 }}>
                 <Text
@@ -426,7 +427,9 @@ const Step1 = ({
         )}
       </Card>
       <Space vertical={30} />
-      {!!cardPlus && <RadarChart radarData={dataRadar} />}
+      {!!cardPlus && (
+        <RadarChart radarData={dataRadar[position]} loading={loading} />
+      )}
       {!!cardPlus && <Space vertical={30} />}
       <View
         style={{
