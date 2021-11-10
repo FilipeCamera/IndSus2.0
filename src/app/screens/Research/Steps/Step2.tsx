@@ -30,43 +30,43 @@ const Step2 = ({
   const [percent, setPercent] = useState<any>();
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
-  const [infoRadar, setInfoRadar] = useState<{}>({
-    fnpk: 4.6,
-    as: 6.5,
-    mo: 2.8,
-    pm: 5.8,
-    cpe: 4.2,
-    rlapp: 10,
+  const [infoRadar, setInfoRadar] = useState({
+    fnpk: 0,
+    as: 0,
+    mo: 0,
+    pm: 0,
+    cpe: 0,
+    rlapp: 0,
     eap: 0,
-    bv: 5,
-    da: 6.7,
-    pai: 2.8,
-    id: 10,
-    cdc: 5,
-    idac: 8,
-    epm: 1,
-    ui: 9,
-    ploap: 6,
-    nice: 7.6,
-    apdas: 5,
-    das: 3,
-    gtx: 6,
-    pcso: 2,
-    aa: 4,
-    abp: 6,
-    mof: 8,
-    ddi: 8.6,
-    drosp: 10,
-    orpa: 5,
-    pfap: 3.8,
-    rppsap: 8,
-    irinr: 6,
-    ecpm: 5.9,
-    phec: 4,
-    cgr: 2,
-    dp: 5,
-    bp: 8,
-    dii: 1,
+    bv: 0,
+    da: 0,
+    pai: 0,
+    id: 0,
+    cdc: 0,
+    idac: 0,
+    epm: 0,
+    ui: 0,
+    ploap: 0,
+    nice: 0,
+    apdas: 0,
+    das: 0,
+    gtx: 0,
+    pcso: 0,
+    aa: 0,
+    abp: 0,
+    mof: 0,
+    ddi: 0,
+    drosp: 0,
+    orpa: 0,
+    pfap: 0,
+    rppsap: 0,
+    irinr: 0,
+    ecpm: 0,
+    phec: 0,
+    cgr: 0,
+    dp: 0,
+    bp: 0,
+    dii: 0,
   });
   const [info, setInfo] = useState<any[]>([
     {
@@ -96,6 +96,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_1',
+                  sigla: 'fnpk',
                   desc: 'FNPK - Fontes de Nitrogênio (N), Fósforo (P) e Potássio (K)',
                   cri: [
                     {
@@ -118,6 +119,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_2',
+                  sigla: 'as',
                   desc: 'AS - Estrutura, textura e compactação do solo',
                   cri: [
                     {
@@ -140,6 +142,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_3',
+                  sigla: 'mo',
                   desc: 'MO - Matéria orgânica no solo',
                   cri: [
                     {
@@ -170,6 +173,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_4',
+                  sigla: 'pm',
                   desc: 'PM - Preparo mecânico da área produtiva',
                   cri: [
                     {
@@ -193,6 +197,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_5',
+                  sigla: 'cpe',
                   desc: 'CPE - Controle de plantas espontâneas',
                   cri: [
                     {
@@ -239,6 +244,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_6',
+                  sigla: 'rlapp',
                   desc: 'RLAPP - Área de RL e APP',
                   cri: [
                     {
@@ -266,6 +272,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_7',
+                  sigla: 'eap',
                   desc: 'EAP - Áreas de entorno da área produtiva',
                   cri: [
                     {
@@ -290,6 +297,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_8',
+                  sigla: 'bv',
                   desc: 'BV - Barreiras vegetais',
                   cri: [
                     {
@@ -311,6 +319,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_9',
+                  sigla: 'da',
                   desc: 'DA - Desenho do agroecossistema',
                   cri: [
                     {
@@ -333,6 +342,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_10',
+                  sigla: 'pai',
                   desc: 'PAI - Diversidade de plantas espontâneas e insetos indesejáveis',
                   cri: [
                     {
@@ -354,6 +364,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_11',
+                  sigla: 'id',
                   desc: 'ID - Incidência de doenças',
                   cri: [
                     {
@@ -376,6 +387,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_12',
+                  sigla: 'cdc',
                   desc: 'CDC - Crescimento dos cultivos',
                   cri: [
                     {
@@ -419,6 +431,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_13',
+                  sigla: 'idac',
                   desc: 'IDAC - Influência nos resultados produtivos das áreas de produção.',
                   cri: [
                     {
@@ -467,6 +480,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_14',
+                  sigla: 'epm',
                   desc: 'EPM - Fontes de energia / combustível (para uso de maquinários)',
                   cri: [
                     {
@@ -488,6 +502,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_15',
+                  sigla: 'ui',
                   desc: 'UI - Uso de insumos',
                   cri: [
                     {
@@ -541,6 +556,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_16',
+                  sigla: 'ploap',
                   desc: 'PLOAP - Proximidade do local de residência com a área produtiva',
                   cri: [
                     {
@@ -570,6 +586,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_17',
+                  sigla: 'nice',
                   desc: 'NICE - Qual nível se considera estar',
                   cri: [
                     {
@@ -611,6 +628,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_18',
+                  sigla: 'apdas',
                   desc: 'APDAS - % da produção destinada ao auto-sustento',
                   cri: [
                     {
@@ -634,6 +652,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_19',
+                  sigla: 'das',
                   desc: 'DAS - Diversificação da produção para auto-sustento',
                   cri: [
                     {
@@ -680,6 +699,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_20',
+                  sigla: 'gtx',
                   desc: 'GTX - Grau de exposição a componentes tóxicos',
                   cri: [
                     {
@@ -708,6 +728,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_21',
+                  sigla: 'pcso',
                   desc: 'PCSO - Participação em cursos, seminários, oficinas',
                   cri: [
                     {
@@ -729,6 +750,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_22',
+                  sigla: 'aa',
                   desc: 'AA - Acesso à água',
                   cri: [
                     {
@@ -750,6 +772,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_23',
+                  sigla: 'abp',
                   desc: 'ABP - Área de beneficiamento de produtos',
                   cri: [
                     {
@@ -801,6 +824,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_24',
+                  sigla: 'mof',
                   desc: 'MOF - Mão de obra familiar',
                   cri: [
                     {
@@ -829,6 +853,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_25',
+                  sigla: 'ddi',
                   desc: 'DDI - Destino dado ao investimento',
                   cri: [
                     {
@@ -850,6 +875,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_26',
+                  sigla: 'drosp',
                   desc: 'DROSP - Distribuição de renda originada do sistema produtivo',
                   cri: [
                     {
@@ -879,6 +905,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_27',
+                  sigla: 'orpa',
                   desc: 'ORPA - Objetivo da realização da produção agroecológica',
                   cri: [
                     {
@@ -900,6 +927,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_28',
+                  sigla: 'pfap',
                   desc: 'PFAP - Planos futuros para a área produtiva',
                   cri: [
                     {
@@ -948,6 +976,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_29',
+                  sigla: 'rppsap',
                   desc: 'RPPSAP - Reservas para a próxima safra',
                   cri: [
                     {
@@ -970,6 +999,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_30',
+                  sigla: 'irinr',
                   desc: 'IRINR - Investimento em recursos/insumos não renováveis',
                   cri: [
                     {
@@ -994,6 +1024,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_31',
+                  sigla: 'ecpm',
                   desc: 'ECPM - Execução do sistema produtivo conforme Plano de Manejo',
                   cri: [
                     {
@@ -1036,6 +1067,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_32',
+                  sigla: 'phec',
                   desc: 'PHEC – Produção (hectares)',
                   cri: [
                     {
@@ -1057,6 +1089,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_33',
+                  sigla: 'cgr',
                   desc: 'CGR - Comercialização (geração de renda)',
                   cri: [
                     {
@@ -1098,6 +1131,7 @@ const Step2 = ({
               data: [
                 {
                   descDataId: 'descData_34',
+                  sigla: 'dp',
                   desc: 'DP - Diversidade produtiva',
                   cri: [
                     {
@@ -1120,6 +1154,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_35',
+                  sigla: 'bp',
                   desc: 'BP - Beneficiamento de produtos',
                   cri: [
                     {
@@ -1141,6 +1176,7 @@ const Step2 = ({
                 },
                 {
                   descDataId: 'descData_36',
+                  sigla: 'dii',
                   desc: 'DII - Dependência de insumos e informações externas',
                   cri: [
                     {
@@ -1171,6 +1207,29 @@ const Step2 = ({
   const data = {
     title: `Área ${area}`,
     info: info,
+  };
+
+  const setLoadRadarInfo = () => {
+    info.map(inf => {
+      inf.data.map(data => {
+        data.ind.map(ind => {
+          ind.data.map(indData => {
+            Object.keys(infoRadar).map(key => {
+              if (key === indData.sigla) {
+                setInfoRadar({
+                  ...infoRadar,
+                  [key]:
+                    (indData.cri[0].value +
+                      indData.cri[1].value +
+                      indData.cri[2].value) /
+                    indData.cri.length,
+                });
+              }
+            });
+          });
+        });
+      });
+    });
   };
 
   useEffect(() => {
@@ -1305,9 +1364,11 @@ const Step2 = ({
               size={15}
               shadow={4}
               onPress={() => {
-                setDataArea([...dataArea, data]);
-                setDataRadar([...dataRadar, infoRadar]);
-                setState('research');
+                setLoadRadarInfo();
+                console.tron.log(infoRadar);
+                //setDataArea([...dataArea, data]);
+                //setDataRadar([...dataRadar, infoRadar]);
+                //setState('research');
               }}
               color={Colors.background}
             />

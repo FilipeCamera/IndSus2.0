@@ -428,7 +428,11 @@ const Step1 = ({
       </Card>
       <Space vertical={30} />
       {!!cardPlus && (
-        <RadarChart radarData={dataRadar[position]} loading={loading} />
+        <RadarChart
+          radarData={dataRadar[position]}
+          loading={loading}
+          title={areaTitle}
+        />
       )}
       {!!cardPlus && <Space vertical={30} />}
       <View

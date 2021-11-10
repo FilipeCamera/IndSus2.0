@@ -9,9 +9,10 @@ import update from 'immutability-helper';
 interface RadarChartProps {
   radarData: any;
   loading: boolean;
+  title: string;
 }
 
-const RadarChartView = ({radarData, loading}: RadarChartProps) => {
+const RadarChartView = ({radarData, loading, title}: RadarChartProps) => {
   const [data, setData] = useState({data: {}, xAxis: {}});
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const RadarChartView = ({radarData, loading}: RadarChartProps) => {
           $set: {
             dataSets: [
               {
-                label: 'Área 1',
+                label: title,
                 config: {
                   color: processColor(Colors.blue),
                   drawFilled: true,
