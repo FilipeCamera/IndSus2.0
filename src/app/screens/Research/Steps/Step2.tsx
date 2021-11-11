@@ -30,44 +30,7 @@ const Step2 = ({
   const [percent, setPercent] = useState<any>();
   const [dados, setDados] = useState(false);
   const [title, setTitle] = useState('');
-  const [infoRadar, setInfoRadar] = useState({
-    fnpk: 0,
-    as: 0,
-    mo: 0,
-    pm: 0,
-    cpe: 0,
-    rlapp: 0,
-    eap: 0,
-    bv: 0,
-    da: 0,
-    pai: 0,
-    id: 0,
-    cdc: 0,
-    idac: 0,
-    epm: 0,
-    ui: 0,
-    ploap: 0,
-    nice: 0,
-    apdas: 0,
-    das: 0,
-    gtx: 0,
-    pcso: 0,
-    aa: 0,
-    abp: 0,
-    mof: 0,
-    ddi: 0,
-    drosp: 0,
-    orpa: 0,
-    pfap: 0,
-    rppsap: 0,
-    irinr: 0,
-    ecpm: 0,
-    phec: 0,
-    cgr: 0,
-    dp: 0,
-    bp: 0,
-    dii: 0,
-  });
+  const [infoRadar, setInfoRadar] = useState({});
   const [info, setInfo] = useState<any[]>([
     {
       indId: 'ind_1',
@@ -1209,22 +1172,21 @@ const Step2 = ({
     info: info,
   };
 
+  console.tron.log(infoRadar);
+
   const setLoadRadarInfo = () => {
     info.map(inf => {
-      inf.data.map(data => {
-        data.ind.map(ind => {
-          ind.data.map(indData => {
-            Object.keys(infoRadar).map(key => {
-              if (key === indData.sigla) {
-                setInfoRadar({
-                  ...infoRadar,
-                  [key]:
-                    (indData.cri[0].value +
-                      indData.cri[1].value +
-                      indData.cri[2].value) /
-                    indData.cri.length,
-                });
-              }
+      inf.data.map((data: any) => {
+        data.ind.map((ind: any) => {
+          ind.data.map((indData: any) => {
+            let result: any =
+              (Number(indData.cri[0].value) +
+                Number(indData.cri[1].value) +
+                Number(indData.cri[2].value)) /
+              indData.cri.length;
+            setInfoRadar({
+              ...infoRadar,
+              [indData.sigla]: result,
             });
           });
         });
@@ -1365,7 +1327,6 @@ const Step2 = ({
               shadow={4}
               onPress={() => {
                 setLoadRadarInfo();
-                console.tron.log(infoRadar);
                 //setDataArea([...dataArea, data]);
                 //setDataRadar([...dataRadar, infoRadar]);
                 //setState('research');
