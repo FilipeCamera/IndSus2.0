@@ -1174,8 +1174,48 @@ const Step2 = ({
 
   console.tron.log(infoRadar);
 
-  const setLoadRadarInfo = () => {
+  const setLoadRadarInfo = async () => {
+    const array: any = [];
+
     info.map(inf => {
+      inf.data.map((data: any) => {
+        data.ind.map((ind: any) => {
+          ind.data.map((indData: any) => {
+            let result =
+              (Number(indData.cri[0].value) +
+                Number(indData.cri[1].value) +
+                Number(indData.cri[2].value)) /
+              indData.cri.length;
+
+            array.push({[indData.sigla]: result.toFixed(2)});
+          });
+        });
+      });
+    });
+
+    if (array.length !== 0) {
+      setDataArea([...dataArea, data]);
+      setDataRadar([...dataRadar, array]);
+      setState('research');
+    }
+    /*setInfoRadar(
+      info.map(inf => {
+        return inf.data.map((data: any) => {
+          return data.ind.map((ind: any) => {
+            return ind.data.map((indData: any) => {
+              let result =
+                (Number(indData.cri[0].value) +
+                  Number(indData.cri[1].value) +
+                  Number(indData.cri[2].value)) /
+                indData.cri.length;
+
+              return {[indData.sigla]: result};
+            });
+          });
+        });
+      }),
+    );*/
+    /*info.map(inf => {
       inf.data.map((data: any) => {
         data.ind.map((ind: any) => {
           ind.data.map((indData: any) => {
@@ -1191,7 +1231,7 @@ const Step2 = ({
           });
         });
       });
-    });
+    });*/
   };
 
   useEffect(() => {
@@ -1325,11 +1365,9 @@ const Step2 = ({
               weight={600}
               size={15}
               shadow={4}
-              onPress={() => {
-                setLoadRadarInfo();
-                //setDataArea([...dataArea, data]);
-                //setDataRadar([...dataRadar, infoRadar]);
-                //setState('research');
+              onPress={async () => {
+                await setLoadRadarInfo();
+                console.tron.log(infoRadar);
               }}
               color={Colors.background}
             />

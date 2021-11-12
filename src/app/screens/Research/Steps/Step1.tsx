@@ -57,6 +57,7 @@ const Step1 = ({
   const [cardPlus, setCardPlus] = useState(false);
   const [position, setPosition] = useState(0);
   console.tron.log(dataRadar);
+  console.tron.log('Posição:', position);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
     return () => {
@@ -87,6 +88,8 @@ const Step1 = ({
         onFunction={() => {
           deleteResearch();
           setDataArea([]);
+          setDataRadar([]);
+          setArea(0);
           setState('form');
         }}
       />
@@ -184,39 +187,46 @@ const Step1 = ({
                 );
               }
             })}
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity
-                style={{
-                  padding: 5,
-                  backgroundColor: Colors.lightBlue3,
-                  borderRadius: 99,
-                }}>
-                <EditIcon />
-              </TouchableOpacity>
-              <Space horizontal={4} />
-              <TouchableOpacity
-                style={{
-                  borderRadius: 15,
-                  backgroundColor: Colors.lightBlue3,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  flexDirection: 'row',
-                }}
-                onPress={() =>
-                  setDataArea(dataArea.filter(area => area.title !== areaTitle))
-                }>
-                <RemoveIcon />
+            {dataArea.length !== 0 && (
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <TouchableOpacity
+                  style={{
+                    padding: 5,
+                    backgroundColor: Colors.lightBlue3,
+                    borderRadius: 99,
+                  }}>
+                  <EditIcon />
+                </TouchableOpacity>
                 <Space horizontal={4} />
-                <Text
-                  title="Excluir"
-                  size={13}
-                  weight={600}
-                  color={Colors.secundaryText2}
-                />
-              </TouchableOpacity>
-            </View>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 15,
+                    backgroundColor: Colors.lightBlue3,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 5,
+                    paddingHorizontal: 10,
+                    flexDirection: 'row',
+                  }}
+                  onPress={() => {
+                    setDataArea(
+                      dataArea.filter(area => area.title !== areaTitle),
+                    );
+                    setDataRadar(dataRadar.filter((a, i) => i !== position));
+                    setPosition(0);
+                    setDataArea(dataArea.length !== 0 ? dataArea[0].title : '');
+                  }}>
+                  <RemoveIcon />
+                  <Space horizontal={4} />
+                  <Text
+                    title="Excluir"
+                    size={13}
+                    weight={600}
+                    color={Colors.secundaryText2}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         )}
         {!cardPlus && (
@@ -315,23 +325,6 @@ const Step1 = ({
                                       flexDirection: 'row',
                                       alignItems: 'center',
                                     }}>
-                                    <View
-                                      style={{
-                                        backgroundColor: Colors.lightBlue3,
-                                        width: 20,
-                                        height: 20,
-                                        borderRadius: 10,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                      }}>
-                                      <Text
-                                        title={1}
-                                        size={14}
-                                        weight={600}
-                                        color={Colors.background}
-                                      />
-                                    </View>
-                                    <Space horizontal={4} />
                                     <Text
                                       lines={1}
                                       title={cr.desc}
@@ -427,7 +420,7 @@ const Step1 = ({
         )}
       </Card>
       <Space vertical={30} />
-      {!!cardPlus && (
+      {!!cardPlus && dataArea.length !== 0 && (
         <RadarChart
           radarData={dataRadar[position]}
           loading={loading}
