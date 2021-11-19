@@ -11,7 +11,7 @@ import {
   Space,
   Text,
 } from 'components';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -37,6 +37,9 @@ interface StepOneProps {
   setDataArea: any;
   setDataRadar: any;
   dataRadar: any[];
+  setDataAreaSelected: any;
+  position: number;
+  setPosition: any;
 }
 
 const Step1 = ({
@@ -48,6 +51,9 @@ const Step1 = ({
   setDataArea,
   dataRadar,
   setDataRadar,
+  setDataAreaSelected,
+  position,
+  setPosition,
 }: StepOneProps) => {
   const [visible, setVisible] = useState(false);
   const [areaTitle, setAreaTitle] = useState(
@@ -55,9 +61,8 @@ const Step1 = ({
   );
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
-  const [position, setPosition] = useState(0);
-  console.tron.log(dataRadar);
-  console.tron.log('Posição:', position);
+
+  console.tron.log(areaTitle);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
     return () => {
@@ -65,6 +70,13 @@ const Step1 = ({
     };
   }, [loading]);
 
+  const handleDeleteArea = useMemo(() => {
+    if (dataArea.length === 0) {
+      setArea(0);
+    }
+    setAreaTitle(dataArea.length !== 0 ? dataArea[0].title : '');
+    setPosition(0);
+  }, [dataArea]);
   return (
     <Scroll>
       <Header
@@ -74,6 +86,7 @@ const Step1 = ({
         onBack={() => setVisible(!visible)}
         onAdd={() => {
           setArea(area + 1);
+
           setState('data');
         }}
         add
@@ -194,6 +207,10 @@ const Step1 = ({
                     padding: 5,
                     backgroundColor: Colors.lightBlue3,
                     borderRadius: 99,
+                  }}
+                  onPress={() => {
+                    setDataAreaSelected(dataArea[position].info);
+                    setState('dataEdit');
                   }}>
                   <EditIcon />
                 </TouchableOpacity>
@@ -213,8 +230,7 @@ const Step1 = ({
                       dataArea.filter(area => area.title !== areaTitle),
                     );
                     setDataRadar(dataRadar.filter((a, i) => i !== position));
-                    setPosition(0);
-                    setDataArea(dataArea.length !== 0 ? dataArea[0].title : '');
+                    handleDeleteArea;
                   }}>
                   <RemoveIcon />
                   <Space horizontal={4} />
@@ -308,35 +324,37 @@ const Step1 = ({
                 {!!dataArea &&
                   dataArea.length !== 0 &&
                   dataArea.map(area => {
-                    return area.info.map(info => {
-                      return info.data.map(data => {
-                        return data.ind.map(ind => {
-                          return ind.data.map(cr => {
-                            if (area.title === areaTitle) {
-                              return (
-                                <View
-                                  style={{
-                                    flexDirection: 'column',
-                                    height: 45,
-                                    justifyContent: 'center',
-                                  }}>
+                    return area.info.map((info: {data: any[]}) => {
+                      return info.data.map((data: {ind: any[]}) => {
+                        return data.ind.map((ind: {data: any[]}) => {
+                          return ind.data.map(
+                            (cr: {desc: string | undefined}) => {
+                              if (area.title === areaTitle) {
+                                return (
                                   <View
                                     style={{
-                                      flexDirection: 'row',
-                                      alignItems: 'center',
+                                      flexDirection: 'column',
+                                      height: 45,
+                                      justifyContent: 'center',
                                     }}>
-                                    <Text
-                                      lines={1}
-                                      title={cr.desc}
-                                      weight={600}
-                                      size={14}
-                                      color={Colors.secundaryText2}
-                                    />
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                      }}>
+                                      <Text
+                                        lines={1}
+                                        title={cr.desc}
+                                        weight={600}
+                                        size={14}
+                                        color={Colors.secundaryText2}
+                                      />
+                                    </View>
                                   </View>
-                                </View>
-                              );
-                            }
-                          });
+                                );
+                              }
+                            },
+                          );
                         });
                       });
                     });
@@ -344,7 +362,7 @@ const Step1 = ({
               </View>
             </View>
             <View style={{flexDirection: 'column', alignItems: 'center'}}>
-              {!!dataArea && dataArea.length !== 0 && (
+              {!!dataArea && areaTitle !== '' && dataArea.length !== 0 && (
                 <>
                   <StarIcon />
                   <Space vertical={2.5} />
@@ -359,10 +377,10 @@ const Step1 = ({
                     {!!dataArea &&
                       dataArea.length !== 0 &&
                       dataArea.map((area, i) => {
-                        return area.info.map(info => {
-                          return info.data.map(data => {
-                            return data.ind.map(ind => {
-                              return ind.data.map(cr => {
+                        return area.info.map((info: {data: any[]}) => {
+                          return info.data.map((data: {ind: any[]}) => {
+                            return data.ind.map((ind: {data: any[]}) => {
+                              return ind.data.map((cr: {cri: any[]}) => {
                                 if (area.title === areaTitle) {
                                   return <BoxNota cri={cr.cri} />;
                                 }
@@ -420,7 +438,7 @@ const Step1 = ({
         )}
       </Card>
       <Space vertical={30} />
-      {!!cardPlus && dataArea.length !== 0 && (
+      {!!cardPlus && areaTitle !== '' && dataArea.length !== 0 && (
         <RadarChart
           radarData={dataRadar[position]}
           loading={loading}

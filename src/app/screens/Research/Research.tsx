@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import Form from './Form';
 import {Step1, Step2} from './Steps';
+import StepEdit from './Steps/StepEdit';
 
 const Research = ({navigation}: any) => {
   const [state, setState] = useState('form');
   const [dataInfo, setDataInfo] = useState<any>();
   const [dataArea, setDataArea] = useState<any[]>([]);
   const [dataRadar, setDataRadar] = useState<any[]>([]);
+  const [position, setPosition] = useState(0);
+  const [dataAreaSelected, setDataAreaSelected] = useState<any[]>([]);
+  const [dataRadarSelected, setDataRadarSelected] = useState<any>();
   const [area, setArea] = useState(0);
   return (
     <>
@@ -26,7 +30,11 @@ const Research = ({navigation}: any) => {
           dataInfo={dataInfo}
           dataArea={dataArea}
           dataRadar={dataRadar}
+          position={position}
+          setPosition={setPosition}
           setDataRadar={setDataRadar}
+          setDataAreaSelected={setDataAreaSelected}
+          setDataRadarSelected={setDataRadarSelected}
         />
       )}
       {state === 'data' && (
@@ -38,6 +46,15 @@ const Research = ({navigation}: any) => {
           setDataArea={setDataArea}
           dataRadar={dataRadar}
           setDataRadar={setDataRadar}
+        />
+      )}
+      {state === 'dataEdit' && (
+        <StepEdit
+          setState={setState}
+          dataAreaSelected={dataAreaSelected}
+          setDataRadar={setDataRadar}
+          dataRadar={dataRadar}
+          position={position}
         />
       )}
     </>
