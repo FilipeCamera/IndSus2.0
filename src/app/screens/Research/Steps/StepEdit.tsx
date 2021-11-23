@@ -74,8 +74,9 @@ const StepEdit = ({
         visible={visible}
         setVisible={setVisible}
         title="Deseja realmente voltar?"
-        textCancel="Cancelar"
-        textOk="Sair"
+        desc="Os dados modificados não serão perdidos"
+        textCancel="Não"
+        textOk="Sim"
         onFunction={async () => {
           await setLoadRadarInfo();
         }}

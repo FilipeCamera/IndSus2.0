@@ -94,7 +94,7 @@ const StepData = ({title, setDados, dataForm, percent}: StepDataProps) => {
                     />
                   </View>
                   <Space vertical={16} />
-                  {item.data.map(dta => (
+                  {item.data.map((dta, dtaIndex) => (
                     <>
                       <Text
                         title={dta.desc}
@@ -150,10 +150,12 @@ const StepData = ({title, setDados, dataForm, percent}: StepDataProps) => {
                               onText={e => {
                                 cr.value = e;
                                 if (
-                                  indexData ===
+                                  indexData + dtaIndex + index ===
                                   dataForm.length +
                                     item.data.length +
                                     dta.cri.length -
+                                    1 -
+                                    1 -
                                     1
                                 ) {
                                   percent.complete = 'Completo';

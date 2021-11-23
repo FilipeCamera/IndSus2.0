@@ -487,6 +487,57 @@ const Step2 = ({
                 },
               ],
             },
+            {
+              indDataId: 'indData_6.1',
+              title: 'Recursos internos',
+              data: [
+                {
+                  descDataId: 'descData_14.1',
+                  sigla: 'iva',
+                  desc: 'IVA - Integração produção vegetal/animal',
+                  cri: [
+                    {
+                      criId: 'cri_43.1',
+                      title: 'não há produção animal',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_44.1',
+                      title:
+                        'há produção animal, mas sem integração com produção vegetal',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_45.1',
+                      title: 'há integração animal/vegetal',
+                      value: '',
+                    },
+                  ],
+                },
+                {
+                  descDataId: 'descData_15.1',
+                  sigla: 'bspm',
+                  desc: 'BSPM - Banco de sementes e produção de mudas',
+                  cri: [
+                    {
+                      criId: 'cri_43.2',
+                      title: 'não há reservas / não há produção',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_44.2',
+                      title: 'produziram parte das sementes e mudas utilizadas',
+                      value: '',
+                    },
+                    {
+                      criId: 'cri_45.2',
+                      title: 'há reserva de sementes e produção de mudas',
+                      value: '',
+                    },
+                  ],
+                },
+              ],
+            },
           ],
         },
       ],
@@ -1198,40 +1249,6 @@ const Step2 = ({
       setDataRadar([...dataRadar, array]);
       setState('research');
     }
-    /*setInfoRadar(
-      info.map(inf => {
-        return inf.data.map((data: any) => {
-          return data.ind.map((ind: any) => {
-            return ind.data.map((indData: any) => {
-              let result =
-                (Number(indData.cri[0].value) +
-                  Number(indData.cri[1].value) +
-                  Number(indData.cri[2].value)) /
-                indData.cri.length;
-
-              return {[indData.sigla]: result};
-            });
-          });
-        });
-      }),
-    );*/
-    /*info.map(inf => {
-      inf.data.map((data: any) => {
-        data.ind.map((ind: any) => {
-          ind.data.map((indData: any) => {
-            let result: any =
-              (Number(indData.cri[0].value) +
-                Number(indData.cri[1].value) +
-                Number(indData.cri[2].value)) /
-              indData.cri.length;
-            setInfoRadar({
-              ...infoRadar,
-              [indData.sigla]: result,
-            });
-          });
-        });
-      });
-    });*/
   };
 
   useEffect(() => {

@@ -11,7 +11,7 @@ import {
   Space,
   Text,
 } from 'components';
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -19,7 +19,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useSelector} from 'react-redux';
 
 import StarIcon from 'assets/svg/star.svg';
 import ResearchBack from 'assets/svg/researchBack.svg';
@@ -73,9 +72,12 @@ const Step1 = ({
   const handleDeleteArea = useMemo(() => {
     if (dataArea.length === 0) {
       setArea(0);
+    } else if (dataArea.length !== 0) {
+      setAreaTitle(dataArea[0].title);
+      setPosition(0);
+    } else {
+      setAreaTitle('');
     }
-    setAreaTitle(dataArea.length !== 0 ? dataArea[0].title : '');
-    setPosition(0);
   }, [dataArea]);
   return (
     <Scroll>
