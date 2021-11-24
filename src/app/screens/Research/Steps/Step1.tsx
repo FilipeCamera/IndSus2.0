@@ -11,10 +11,11 @@ import {
   Space,
   Text,
 } from 'components';
-import React, {useState, useEffect, useCallback, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
   Image,
+  Platform,
   ScrollView,
   TouchableOpacity,
   View,
@@ -24,8 +25,15 @@ import StarIcon from 'assets/svg/star.svg';
 import ResearchBack from 'assets/svg/researchBack.svg';
 import RemoveIcon from 'assets/svg/removeCircleOutline.svg';
 import EditIcon from 'assets/svg/EditLapis.svg';
-import {deleteResearch} from 'functions';
+import {deleteResearch, researchPersist} from 'functions';
 import moment from 'moment';
+
+import {useNetInfo} from '@react-native-community/netinfo';
+import {radarPersist} from 'src/functions/radar';
+import {firestore} from 'firebase';
+import {showMessage} from 'react-native-flash-message';
+import {useSelector} from 'react-redux';
+import {useSendFile} from 'hooks';
 
 interface StepOneProps {
   setState: any;
@@ -33,12 +41,16 @@ interface StepOneProps {
   area: number;
   dataInfo: any;
   dataArea: any[];
+  areaTitle: string;
+  setAreaTitle: any;
   setDataArea: any;
   setDataRadar: any;
+  handleDeleteArea: any;
   dataRadar: any[];
   setDataAreaSelected: any;
   position: number;
   setPosition: any;
+  navigation: any;
 }
 
 const Step1 = ({
@@ -53,15 +65,19 @@ const Step1 = ({
   setDataAreaSelected,
   position,
   setPosition,
+  areaTitle,
+  setAreaTitle,
+  handleDeleteArea,
+  navigation,
 }: StepOneProps) => {
+  const user = useSelector((state: any) => state.auth.user);
+  const connection = useNetInfo();
   const [visible, setVisible] = useState(false);
-  const [areaTitle, setAreaTitle] = useState(
-    dataArea.length !== 0 ? dataArea[0].title : 'Área 1',
-  );
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
-
-  console.tron.log(areaTitle);
+  const [modalVisible, setModalVisible] = useState(false);
+  const {sendFile} = useSendFile();
+  console.tron.log(dataInfo);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
     return () => {
@@ -69,16 +85,72 @@ const Step1 = ({
     };
   }, [loading]);
 
-  const handleDeleteArea = useMemo(() => {
-    if (dataArea.length === 0) {
-      setArea(0);
-    } else if (dataArea.length !== 0) {
-      setAreaTitle(dataArea[0].title);
-      setPosition(0);
+  const handleCreateResearch = () => {
+    if (dataArea.length !== 0) {
+      if (connection.isConnected) {
+        const {image} = dataInfo;
+        const filename = image.substring(image.lastIndexOf('/') + 1);
+        const uploadUri =
+          Platform.OS === 'ios' ? image.replace('file://', '') : image;
+        sendFile({
+          uri: uploadUri,
+          filename,
+          path: 'researchs',
+          onComplete: (url: string) => {
+            firestore()
+              .collection('researches')
+              .doc()
+              .set({
+                image: url,
+                ownerName: dataInfo.ownerName,
+                propertyName: dataInfo.propertyName,
+                city: dataInfo.city,
+                uf: dataInfo.uf,
+                biome: dataInfo.biome,
+                createDate: dataInfo.createDate,
+                data: dataArea,
+                radar: dataRadar,
+                userId: user.uid,
+                createdAt: firestore.FieldValue.serverTimestamp(),
+              })
+              .then(res => {
+                showMessage({
+                  type: 'success',
+                  message: 'Finalizado com sucesso!',
+                  description: 'Sua pesquisa foi criada',
+                });
+                navigation.navigate('Dashboard');
+              })
+              .catch(err => {});
+          },
+          onFail: error => {
+            console.log(error);
+          },
+        });
+      } else {
+        const research = {
+          image: dataInfo.image,
+          biome: dataInfo.biome,
+          ownerName: dataInfo.ownerName,
+          propertyName: dataInfo.propertyName,
+          city: dataInfo.city,
+          uf: dataInfo.uf,
+          data: dataArea,
+        };
+        researchPersist(research);
+        radarPersist(dataRadar);
+        showMessage({
+          type: 'success',
+          message: 'Finalizado com sucesso!',
+          description: 'Sua pesquisa foi criada',
+        });
+        navigation.navigate('Dashboard');
+      }
     } else {
-      setAreaTitle('');
+      setModalVisible(true);
     }
-  }, [dataArea]);
+  };
+
   return (
     <Scroll>
       <Header
@@ -92,6 +164,14 @@ const Step1 = ({
           setState('data');
         }}
         add
+      />
+      <Modals
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        title="Não foi possível finalizar"
+        desc="Você ainda não criou uma área de pesquisa"
+        textOk="Ok"
+        onFunction={() => setModalVisible(false)}
       />
       <Modals
         title="Deseja voltar?"
@@ -459,6 +539,7 @@ const Step1 = ({
           size={15}
           background={Colors.blue}
           color={Colors.background}
+          onPress={() => handleCreateResearch()}
         />
       </View>
       <Space vertical={4} />
@@ -467,3 +548,12 @@ const Step1 = ({
 };
 
 export default Step1;
+function sendFile(arg0: {
+  uri: any;
+  filename: any;
+  path: string;
+  onComplete: (url: string) => void;
+  onFail: (error: any) => void;
+}) {
+  throw new Error('Function not implemented.');
+}

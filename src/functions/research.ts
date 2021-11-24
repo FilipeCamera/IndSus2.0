@@ -3,10 +3,10 @@ import {dispatchAction} from 'store';
 
 const researchPersist = (research: any) => {
   dispatchAction(researchActions.setResearch, {
+    image: research.image,
     biome: research.biome,
     ownerName: research.ownerName,
     propertyName: research.propertyName,
-    address: research.address,
     city: research.city,
     uf: research.uf,
     data: research.data,

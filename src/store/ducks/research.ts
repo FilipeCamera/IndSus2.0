@@ -6,10 +6,10 @@ const delResearch = createAction('research/DEL_RESEARCH')();
 
 const initialState: any = {
   research: {
+    image: undefined,
     biome: undefined,
     ownerName: undefined,
     propertyName: undefined,
-    address: undefined,
     city: undefined,
     uf: undefined,
     data: undefined,

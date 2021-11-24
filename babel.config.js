@@ -24,6 +24,7 @@ const plugins = [
         firebase: './src/config',
         '@actions/auth': './src/store/ducks/auth.ts',
         '@actions/research': './src/store/ducks/research.ts',
+        '@actions/radar': './src/store/ducks/radar.ts',
         functions: './src/functions',
         store: './src/store',
         validation: './src/utils/validation',

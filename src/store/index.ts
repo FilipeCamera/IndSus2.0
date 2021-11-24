@@ -8,7 +8,7 @@ import {Reactotron} from 'firebase';
 const config = {
   key: 'IndSus',
   storage: AsyncStorage,
-  whiteList: ['auth', 'research'],
+  whiteList: ['auth', 'research', 'radar'],
 };
 
 const persistReducers = persistReducer(config, reducers);

@@ -55,30 +55,33 @@ const Modals = ({
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <TouchableOpacity
-            style={{
-              width: '50%',
-              height: 42,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => setVisible(!visible)}>
-            <Text
-              title={textCancel}
-              size={15}
-              weight={500}
-              center
-              color={Colors.blue}
-            />
-          </TouchableOpacity>
+          {!!textCancel && (
+            <TouchableOpacity
+              style={{
+                width: '50%',
+                height: 42,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => setVisible(!visible)}>
+              <Text
+                title={textCancel}
+                size={15}
+                weight={500}
+                center
+                color={Colors.blue}
+              />
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={{
               backgroundColor: Colors.blue,
-              width: '50%',
+              width: textCancel ? '50%' : '100%',
               height: 42,
               alignItems: 'center',
               justifyContent: 'center',
               borderBottomEndRadius: 20,
+              borderBottomStartRadius: textCancel ? 0 : 20,
             }}
             onPress={onFunction}>
             <Text

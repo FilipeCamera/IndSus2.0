@@ -64,6 +64,9 @@
       "@actions/research": [
         "src/store/ducks/research.ts"
       ],
+      "@actions/radar": [
+        "src/store/ducks/radar.ts"
+      ],
       "store": [
         "src/store"
       ],

@@ -15,8 +15,13 @@ import ProfileIcon from 'assets/svg/profileGray.svg';
 
 import {Text} from 'components';
 import {Colors} from '@styles';
+import {useSelector} from 'react-redux';
 
 const Dashboard = () => {
+  const research = useSelector((state: any) => state.research);
+  const radar = useSelector((state: any) => state.radar);
+
+  console.tron.log(research);
   return (
     <>
       <StatusBar
