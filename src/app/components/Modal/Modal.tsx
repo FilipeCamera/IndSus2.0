@@ -1,7 +1,7 @@
 import {Colors} from '@styles';
 import {Space, Text} from 'components';
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {Portal, Modal} from 'react-native-paper';
 
 interface ModalProps {
@@ -12,6 +12,7 @@ interface ModalProps {
   desc: string;
   textCancel: string;
   textOk: string;
+  loading?: boolean;
 }
 
 const Modals = ({
@@ -22,12 +23,13 @@ const Modals = ({
   desc,
   textCancel,
   textOk,
+  loading,
 }: ModalProps) => {
   return (
     <Portal>
       <Modal
         visible={visible}
-        onDismiss={() => setVisible(!visible)}
+        onDismiss={!!loading ? () => setVisible(!visible) : () => {}}
         contentContainerStyle={{
           backgroundColor: Colors.background,
           alignItems: 'center',
@@ -37,16 +39,26 @@ const Modals = ({
         }}>
         <Space vertical={8} />
         <Text title={title} size={18} weight={600} color={Colors.textBlack} />
-        <Space vertical={6} />
-        <View style={{width: '90%'}}>
-          <Text
-            title={desc}
-            size={15}
-            weight={500}
-            center
-            color={Colors.textSecundaryBlack}
-          />
-        </View>
+        {!!loading && (
+          <>
+            <Space vertical={4} />
+            <ActivityIndicator size="large" color={Colors.green} />
+          </>
+        )}
+        {!loading && (
+          <>
+            <Space vertical={6} />
+            <View style={{width: '90%'}}>
+              <Text
+                title={desc}
+                size={15}
+                weight={500}
+                center
+                color={Colors.textSecundaryBlack}
+              />
+            </View>
+          </>
+        )}
         <Space vertical={15} />
         <View
           style={{

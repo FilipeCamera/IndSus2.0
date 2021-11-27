@@ -33,7 +33,7 @@ import {radarPersist} from 'src/functions/radar';
 import {firestore} from 'firebase';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
-import {useSendFile} from 'hooks';
+import {useResearch, useSendFile} from 'hooks';
 
 interface StepOneProps {
   setState: any;
@@ -71,11 +71,14 @@ const Step1 = ({
   navigation,
 }: StepOneProps) => {
   const user = useSelector((state: any) => state.auth.user);
+  const {getResearchUserId} = useResearch();
   const connection = useNetInfo();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [finalVisible, setFinalVisible] = useState(false);
+  const [finalLoading, setFinalLoading] = useState(true);
   const {sendFile} = useSendFile();
   console.tron.log(dataInfo);
   useEffect(() => {
@@ -87,6 +90,7 @@ const Step1 = ({
 
   const handleCreateResearch = () => {
     if (dataArea.length !== 0) {
+      setFinalVisible(true);
       if (connection.isConnected) {
         const {image} = dataInfo;
         const filename = image.substring(image.lastIndexOf('/') + 1);
@@ -96,8 +100,8 @@ const Step1 = ({
           uri: uploadUri,
           filename,
           path: 'researchs',
-          onComplete: (url: string) => {
-            firestore()
+          onComplete: async (url: string) => {
+            await firestore()
               .collection('researches')
               .doc()
               .set({
@@ -108,18 +112,28 @@ const Step1 = ({
                 uf: dataInfo.uf,
                 biome: dataInfo.biome,
                 createDate: dataInfo.createDate,
-                data: dataArea,
-                radar: dataRadar,
                 userId: user.uid,
                 createdAt: firestore.FieldValue.serverTimestamp(),
               })
-              .then(res => {
-                showMessage({
-                  type: 'success',
-                  message: 'Finalizado com sucesso!',
-                  description: 'Sua pesquisa foi criada',
+              .then(() => {
+                getResearchUserId({
+                  userId: user.uid,
+                  onComplete: async (uid: any) => {
+                    if (uid) {
+                      await firestore()
+                        .collection('dataAreas')
+                        .doc(uid)
+                        .set(Object.assign({}, dataArea));
+                      await firestore()
+                        .collection('radarAreas')
+                        .doc(uid)
+                        .set(Object.assign({}, dataRadar));
+
+                      setFinalLoading(false);
+                    }
+                  },
+                  onFail: err => {},
                 });
-                navigation.navigate('Dashboard');
               })
               .catch(err => {});
           },
@@ -128,6 +142,7 @@ const Step1 = ({
           },
         });
       } else {
+        setFinalVisible(true);
         const research = {
           image: dataInfo.image,
           biome: dataInfo.biome,
@@ -139,12 +154,7 @@ const Step1 = ({
         };
         researchPersist(research);
         radarPersist(dataRadar);
-        showMessage({
-          type: 'success',
-          message: 'Finalizado com sucesso!',
-          description: 'Sua pesquisa foi criada',
-        });
-        navigation.navigate('Dashboard');
+        setFinalLoading(false);
       }
     } else {
       setModalVisible(true);
@@ -172,6 +182,18 @@ const Step1 = ({
         desc="Você ainda não criou uma área de pesquisa"
         textOk="Ok"
         onFunction={() => setModalVisible(false)}
+      />
+      <Modals
+        visible={finalVisible}
+        setVisible={setFinalVisible}
+        title="Finalizando a pesquisa"
+        desc="Pesquisa concluída com sucesso"
+        textOk="Ok"
+        loading={finalLoading}
+        onFunction={() => {
+          setFinalVisible(false);
+          navigation.navigate('Dashboard');
+        }}
       />
       <Modals
         title="Deseja voltar?"
