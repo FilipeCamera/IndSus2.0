@@ -44,7 +44,15 @@ const Header = ({
             <BackIcon />
           </HeaderCommonButton>
         )}
-        <Text title={title} size={20} weight={700} color={Colors.textBlack} />
+        <View style={{width: '75%'}}>
+          <Text
+            title={title}
+            size={20}
+            weight={700}
+            color={Colors.textBlack}
+            center
+          />
+        </View>
         {!!alert && (
           <HeaderCommonButton alert={alert} onPress={() => {}}>
             <AlertIcon />

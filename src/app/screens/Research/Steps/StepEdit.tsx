@@ -25,6 +25,7 @@ const StepEdit = ({
   const [dadosEdit, setDadosEdit] = useState(false);
   const [title, setTitle] = useState('');
   const [dataForm, setDataForm] = useState([]);
+  const [quantInd, setQuantInd] = useState(0);
   const [info, setInfo] = useState<any[]>(dataAreaSelected);
 
   const setLoadRadarInfo = async () => {
@@ -65,6 +66,7 @@ const StepEdit = ({
         title={title}
         dataForm={dataForm}
         setDadosEdit={setDadosEdit}
+        quantInd={quantInd}
       />
     );
   }
@@ -131,6 +133,7 @@ const StepEdit = ({
                 onPress={() => {
                   setDataForm(item.ind);
                   setTitle(item.title);
+                  setQuantInd(item.quantInd);
                   setDadosEdit(!dadosEdit);
                 }}>
                 <Text

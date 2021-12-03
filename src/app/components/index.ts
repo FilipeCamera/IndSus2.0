@@ -20,6 +20,7 @@ import BoxNota from './BoxNota';
 import DateTime from './DateTime';
 import UploadImage from './UploadImage';
 import RadarChart from './RadarChart';
+import RadarChartInd from './RadarChartInd';
 
 export {
   LinearBackground,
@@ -44,4 +45,5 @@ export {
   DateTime,
   UploadImage,
   RadarChart,
+  RadarChartInd,
 };

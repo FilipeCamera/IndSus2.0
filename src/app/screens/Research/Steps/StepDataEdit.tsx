@@ -1,5 +1,13 @@
 import {Colors} from '@styles';
-import {Header, InputNota, Scroll, Space, Text} from 'components';
+import {
+  Button,
+  Header,
+  InputNota,
+  RadarChartInd,
+  Scroll,
+  Space,
+  Text,
+} from 'components';
 
 import React, {useEffect, useState} from 'react';
 import {
@@ -16,10 +24,38 @@ interface StepDataProps {
   percent: string;
   info: any;
   setInfo: any;
+  quantInd: number;
 }
 
-const StepDataEdit = ({title, setDadosEdit, dataForm}: StepDataProps) => {
+const StepDataEdit = ({
+  title,
+  setDadosEdit,
+  dataForm,
+  quantInd,
+}: StepDataProps) => {
   const [loading, setLoading] = useState(true);
+  const [radar, setRadar] = useState(false);
+  const [data, setData] = useState<any[]>([]);
+
+  const generateGraph = () => {
+    const array: any = [];
+    dataForm.map(item => {
+      item.data.map(data => {
+        let result =
+          (Number(data.cri[0].value) +
+            Number(data.cri[1].value) +
+            Number(data.cri[2].value)) /
+          data.cri.length;
+
+        array.push({
+          value: result.toFixed(2),
+          sigla: data.desc.substr(0, 4).replace('-', '').trim(),
+        });
+      });
+    });
+
+    setData(array);
+  };
 
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
@@ -27,6 +63,12 @@ const StepDataEdit = ({title, setDadosEdit, dataForm}: StepDataProps) => {
       clearInterval(load);
     };
   }, []);
+
+  useEffect(() => {
+    if (data.length !== 0) {
+      setRadar(true);
+    }
+  }, [data]);
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
@@ -160,6 +202,21 @@ const StepDataEdit = ({title, setDadosEdit, dataForm}: StepDataProps) => {
                   ))}
                 </>
               ))}
+            {!radar && quantInd > 2 && (
+              <View style={{width: '100%'}}>
+                <Button
+                  title="Gerar Gráfico"
+                  size={15}
+                  weight={600}
+                  color={Colors.background}
+                  shadow={4}
+                  onPress={() => generateGraph()}
+                />
+              </View>
+            )}
+            {!!radar && data.length !== 0 && (
+              <RadarChartInd radarData={data} title={title} />
+            )}
           </>
         )}
       </Scroll>

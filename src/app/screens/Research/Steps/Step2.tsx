@@ -26,6 +26,7 @@ const Step2 = ({
 }: StepTwoProps) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [quantInd, setQuantInd] = useState(0);
   const [dataForm, setDataForm] = useState([]);
   const [percent, setPercent] = useState<any>();
   const [dados, setDados] = useState(false);
@@ -38,6 +39,7 @@ const Step2 = ({
         {
           title: 'Solo',
           complete: 'Sem preencher',
+          quantInd: 5,
           desc: [
             {
               title: 'Propriedades do solo',
@@ -161,6 +163,7 @@ const Step2 = ({
         {
           title: 'Biodiversidade e Paisagem',
           complete: 'Sem preencher',
+          quantInd: 7,
           desc: [
             {
               title: 'Vegetação Natural',
@@ -320,6 +323,7 @@ const Step2 = ({
         {
           title: 'Micro-clima',
           complete: 'Sem preencher',
+          quantInd: 1,
           desc: [
             {
               title: 'Alterações',
@@ -357,6 +361,7 @@ const Step2 = ({
         {
           title: 'Recursos naturais disponíveis',
           complete: 'Sem preencher',
+          quantInd: 4,
           desc: [
             {
               title: 'Recursos externos',
@@ -461,6 +466,7 @@ const Step2 = ({
         {
           title: 'Trajetória de vida das famílias',
           complete: 'Sem preencher',
+          quantInd: 2,
           desc: [
             {
               title: 'Origem das famílias',
@@ -526,6 +532,7 @@ const Step2 = ({
         {
           title: 'Segurança alimentar',
           complete: 'Sem preencher',
+          quantInd: 2,
           desc: [
             {
               title: 'Produção para o auto-sustento',
@@ -581,6 +588,7 @@ const Step2 = ({
         {
           title: 'Qualidade de vida',
           complete: 'Sem preencher',
+          quantInd: 4,
           desc: [
             {
               title: 'Saúde',
@@ -680,6 +688,7 @@ const Step2 = ({
         {
           title: 'Organização do trabalho',
           complete: 'Sem preencher',
+          quantInd: 5,
           desc: [
             {
               title: 'Trabalho coletivo',
@@ -814,6 +823,7 @@ const Step2 = ({
         {
           title: 'Planejamento produtivo',
           complete: 'Sem preencher',
+          quantInd: 3,
           desc: [
             {
               title: 'Capacidade de investimento e gestão',
@@ -890,6 +900,7 @@ const Step2 = ({
           title:
             'Eficiência econômica da produção agrícola da área/local de produção',
           complete: 'Sem preencher',
+          quantInd: 2,
           desc: [
             {
               title: 'Produtividade',
@@ -943,6 +954,7 @@ const Step2 = ({
         {
           title: 'Estabilidade econômica da área/local de produção',
           complete: 'Sem preencher',
+          quantInd: 3,
           desc: [
             {
               title: 'Risco econômico',
@@ -1060,6 +1072,7 @@ const Step2 = ({
     return (
       <StepData
         title={title}
+        quantInd={quantInd}
         percent={percent}
         setDados={setDados}
         dataForm={dataForm}
@@ -1133,6 +1146,7 @@ const Step2 = ({
                   setDataForm(item.ind);
                   setPercent(item);
                   setTitle(item.title);
+                  setQuantInd(item.quantInd);
                   setDados(!dados);
                 }}>
                 <Text
