@@ -12,6 +12,8 @@ const initialState: any = {
     propertyName: undefined,
     city: undefined,
     uf: undefined,
+    createDate: undefined,
+    token: undefined,
     data: undefined,
   },
 };

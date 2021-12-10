@@ -71,7 +71,7 @@ const Step1 = ({
   navigation,
 }: StepOneProps) => {
   const user = useSelector((state: any) => state.auth.user);
-  const {getResearchUserId} = useResearch();
+  const {getResearchDataToken} = useResearch();
   const connection = useNetInfo();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -79,21 +79,34 @@ const Step1 = ({
   const [modalVisible, setModalVisible] = useState(false);
   const [finalVisible, setFinalVisible] = useState(false);
   const [finalLoading, setFinalLoading] = useState(true);
+  const [token, setToken] = useState('');
   const {sendFile} = useSendFile();
-  console.tron.log(dataInfo);
+
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
+    function generateToken(n: number) {
+      const chars =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let token = '';
+      for (var i = 0; i < n; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+      }
+      setToken(token);
+    }
+    generateToken(16);
     return () => {
       clearInterval(load);
     };
   }, [loading]);
 
-  const handleCreateResearch = () => {
+  const handleCreateResearch = async () => {
+    console.tron.log('Connection:', connection.isConnected);
     if (dataArea.length !== 0) {
       setFinalVisible(true);
-      if (connection.isConnected) {
+      if (connection.isConnected && connection.isInternetReachable) {
         const {image} = dataInfo;
-        const filename = image.substring(image.lastIndexOf('/') + 1);
+        const filename =
+          Date.now().toString() + image.substring(image.lastIndexOf('/') + 1);
         const uploadUri =
           Platform.OS === 'ios' ? image.replace('file://', '') : image;
         sendFile({
@@ -113,11 +126,12 @@ const Step1 = ({
                 biome: dataInfo.biome,
                 createDate: dataInfo.createDate,
                 userId: user.uid,
+                token: token,
                 createdAt: firestore.FieldValue.serverTimestamp(),
               })
               .then(() => {
-                getResearchUserId({
-                  userId: user.uid,
+                getResearchDataToken({
+                  token: token,
                   onComplete: async (uid: any) => {
                     if (uid) {
                       await firestore()
@@ -134,6 +148,7 @@ const Step1 = ({
                   },
                   onFail: err => {},
                 });
+                setFinalLoading(false);
               })
               .catch(err => {});
           },
@@ -142,7 +157,6 @@ const Step1 = ({
           },
         });
       } else {
-        setFinalVisible(true);
         const research = {
           image: dataInfo.image,
           biome: dataInfo.biome,
@@ -150,6 +164,8 @@ const Step1 = ({
           propertyName: dataInfo.propertyName,
           city: dataInfo.city,
           uf: dataInfo.uf,
+          token: token,
+          createDate: dataInfo.createDate,
           data: dataArea,
         };
         researchPersist(research);

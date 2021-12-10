@@ -9,6 +9,8 @@ const researchPersist = (research: any) => {
     propertyName: research.propertyName,
     city: research.city,
     uf: research.uf,
+    createDate: research.createDate,
+    token: research.token,
     data: research.data,
   });
 };
@@ -22,6 +24,8 @@ const deleteResearch = () => {
       address: undefined,
       city: undefined,
       uf: undefined,
+      token: undefined,
+      createDate: undefined,
       data: undefined,
     });
     resolve(true);

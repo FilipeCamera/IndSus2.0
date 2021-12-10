@@ -1,10 +1,10 @@
 import {firestore} from 'firebase';
 
 const useResearch = () => {
-  const getResearchUserId = async ({userId, onComplete, onFail}: any) => {
+  const getResearchDataToken = async ({token, onComplete, onFail}: any) => {
     firestore()
       .collection('researches')
-      .where('userId', '==', userId)
+      .where('token', '==', token)
       .get()
       .then(querySnapshot => {
         const uid = querySnapshot.docs.map(research => research.id);
@@ -13,7 +13,7 @@ const useResearch = () => {
       .catch(err => onFail(err));
   };
 
-  return {getResearchUserId};
+  return {getResearchDataToken};
 };
 
 export default useResearch;

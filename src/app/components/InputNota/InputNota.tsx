@@ -13,7 +13,7 @@ const InputNota = ({onText, valor}: InputNotaProps) => {
   return (
     <TextInput
       value={value}
-      keyboardType="numeric"
+      keyboardType="decimal-pad"
       style={{
         borderRadius: 8,
         borderWidth: 1,
