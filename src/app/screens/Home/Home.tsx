@@ -296,7 +296,7 @@ const Home = ({navigation}: any) => {
           </View>
         </Card>
         <Space vertical={25} />
-        <Board title="Pesquisas" />
+        <Board title="Pesquisas" navigation={navigation} />
       </View>
       <RoundedButton onPress={() => navigation.navigate('Research')}>
         <Icon name="add" size={36} color={Colors.background} />

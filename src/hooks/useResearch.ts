@@ -13,7 +13,22 @@ const useResearch = () => {
       .catch(err => onFail(err));
   };
 
-  return {getResearchDataToken};
+  const getResearchesByUser = async ({userId, onComplete, onFail}: any) => {
+    firestore()
+      .collection('researches')
+      .where('userId', '==', userId)
+      .get()
+      .then(querySnapshot => {
+        const researches = querySnapshot.docs.map(research => ({
+          research: research.data(),
+          id: research.id,
+        }));
+
+        onComplete(researches);
+      })
+      .catch(err => onFail(err));
+  };
+  return {getResearchDataToken, getResearchesByUser};
 };
 
 export default useResearch;

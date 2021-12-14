@@ -7,9 +7,10 @@ import {Colors} from '@styles';
 
 interface BoardProps {
   title: string;
+  navigation: any;
 }
 
-const Board = ({title}: BoardProps) => {
+const Board = ({title, navigation}: BoardProps) => {
   const [active, setActive] = useState({
     today: true,
     week: false,
@@ -24,14 +25,14 @@ const Board = ({title}: BoardProps) => {
           weight={500}
           mode="text"
           color={Colors.blue}
-          onPress={() => {}}
+          onPress={() => navigation.navigate('Researches')}
         />
       </Row>
       <Space vertical={6} />
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <ButtonTap
           active={active.today}
-          onPress={() => setActive({today: true, week: false, month: false})}>
+          onPress={() => setActive({today: true, week: false})}>
           <Text
             title="Hoje"
             size={15}
@@ -41,7 +42,7 @@ const Board = ({title}: BoardProps) => {
         </ButtonTap>
         <ButtonTap
           active={active.week}
-          onPress={() => setActive({today: false, week: true, month: false})}>
+          onPress={() => setActive({today: false, week: true})}>
           <Text
             title="Semana"
             size={15}
