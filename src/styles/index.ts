@@ -8,6 +8,7 @@ export const Colors = {
   outlineColor: '#858C94',
   secundaryText2: '#202A40',
   textGray: '#5C6666',
+  textGray2: '#454C4C',
   secundaryTextGray: '#A5A5A5',
   linearStart: '#73B5FF',
   linearEnd: '#409AFF',

@@ -15,3 +15,10 @@ export const ButtonResearchCircle = styled.TouchableOpacity`
   border-radius: 999px;
   padding: 8px;
 `;
+
+export const ButtonResearch = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+`;
