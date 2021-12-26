@@ -5,43 +5,67 @@ import {Header, Scroll, Space, Text} from 'components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useResearch} from 'hooks';
 import {useSelector} from 'react-redux';
-import {
-  ButtonResearch,
-  ButtonResearchCircle,
-  ResearchBoxContainer,
-} from './styles';
+import {ButtonResearch, ResearchBoxContainer} from './styles';
 import Line from 'assets/svg/line.svg';
-import Trash from 'assets/svg/trash.svg';
-import Visible from 'assets/svg/visible.svg';
-import Share from 'assets/svg/share.svg';
 import moment from 'moment';
+import ResearchInfo from './ResearchInfo';
+import Biomes from '@biomes';
+
+moment.updateLocale('pt', {
+  months: [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ],
+});
 
 const Researches = () => {
-  moment.locale('pt-br');
   const user = useSelector((state: any) => state.auth.user);
   const [loading, setLoading] = useState<boolean>(true);
   const [researches, setResearches] = useState<any[]>([]);
   const {getResearchesByUser} = useResearch();
-  const meses = [
-    {br: 'Janeiro', us: 'January'},
-    {br: 'Fevereiro', us: 'February'},
-    {br: 'Março', us: 'March'},
-    {br: 'Abril', us: 'April'},
-    {br: 'Maio', us: 'May'},
-    {br: 'Junho', us: 'June'},
-    {br: 'Julho', us: 'Jaly'},
-    {br: 'Agosto', us: 'August'},
-    {br: 'Setembro', us: 'September'},
-    {br: 'Outubro', us: 'October'},
-    {br: 'Novembro', us: 'November'},
-    {br: 'Dezembro', us: 'December'},
-  ];
+  const [research, setResearch] = useState<any>();
+  const [info, setInfo] = useState<boolean>(false);
+
+  const handleResearch = (item: any) => {
+    setResearch(item);
+    setInfo(true);
+  };
 
   useEffect(() => {
     getResearchesByUser({
       userId: user.uid,
       onComplete: (res: any) => {
         if (res) {
+          res.sort(function (item, item2) {
+            if (
+              moment.unix(item.research.createDate).format('MMMM') <
+              moment.unix(item2.research.createDate).format('MMMM')
+            ) {
+              return 1;
+            }
+            if (
+              moment.unix(item.research.createDate).format('MMMM') >
+              moment.unix(item2.research.createDate).format('MMMM')
+            ) {
+              return -1;
+            }
+            if (
+              moment.unix(item.research.createDate).format('MMMM') ===
+              moment.unix(item2.research.createDate).format('MMMM')
+            ) {
+              return 0;
+            }
+          });
           setResearches(res);
           setLoading(false);
         }
@@ -49,6 +73,10 @@ const Researches = () => {
       onFail: (err: any) => {},
     });
   }, []);
+
+  if (info) {
+    return <ResearchInfo researh={research} onBack={() => setInfo(false)} />;
+  }
   return (
     <Scroll>
       <Header mode="avatar" />
@@ -71,117 +99,127 @@ const Researches = () => {
       {!loading && researches.length !== 0 && <Space vertical={20} />}
       {!loading &&
         researches.length !== 0 &&
-        meses.map(mes => {
-          return (
-            <View>
+        researches.map(item => (
+          <ResearchBoxContainer key={item.id}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
               <View
                 style={{
-                  borderBottomWidth: 1,
-                  borderColor: Colors.lightGray,
-                  padding: 5,
+                  backgroundColor: Colors.lightBlue2,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingVertical: 5,
+                  borderRadius: 12,
+                  width: 90,
                 }}>
                 <Text
-                  title={mes.br}
-                  size={18}
+                  title={moment
+                    .unix(item.research.createDate.seconds)
+                    .format('MMMM - YYYY')}
+                  size={10}
                   weight={600}
-                  color={Colors.textGray2}
-                  center
+                  color={Colors.blue}
                 />
               </View>
-
-              {researches.map(item => {
-                if (
-                  moment
-                    .unix(item.research.createDate.seconds)
-                    .format('MMMM') === mes.us
-                ) {
+              <Space horizontal={4} />
+              {Biomes.map(biome => {
+                if (biome.value === item.research.biome) {
                   return (
-                    <ResearchBoxContainer key={item.id}>
-                      <ButtonResearch>
-                        <View
-                          style={{
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}>
-                          <Text
-                            title="Dia"
-                            size={12}
-                            weight={600}
-                            color={Colors.textGray2}
-                          />
-                          <Space vertical={2} />
-                          <View
-                            style={{
-                              borderRadius: 999,
-                              backgroundColor: Colors.lightBlue2,
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              padding: 8,
-                            }}>
-                            <Text
-                              title={moment
-                                .unix(item.research.createDate.seconds)
-                                .format('DD')}
-                              size={14}
-                              weight={600}
-                              color={Colors.blue}
-                            />
-                          </View>
-                        </View>
-                        <Space horizontal={8} />
-                        <View
-                          style={{flexDirection: 'row', alignItems: 'center'}}>
-                          <View>
-                            <Text
-                              title={item.research.propertyName}
-                              size={16}
-                              weight={600}
-                              color={Colors.textMediumBlack}
-                            />
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                              }}>
-                              <Text
-                                title={item.research.city}
-                                size={14}
-                                weight={500}
-                                color={Colors.textGray}
-                              />
-                              <Text
-                                title=","
-                                size={14}
-                                weight={500}
-                                color={Colors.textGray}
-                              />
-                              <Space horizontal={1} />
-                              <Text
-                                title={item.research.uf}
-                                size={14}
-                                weight={500}
-                                color={Colors.textGray}
-                              />
-                            </View>
-                          </View>
-                        </View>
-                      </ButtonResearch>
-                      <Line
-                        style={{
-                          position: 'absolute',
-                          bottom: 0,
-                          alignSelf: 'center',
-                        }}
+                    <View
+                      style={{
+                        backgroundColor: Colors.lightBlue2,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingVertical: 5,
+                        borderRadius: 12,
+                        width: 90,
+                      }}>
+                      <Text
+                        title={item.research.biome}
+                        size={10}
+                        weight={600}
+                        color={biome.color}
                       />
-                    </ResearchBoxContainer>
+                    </View>
                   );
                 }
               })}
-              <Space vertical={8} />
             </View>
-          );
-        })}
+            <Space vertical={5} />
+            <ButtonResearch onPress={() => handleResearch(item.research)}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  width: '100%',
+                  paddingLeft: 20,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      title="Dia"
+                      size={12}
+                      weight={600}
+                      color={Colors.textGray2}
+                    />
+                    <Space vertical={2} />
+                    <View
+                      style={{
+                        width: 35,
+                        height: 35,
+                        borderRadius: 17.5,
+                        backgroundColor: Colors.lightBlue2,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        title={moment
+                          .unix(item.research.createDate)
+                          .format('DD')}
+                        size={16}
+                        weight={600}
+                        color={Colors.blue}
+                      />
+                    </View>
+                  </View>
+                  <Space horizontal={6} />
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                    }}>
+                    <Text
+                      title={item.research.propertyName}
+                      size={16}
+                      weight={600}
+                      color={Colors.textMediumBlack}
+                    />
+                    <Text
+                      title={`${item.research.city}, ${item.research.uf}`}
+                      size={14}
+                      weight={500}
+                      color={Colors.textGray}
+                    />
+                  </View>
+                </View>
+              </View>
+
+              <Line style={{position: 'absolute', bottom: -10}} />
+            </ButtonResearch>
+          </ResearchBoxContainer>
+        ))}
     </Scroll>
   );
 };

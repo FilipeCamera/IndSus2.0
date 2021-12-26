@@ -1,4 +1,7 @@
 import {firestore} from 'firebase';
+import moment from 'moment';
+
+moment.locale('pt-br');
 
 const useResearch = () => {
   const getResearchDataToken = async ({token, onComplete, onFail}: any) => {

@@ -2,11 +2,10 @@ import {Colors} from '@styles';
 import styled from 'styled-components/native';
 
 export const ResearchBoxContainer = styled.View`
-  flex-direction: row;
-  margin: 8px 0;
+  flex-direction: column;
+  margin: 8px 0 32px;
   width: 100%;
-  padding: 16px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 

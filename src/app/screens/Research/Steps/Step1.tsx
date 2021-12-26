@@ -586,12 +586,3 @@ const Step1 = ({
 };
 
 export default Step1;
-function sendFile(arg0: {
-  uri: any;
-  filename: any;
-  path: string;
-  onComplete: (url: string) => void;
-  onFail: (error: any) => void;
-}) {
-  throw new Error('Function not implemented.');
-}
