@@ -22,9 +22,10 @@ import {useRadarDataArea, useResearch} from 'hooks';
 import Biomes from '@biomes';
 
 import StarIcon from 'assets/svg/star.svg';
-import ResearchBack from 'assets/svg/researchBack.svg';
-import RemoveIcon from 'assets/svg/removeCircleOutline.svg';
-import EditIcon from 'assets/svg/EditLapis.svg';
+import ShareIcon from 'assets/svg/share.svg';
+import RemoveIcon from 'assets/svg/trash.svg';
+import VisibleIcon from 'assets/svg/visible.svg';
+import ResearchInfoDetails from './ResearchInfoDetails';
 
 interface Props {
   onBack: () => any;
@@ -39,11 +40,12 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   const [loadingInfo, setLoadingInfo] = useState<boolean>(true);
   const [dataInfo, setDataInfo] = useState<any[]>([]);
   const [radarInfo, setRadarInfo] = useState<any[]>([]);
+  const [details, setDetails] = useState<boolean>(false);
+  const [researchDetails, setResearchDetails] = useState<any[]>([]);
   const [position, setPosition] = useState(0);
   const [areaTitle, setAreaTitle] = useState(
     dataInfo.length !== 0 ? dataInfo[0].title : 'Área 1',
   );
-  const [dataAreaSelected, setDataAreaSelected] = useState<any[]>([]);
 
   useEffect(() => {
     getResearchDataToken({
@@ -90,7 +92,15 @@ const ResearchInfo = ({onBack, researh}: Props) => {
       setTimeout(() => setLoadingInfo(false), 1000);
     }
   }, [loadingInfo]);
-  console.tron.log(radarInfo[position]);
+
+  if (details === true) {
+    return (
+      <ResearchInfoDetails
+        onBack={() => setDetails(false)}
+        researchDetails={researchDetails}
+      />
+    );
+  }
   return (
     <Scroll>
       <Header title="Pesquisa" back alert onBack={onBack} mode="common" />
@@ -103,64 +113,98 @@ const ResearchInfo = ({onBack, researh}: Props) => {
         <>
           <Space vertical={16} />
           <Card style={{width: '100%'}}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{width: 40, height: 40, borderRadius: 20}}>
-                <Image
-                  source={{uri: researh.image}}
-                  style={{width: '100%', height: '100%', borderRadius: 999}}
-                />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View style={{width: 40, height: 40, borderRadius: 20}}>
+                    <Image
+                      source={{uri: researh.image}}
+                      style={{width: '100%', height: '100%', borderRadius: 999}}
+                    />
+                  </View>
+                  <Space horizontal={4} />
+                  <View>
+                    <Text
+                      title={researh.propertyName}
+                      size={16}
+                      weight={500}
+                      color={Colors.secundaryText2}
+                    />
+                    <Text
+                      title={`${researh.city}, ${researh.uf}`}
+                      size={14}
+                      weight={500}
+                      color={Colors.secundaryTextGray}
+                    />
+                  </View>
+                </View>
+                <Space vertical={8} />
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text
+                    title="Data:"
+                    weight={500}
+                    size={15}
+                    color={Colors.secundaryText2}
+                  />
+                  <Space horizontal={4} />
+                  <Text
+                    title={moment(researh.createDate).format('DD/MM/YYYY')}
+                    weight={400}
+                    size={15}
+                    color={Colors.secundaryText2}
+                  />
+                </View>
+                <Space vertical={2} />
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text
+                    title="Áreas estudadas:"
+                    weight={500}
+                    size={15}
+                    color={Colors.secundaryText2}
+                  />
+                  <Space horizontal={4} />
+                  {!!dataInfo && dataInfo.length !== 0 && (
+                    <Text
+                      title={`${dataInfo.length} ${
+                        dataInfo.length === 1 ? 'área' : 'áreas'
+                      }`}
+                      weight={400}
+                      size={15}
+                      color={Colors.secundaryText2}
+                    />
+                  )}
+                </View>
               </View>
-              <Space horizontal={4} />
-              <View>
-                <Text
-                  title={researh.propertyName}
-                  size={16}
-                  weight={500}
-                  color={Colors.secundaryText2}
-                />
-                <Text
-                  title={`${researh.city}, ${researh.uf}`}
-                  size={14}
-                  weight={500}
-                  color={Colors.secundaryTextGray}
-                />
+              <View style={{flexDirection: 'column', alignItems: 'center'}}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: Colors.lightBlue,
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <ShareIcon />
+                </TouchableOpacity>
+                <Space vertical={8} />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: Colors.lightBlue,
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <RemoveIcon />
+                </TouchableOpacity>
               </View>
-            </View>
-            <Space vertical={8} />
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text
-                title="Data:"
-                weight={500}
-                size={15}
-                color={Colors.secundaryText2}
-              />
-              <Space horizontal={4} />
-              <Text
-                title={moment(researh.createDate).format('DD/MM/YYYY')}
-                weight={400}
-                size={15}
-                color={Colors.secundaryText2}
-              />
-            </View>
-            <Space vertical={2} />
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text
-                title="Áreas estudadas:"
-                weight={500}
-                size={15}
-                color={Colors.secundaryText2}
-              />
-              <Space horizontal={4} />
-              {!!dataInfo && dataInfo.length !== 0 && (
-                <Text
-                  title={`${dataInfo.length} ${
-                    dataInfo.length === 1 ? 'área' : 'áreas'
-                  }`}
-                  weight={400}
-                  size={15}
-                  color={Colors.secundaryText2}
-                />
-              )}
             </View>
           </Card>
           <Space vertical={20} />
@@ -198,17 +242,26 @@ const ResearchInfo = ({onBack, researh}: Props) => {
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <TouchableOpacity
                     style={{
-                      padding: 5,
-                      backgroundColor: Colors.lightBlue3,
+                      paddingVertical: 4,
+                      paddingHorizontal: 10,
+                      backgroundColor: Colors.lightBlue,
                       borderRadius: 99,
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}
                     onPress={() => {
-                      setDataAreaSelected(dataInfo[position].info);
-                      setState('dataEdit');
+                      setResearchDetails(dataInfo[position].info);
+                      setDetails(true);
                     }}>
-                    <EditIcon />
+                    <VisibleIcon width="18px" height="18px" />
+                    <Space horizontal={4} />
+                    <Text
+                      title="Mais detalhes"
+                      size={12}
+                      weight={600}
+                      color={Colors.secundaryText2}
+                    />
                   </TouchableOpacity>
-                  <Space horizontal={4} />
                 </View>
               )}
             </View>

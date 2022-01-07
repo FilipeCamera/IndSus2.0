@@ -17,6 +17,12 @@ import {useGetUser} from 'hooks';
 import {permissions, userPersist} from 'functions';
 import {RFValue} from 'react-native-responsive-fontsize';
 
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs([
+  'Warning: Each child in a list should have a unique "key" prop.',
+]);
+
 const theme = {
   ...DefaultTheme,
   roundness: 8,
