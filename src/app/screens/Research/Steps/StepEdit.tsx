@@ -1,8 +1,13 @@
 import {Colors} from '@styles';
-import {Button, Header, Modals, Scroll, Space, Text} from 'components';
+import {Header, Modals, Scroll, Space, Text} from 'components';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
-import {Modal, Portal, ProgressBar} from 'react-native-paper';
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  View,
+  BackHandler,
+} from 'react-native';
+
 import StepDataEdit from './StepDataEdit';
 
 interface StepEditProps {
@@ -53,6 +58,17 @@ const StepEdit = ({
     }
   };
 
+  const backChange = () => {
+    setVisible(!visible);
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
     return () => {
@@ -94,7 +110,7 @@ const StepEdit = ({
       <Space vertical={20} />
       {!!loading && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size={46} color={Colors.blue} />
+          <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       )}
       {!loading &&

@@ -1,7 +1,13 @@
 import {Colors} from '@styles';
 import {Header, Scroll, Space, Text} from 'components';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  View,
+  BackHandler,
+} from 'react-native';
+import ResearchInfoDetailsData from './ResearchInfoDetailsData';
 
 interface Props {
   onBack: () => any;
@@ -10,19 +16,45 @@ interface Props {
 
 const ResearchInfoDetails = ({onBack, researchDetails}: Props) => {
   const [loading, setLoading] = useState(true);
-  console.tron.log(researchDetails);
+  const [details, setDetails] = useState<boolean>(false);
+  const [title, setTitle] = useState('');
+  const [quantInd, setQuantInd] = useState<number>(0);
+  const [info, setInfo] = useState<any>({});
+
+  const backChange = () => {
+    onBack();
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
+
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
     return () => {
       clearInterval(load);
     };
   }, []);
+  if (details === true) {
+    return (
+      <ResearchInfoDetailsData
+        title={title}
+        dataForm={info}
+        setDados={setDetails}
+        quantInd={quantInd}
+      />
+    );
+  }
   return (
     <Scroll>
       <Header title="Pesquisa" back alert onBack={onBack} mode="common" />
       {!!loading && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size={46} color={Colors.blue} />
+          <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       )}
       {!loading &&
@@ -57,7 +89,12 @@ const ResearchInfoDetails = ({onBack, researchDetails}: Props) => {
                   padding: 16,
                   marginBottom: 32,
                 }}
-                onPress={() => {}}>
+                onPress={() => {
+                  setTitle(item.title);
+                  setInfo(item.ind);
+                  setQuantInd(item.quantInd);
+                  setDetails(true);
+                }}>
                 <Text
                   title={item.title}
                   size={18}

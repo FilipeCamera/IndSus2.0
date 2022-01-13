@@ -14,6 +14,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Image,
   Platform,
   ScrollView,
@@ -82,6 +83,17 @@ const Step1 = ({
   const [token, setToken] = useState('');
   const {sendFile} = useSendFile();
 
+  const backChange = () => {
+    setVisible(!visible);
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 200);
     function generateToken(n: number) {

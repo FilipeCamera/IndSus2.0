@@ -15,6 +15,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   TextInput,
+  BackHandler,
   View,
 } from 'react-native';
 
@@ -57,7 +58,17 @@ const StepData = ({
 
     setData(array);
   };
-
+  const backChange = () => {
+    setDados(false);
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
     return () => {
@@ -84,7 +95,7 @@ const StepData = ({
         {!!loading && (
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <ActivityIndicator size={46} color={Colors.blue} />
+            <ActivityIndicator size="large" color={Colors.blue} />
           </View>
         )}
         {!loading && (

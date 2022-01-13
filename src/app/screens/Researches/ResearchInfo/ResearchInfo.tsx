@@ -27,6 +27,8 @@ import RemoveIcon from 'assets/svg/trash.svg';
 import VisibleIcon from 'assets/svg/visible.svg';
 import ResearchInfoDetails from './ResearchInfoDetails';
 
+import {BackHandler} from 'react-native';
+
 interface Props {
   onBack: () => any;
   researh: any;
@@ -47,6 +49,17 @@ const ResearchInfo = ({onBack, researh}: Props) => {
     dataInfo.length !== 0 ? dataInfo[0].title : 'Área 1',
   );
 
+  const backChange = () => {
+    onBack();
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     getResearchDataToken({
       token: researh.token,

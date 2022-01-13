@@ -1,6 +1,7 @@
 import {Colors} from '@styles';
 import {
   Button,
+  Card,
   Header,
   InputNota,
   RadarChartInd,
@@ -12,31 +13,41 @@ import {
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
-  KeyboardAvoidingView,
   BackHandler,
+  KeyboardAvoidingView,
+  TextInput,
   View,
 } from 'react-native';
 
 interface StepDataProps {
   title: string;
-  setDadosEdit: any;
+  setDados: any;
   dataForm: any;
-  percent: string;
-  info: any;
-  setInfo: any;
   quantInd: number;
 }
 
-const StepDataEdit = ({
+const ResearchInfoDetailsData = ({
   title,
-  setDadosEdit,
+  setDados,
   dataForm,
   quantInd,
 }: StepDataProps) => {
   const [loading, setLoading] = useState(true);
   const [radar, setRadar] = useState(false);
   const [data, setData] = useState<any[]>([]);
+  console.tron.log(dataForm);
 
+  const backChange = () => {
+    setDados(false);
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   const generateGraph = () => {
     const array: any = [];
     dataForm.map(item => {
@@ -56,17 +67,7 @@ const StepDataEdit = ({
 
     setData(array);
   };
-  const backChange = () => {
-    setDadosEdit(false);
-    return true;
-  };
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backChange,
-    );
-    return () => backHandler.remove();
-  }, []);
+
   useEffect(() => {
     const load = setTimeout(() => setLoading(false), 1000);
     return () => {
@@ -79,7 +80,6 @@ const StepDataEdit = ({
       setRadar(true);
     }
   }, [data]);
-
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
       <Scroll>
@@ -88,7 +88,7 @@ const StepDataEdit = ({
           title={title}
           back
           onBack={() => {
-            setDadosEdit(false);
+            setDados(false);
           }}
         />
         {!!loading && (
@@ -99,32 +99,6 @@ const StepDataEdit = ({
         )}
         {!loading && (
           <>
-            <Space vertical={20} />
-            <View
-              style={{
-                padding: 16,
-                borderWidth: 1,
-                borderRadius: 20,
-                borderStyle: 'dashed',
-                borderColor: Colors.textGray,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text
-                title="Observação"
-                weight={600}
-                size={18}
-                color={Colors.textMediumBlack}
-              />
-              <Space vertical={4} />
-              <Text
-                title="O resultado precisa tá no intervalo de 0 - 10"
-                weight={500}
-                size={16}
-                center
-                color={Colors.textMediumBlack}
-              />
-            </View>
             <Space vertical={20} />
             {!!dataForm &&
               dataForm.map((item, indexData) => (
@@ -146,7 +120,7 @@ const StepDataEdit = ({
                     />
                   </View>
                   <Space vertical={16} />
-                  {item.data.map(dta => (
+                  {item.data.map((dta, dtaIndex) => (
                     <>
                       <Text
                         title={dta.desc}
@@ -197,12 +171,19 @@ const StepDataEdit = ({
                             </View>
                           </View>
                           <View>
-                            <InputNota
-                              valor={cr.value}
-                              onText={e => {
-                                cr.value = e;
-                              }}
-                            />
+                            <View
+                              style={{
+                                borderRadius: 8,
+                                borderWidth: 1,
+                                borderStyle: 'dashed',
+                                width: 80,
+                                height: 42,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderColor: Colors.secundaryTextGray,
+                              }}>
+                              <Text title={cr.value} weight={600} size={16} />
+                            </View>
                           </View>
                         </View>
                       ))}
@@ -234,4 +215,4 @@ const StepDataEdit = ({
   );
 };
 
-export default StepDataEdit;
+export default ResearchInfoDetailsData;

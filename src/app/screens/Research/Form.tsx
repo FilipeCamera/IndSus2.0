@@ -11,8 +11,8 @@ import {
   UFDropdown,
   UploadImage,
 } from 'components';
-import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {BackHandler, KeyboardAvoidingView, Platform, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {fieldValidate} from 'validation';
 import {FormStyle} from './styles';
@@ -41,6 +41,17 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     createDate: '',
     image: '',
   });
+  const backChange = () => {
+    setVisible(!visible);
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
   const verify = () => {
     const biomeVerified = fieldValidate(biome);
     const ownerNameVerified = fieldValidate(ownerName);
@@ -70,6 +81,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
     }
     return false;
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
