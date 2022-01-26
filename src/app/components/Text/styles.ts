@@ -22,7 +22,7 @@ interface TextProps {
 
 export const TextStyle = styled.Text<TextProps>`
   font-size: ${(props: any) =>
-    `${RFValue(props.size)}px` || `${RFValue(14)}px`};
+    `${RFValue(props.size, 720)}px` || `${RFValue(14, 720)}px`};
   font-family: ${(props: TextProps) => family[props.weight || 400]};
   color: ${(props: any) => props.color || '#000'};
   ${(props: any) => (props.center ? 'text-align: center' : '')};

@@ -49,7 +49,7 @@ const Step1 = ({navigation}: any) => {
       .then(() => {
         userPersist(data);
         showMessage({type: 'success', message: 'Cadastro concluído!'});
-        navigation.navigate('Home');
+        navigation.navigate('Dashboard');
       });
   };
   return (

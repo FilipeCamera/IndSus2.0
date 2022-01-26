@@ -34,7 +34,11 @@ const Home = ({navigation}: any) => {
   const [send, setSend] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(research).length && Object.keys(radar).length !== 0) {
+    if (
+      Object.keys(research).length &&
+      Object.keys(radar).length !== 0 &&
+      research.data !== undefined
+    ) {
       setCard(true);
     }
     console.tron.log(research, radar);
