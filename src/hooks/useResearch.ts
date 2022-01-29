@@ -16,6 +16,23 @@ const useResearch = () => {
       .catch(err => onFail(err));
   };
 
+  const getResearchToken = async ({token, onComplete, onFail}: any) => {
+    firestore()
+      .collection('researches')
+      .where('token', '==', token)
+      .get()
+      .then(querySnapshot => {
+        const research = querySnapshot.docs.map(research => {
+          return {
+            id: research.id,
+            ...research.data(),
+          };
+        });
+        onComplete(research[0]);
+      })
+      .catch(err => onFail(err));
+  };
+
   const getResearchesByUser = async ({userId, onComplete, onFail}: any) => {
     firestore()
       .collection('researches')
@@ -31,7 +48,7 @@ const useResearch = () => {
       })
       .catch(err => onFail(err));
   };
-  return {getResearchDataToken, getResearchesByUser};
+  return {getResearchDataToken, getResearchesByUser, getResearchToken};
 };
 
 export default useResearch;

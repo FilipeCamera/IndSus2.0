@@ -24,7 +24,7 @@ import {deleteRadar, deleteResearch} from 'functions';
 
 const Home = ({navigation}: any) => {
   const {sendFile} = useSendFile();
-  const {getResearchDataToken} = useResearch();
+  const {getResearchDataToken, getResearchToken} = useResearch();
   const user = useSelector((state: any) => state.auth.user);
   const research = useSelector((state: any) => state.research.research);
   const radar = useSelector((state: any) => state.radar);
@@ -64,55 +64,57 @@ const Home = ({navigation}: any) => {
         Date.now().toString() + image.substring(image.lastIndexOf('/') + 1);
       const uploadUri =
         Platform.OS === 'ios' ? image.replace('file://', '') : image;
-      sendFile({
-        uri: uploadUri,
-        filename,
-        path: 'researchs',
-        onComplete: async (url: string) => {
-          await firestore()
-            .collection('researches')
-            .doc()
-            .set({
-              image: url,
-              ownerName: ownerName,
-              propertyName: propertyName,
-              city: city,
-              uf: uf,
-              biome: biome,
-              createDate: createDate,
-              token: token,
-              userId: user.uid,
-              createdAt: firestore.FieldValue.serverTimestamp(),
-            })
-            .then(() => {
-              getResearchDataToken({
-                token: token,
-                onComplete: async (uid: any) => {
-                  if (uid) {
-                    await firestore()
-                      .collection('dataAreas')
-                      .doc(uid)
-                      .set(Object.assign({}, data));
-                    await firestore()
-                      .collection('radarAreas')
-                      .doc(uid)
-                      .set(Object.assign({}, radarInfo.info));
 
-                    deleteResearch();
-                    deleteRadar();
-                    setSend(true);
-                    setLoadingCard(false);
-                  }
-                },
-                onFail: err => {},
-              });
-            })
-            .catch(err => {});
-        },
-        onFail: error => {
-          console.log(error);
-        },
-      });
+      firestore()
+        .collection('researches')
+        .doc()
+        .set({
+          ownerName: ownerName,
+          propertyName: propertyName,
+          city: city,
+          uf: uf,
+          biome: biome,
+          createDate: createDate,
+          userId: user.uid,
+          token: token,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+          getResearchToken({
+            token: token,
+            onComplete: async (res: any) => {
+              if (res) {
+                sendFile({
+                  uri: uploadUri,
+                  filename,
+                  path: 'researchs',
+                  onComplete: async (url: string) => {
+                    await firestore()
+                      .collection('researches')
+                      .doc(res.id)
+                      .update({image: url, ...res});
+                  },
+                  onFail: error => {},
+                });
+                await firestore()
+                  .collection('dataAreas')
+                  .doc(res.id)
+                  .set(Object.assign({}, data));
+                await firestore()
+                  .collection('radarAreas')
+                  .doc(res.id)
+                  .set(Object.assign({}, radarInfo.info));
+
+                deleteResearch();
+                deleteRadar();
+                setSend(true);
+                setLoadingCard(false);
+              }
+            },
+            onFail: err => {},
+          });
+        })
+        .catch(err => {});
     } else {
       setLoadingCard(false);
       showMessage({

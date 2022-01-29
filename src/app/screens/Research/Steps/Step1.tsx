@@ -11,7 +11,7 @@ import {
   Space,
   Text,
 } from 'components';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   ActivityIndicator,
   BackHandler,
@@ -72,11 +72,12 @@ const Step1 = ({
   navigation,
 }: StepOneProps) => {
   const user = useSelector((state: any) => state.auth.user);
-  const {getResearchDataToken} = useResearch();
+  const {getResearchDataToken, getResearchToken} = useResearch();
   const connection = useNetInfo();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cardPlus, setCardPlus] = useState(false);
+  const [url, setUrl] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [finalVisible, setFinalVisible] = useState(false);
   const [finalLoading, setFinalLoading] = useState(true);
@@ -112,7 +113,6 @@ const Step1 = ({
   }, [loading]);
 
   const handleCreateResearch = async () => {
-    console.tron.log('Connection:', connection.isConnected);
     if (dataArea.length !== 0) {
       setFinalVisible(true);
       if (connection.isConnected && connection.isInternetReachable) {
@@ -121,53 +121,54 @@ const Step1 = ({
           Date.now().toString() + image.substring(image.lastIndexOf('/') + 1);
         const uploadUri =
           Platform.OS === 'ios' ? image.replace('file://', '') : image;
-        sendFile({
-          uri: uploadUri,
-          filename,
-          path: 'researchs',
-          onComplete: async (url: string) => {
-            await firestore()
-              .collection('researches')
-              .doc()
-              .set({
-                image: url,
-                ownerName: dataInfo.ownerName,
-                propertyName: dataInfo.propertyName,
-                city: dataInfo.city,
-                uf: dataInfo.uf,
-                biome: dataInfo.biome,
-                createDate: dataInfo.createDate,
-                userId: user.uid,
-                token: token,
-                createdAt: firestore.FieldValue.serverTimestamp(),
-              })
-              .then(() => {
-                getResearchDataToken({
-                  token: token,
-                  onComplete: async (uid: any) => {
-                    if (uid) {
-                      await firestore()
-                        .collection('dataAreas')
-                        .doc(uid)
-                        .set(Object.assign({}, dataArea));
-                      await firestore()
-                        .collection('radarAreas')
-                        .doc(uid)
-                        .set(Object.assign({}, dataRadar));
 
-                      setFinalLoading(false);
-                    }
-                  },
-                  onFail: err => {},
-                });
-                setFinalLoading(false);
-              })
-              .catch(err => {});
-          },
-          onFail: error => {
-            console.log(error);
-          },
-        });
+        firestore()
+          .collection('researches')
+          .doc()
+          .set({
+            ownerName: dataInfo.ownerName,
+            propertyName: dataInfo.propertyName,
+            city: dataInfo.city,
+            uf: dataInfo.uf,
+            biome: dataInfo.biome,
+            createDate: dataInfo.createDate,
+            userId: user.uid,
+            token: token,
+            createdAt: firestore.FieldValue.serverTimestamp(),
+          })
+          .then(() => {
+            getResearchToken({
+              token: token,
+              onComplete: async (res: any) => {
+                if (res) {
+                  sendFile({
+                    uri: uploadUri,
+                    filename,
+                    path: 'researchs',
+                    onComplete: async (url: string) => {
+                      await firestore()
+                        .collection('researches')
+                        .doc(res.id)
+                        .update({image: url, ...res});
+                    },
+                    onFail: error => {},
+                  });
+                  await firestore()
+                    .collection('dataAreas')
+                    .doc(res.id)
+                    .set(Object.assign({}, dataArea));
+                  await firestore()
+                    .collection('radarAreas')
+                    .doc(res.id)
+                    .set(Object.assign({}, dataRadar));
+
+                  setFinalLoading(false);
+                }
+              },
+              onFail: err => {},
+            });
+          })
+          .catch(err => {});
       } else {
         const research = {
           image: dataInfo.image,

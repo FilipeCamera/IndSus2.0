@@ -48,20 +48,20 @@ const Researches = () => {
         if (res) {
           res.sort(function (item, item2) {
             if (
-              moment.unix(item.research.createDate).format('MMMM') <
-              moment.unix(item2.research.createDate).format('MMMM')
+              moment.unix(item.research.createDate).format('DD/MM/YYYY') <
+              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
             ) {
               return 1;
             }
             if (
-              moment.unix(item.research.createDate).format('MMMM') >
-              moment.unix(item2.research.createDate).format('MMMM')
+              moment.unix(item.research.createDate).format('DD/MM/YYYY') >
+              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
             ) {
               return -1;
             }
             if (
-              moment.unix(item.research.createDate).format('MMMM') ===
-              moment.unix(item2.research.createDate).format('MMMM')
+              moment.unix(item.research.createDate).format('DD/MM/YYYY') ===
+              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
             ) {
               return 0;
             }

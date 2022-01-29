@@ -28,6 +28,8 @@ import VisibleIcon from 'assets/svg/visible.svg';
 import ResearchInfoDetails from './ResearchInfoDetails';
 
 import {BackHandler} from 'react-native';
+import {firestore, storage} from 'firebase';
+import {showMessage} from 'react-native-flash-message';
 
 interface Props {
   onBack: () => any;
@@ -35,7 +37,7 @@ interface Props {
 }
 
 const ResearchInfo = ({onBack, researh}: Props) => {
-  const {getResearchDataToken} = useResearch();
+  const {getResearchDataToken, getResearchToken} = useResearch();
   const {getRadarArea, getDataArea} = useRadarDataArea();
   const [state, setState] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
@@ -105,6 +107,35 @@ const ResearchInfo = ({onBack, researh}: Props) => {
       setTimeout(() => setLoadingInfo(false), 1000);
     }
   }, [loadingInfo]);
+
+  const handleRevomeResearch = async (token: string) => {
+    getResearchToken({
+      token: token,
+      onComplete: (res: any) => {
+        if (res) {
+          storage()
+            .refFromURL(res.image)
+            .delete()
+            .then(() => {
+              firestore().collection('researches').doc(res.id).delete();
+              firestore().collection('dataAreas').doc(res.id).delete();
+              firestore().collection('radarAreas').doc(res.id).delete();
+            })
+            .finally(() => {
+              showMessage({
+                type: 'success',
+                message: 'Sucesso',
+                description: 'Sua pesquisa foi apagada.',
+              });
+              return onBack();
+            });
+        }
+      },
+      onFail: (err: any) => {},
+    });
+  };
+
+  const handleShareResearch = async () => {};
 
   if (details === true) {
     return (
@@ -202,7 +233,8 @@ const ResearchInfo = ({onBack, researh}: Props) => {
                     borderRadius: 15,
                     alignItems: 'center',
                     justifyContent: 'center',
-                  }}>
+                  }}
+                  onPress={() => {}}>
                   <ShareIcon />
                 </TouchableOpacity>
                 <Space vertical={8} />
@@ -214,7 +246,8 @@ const ResearchInfo = ({onBack, researh}: Props) => {
                     borderRadius: 15,
                     alignItems: 'center',
                     justifyContent: 'center',
-                  }}>
+                  }}
+                  onPress={() => handleRevomeResearch(researh.token)}>
                   <RemoveIcon />
                 </TouchableOpacity>
               </View>
