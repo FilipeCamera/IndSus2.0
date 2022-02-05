@@ -1,49 +1,23 @@
-import Card from './Card';
-import LinearBackground from './LinearBackground';
-import Text from './Text';
-import Input from './Input';
-import Space from './Space';
-import Scroll from './Scroll';
-import Button from './Button';
-import AvatarSelect from './AvatarSelect';
-import Header from './Header';
-import Vertical from './Vertical';
-import Row from './Row';
-import Board from './Board';
-import RoundedButton from './RoundedButton';
-import CustomButton from './CustomButton';
-import UFDropdown from './UFDropdown';
-import BiomesDropdown from './BiomesDropdown';
-import InputNota from './InputNota';
-import Modals from './Modal';
-import BoxNota from './BoxNota';
-import DateTime from './DateTime';
-import UploadImage from './UploadImage';
-import RadarChart from './RadarChart';
-import RadarChartInd from './RadarChartInd';
-
-export {
-  LinearBackground,
-  Card,
-  Text,
-  Input,
-  Space,
-  Scroll,
-  Button,
-  AvatarSelect,
-  Header,
-  Vertical,
-  Row,
-  Board,
-  RoundedButton,
-  CustomButton,
-  UFDropdown,
-  BiomesDropdown,
-  InputNota,
-  Modals,
-  BoxNota,
-  DateTime,
-  UploadImage,
-  RadarChart,
-  RadarChartInd,
-};
+export * from './Card';
+export * from './LinearBackground';
+export * from './Text';
+export * from './Input';
+export * from './Space';
+export * from './Scroll';
+export * from './Button';
+export * from './AvatarSelect';
+export * from './Header';
+export * from './Vertical';
+export * from './Row';
+export * from './Board';
+export * from './RoundedButton';
+export * from './CustomButton';
+export * from './UFDropdown';
+export * from './BiomesDropdown';
+export * from './InputNota';
+export * from './Modal';
+export * from './BoxNota';
+export * from './DateTime';
+export * from './UploadImage';
+export * from './RadarChart';
+export * from './RadarChartInd';

@@ -1,3 +1,3 @@
 import BiomesDropdown from './BiomesDropdown';
 
-export default BiomesDropdown;
+export {BiomesDropdown};

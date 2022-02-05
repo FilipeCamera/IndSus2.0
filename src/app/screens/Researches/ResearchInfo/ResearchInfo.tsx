@@ -45,6 +45,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   const [dataInfo, setDataInfo] = useState<any[]>([]);
   const [radarInfo, setRadarInfo] = useState<any[]>([]);
   const [details, setDetails] = useState<boolean>(false);
+  const [modalShare, setModalShare] = useState<boolean>(false);
   const [researchDetails, setResearchDetails] = useState<any[]>([]);
   const [position, setPosition] = useState(0);
   const [areaTitle, setAreaTitle] = useState(
@@ -234,7 +235,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onPress={() => {}}>
+                  onPress={() => setModalShare(true)}>
                   <ShareIcon />
                 </TouchableOpacity>
                 <Space vertical={8} />

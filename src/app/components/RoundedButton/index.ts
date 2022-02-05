@@ -1,3 +1,3 @@
 import RoundedButton from './RoundedButton';
 
-export default RoundedButton;
+export {RoundedButton};
