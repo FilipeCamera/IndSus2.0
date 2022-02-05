@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 import {
+  BottomModal,
   BoxNota,
   Card,
   Header,
@@ -18,7 +19,7 @@ import {
   View,
 } from 'react-native';
 import {Colors} from '@styles';
-import {useRadarDataArea, useResearch} from 'hooks';
+import {useRadarDataArea, useResearch, useSearch} from 'hooks';
 import Biomes from '@biomes';
 
 import StarIcon from 'assets/svg/star.svg';
@@ -30,6 +31,7 @@ import ResearchInfoDetails from './ResearchInfoDetails';
 import {BackHandler} from 'react-native';
 import {firestore, storage} from 'firebase';
 import {showMessage} from 'react-native-flash-message';
+import {useSelector} from 'react-redux';
 
 interface Props {
   onBack: () => any;
@@ -37,8 +39,10 @@ interface Props {
 }
 
 const ResearchInfo = ({onBack, researh}: Props) => {
+  const user = useSelector((state: any) => state.auth.user);
   const {getResearchDataToken, getResearchToken} = useResearch();
   const {getRadarArea, getDataArea} = useRadarDataArea();
+  const {search} = useSearch();
   const [state, setState] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingInfo, setLoadingInfo] = useState<boolean>(true);
@@ -46,6 +50,8 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   const [radarInfo, setRadarInfo] = useState<any[]>([]);
   const [details, setDetails] = useState<boolean>(false);
   const [modalShare, setModalShare] = useState<boolean>(false);
+  const [userShare, setUserShare] = useState<string>('');
+  const [usersShare, setUsersShare] = useState<any[]>();
   const [researchDetails, setResearchDetails] = useState<any[]>([]);
   const [position, setPosition] = useState(0);
   const [areaTitle, setAreaTitle] = useState(
@@ -136,7 +142,22 @@ const ResearchInfo = ({onBack, researh}: Props) => {
     });
   };
 
-  const handleShareResearch = async () => {};
+  const handleSearchUser = useCallback(
+    e => {
+      setUserShare(e);
+      search({
+        value: e,
+        uid: user.uid,
+        onComplete: users => {
+          if (users) {
+            setUsersShare(users);
+          }
+        },
+        onFail: err => {},
+      });
+    },
+    [usersShare],
+  );
 
   if (details === true) {
     return (
@@ -149,6 +170,13 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   return (
     <Scroll>
       <Header title="Pesquisa" back alert onBack={onBack} mode="common" />
+      <BottomModal
+        visible={modalShare}
+        setVisible={setModalShare}
+        user={userShare}
+        users={usersShare}
+        onFuction={e => handleSearchUser(e)}
+      />
       {!!loading && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <ActivityIndicator size="large" color={Colors.blue} />

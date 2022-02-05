@@ -21,3 +21,5 @@ export * from './DateTime';
 export * from './UploadImage';
 export * from './RadarChart';
 export * from './RadarChartInd';
+export * from './BottomModal';
+export * from './Search';
