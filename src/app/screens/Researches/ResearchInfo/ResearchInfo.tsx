@@ -44,6 +44,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   const {getRadarArea, getDataArea} = useRadarDataArea();
   const {search} = useSearch();
   const [state, setState] = useState('');
+  const [researchId, setResearchId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingInfo, setLoadingInfo] = useState<boolean>(true);
   const [dataInfo, setDataInfo] = useState<any[]>([]);
@@ -51,7 +52,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   const [details, setDetails] = useState<boolean>(false);
   const [modalShare, setModalShare] = useState<boolean>(false);
   const [userShare, setUserShare] = useState<string>('');
-  const [usersShare, setUsersShare] = useState<any[]>();
+  const [usersShare, setUsersShare] = useState<any[]>([]);
   const [researchDetails, setResearchDetails] = useState<any[]>([]);
   const [position, setPosition] = useState(0);
   const [areaTitle, setAreaTitle] = useState(
@@ -74,6 +75,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
       token: researh.token,
       onComplete: id => {
         if (id) {
+          setResearchId(id);
           getDataArea({
             id: id,
             onComplete: data => {
@@ -174,8 +176,10 @@ const ResearchInfo = ({onBack, researh}: Props) => {
         visible={modalShare}
         setVisible={setModalShare}
         user={userShare}
+        uid={user.uid}
+        research={researchId}
         users={usersShare}
-        onFuction={e => handleSearchUser(e)}
+        onSearch={e => handleSearchUser(e)}
       />
       {!!loading && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

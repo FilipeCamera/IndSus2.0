@@ -17,7 +17,7 @@ interface AvatarProps {
 
 const AvatarSelect = ({avatar, setAvatar, error, edit}: AvatarProps) => {
   const {sendFile} = useSendFile();
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState<any>({});
 
   const handleImage = () => {
     handleUpload()
@@ -41,7 +41,7 @@ const AvatarSelect = ({avatar, setAvatar, error, edit}: AvatarProps) => {
         onComplete: (url: string) => {
           setAvatar(url);
         },
-        onFail: error => {
+        onFail: (error: any) => {
           console.log(error);
         },
       });

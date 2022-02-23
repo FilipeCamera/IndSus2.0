@@ -41,13 +41,13 @@ const App = () => {
   const saveUser = (user: any) => {
     getUser({
       uid: user.uid,
-      onComplete: user => {
+      onComplete: (user: any) => {
         if (user) {
           userPersist(user);
           SplashScreen.hide();
         }
       },
-      onFail: error => {
+      onFail: (error: any) => {
         console.log(error);
         SplashScreen.hide();
       },

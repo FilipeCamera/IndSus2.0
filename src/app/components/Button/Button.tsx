@@ -4,7 +4,7 @@ import React from 'react';
 import {ButtonStyle, ButtonIcon} from './styles';
 
 import GoogleIcon from 'assets/svg/google.svg';
-
+import ShareIcon from 'assets/svg/telegram.svg';
 interface ButtonProps {
   background: string;
   shadow: number;
@@ -16,6 +16,7 @@ interface ButtonProps {
   onPress: () => any;
   border: boolean;
   google: boolean;
+  share: boolean;
 }
 
 const Button = ({
@@ -28,6 +29,7 @@ const Button = ({
   mode,
   border,
   google,
+  share,
   onPress,
 }: ButtonProps) => {
   return (
@@ -40,6 +42,11 @@ const Button = ({
       {!!google && (
         <ButtonIcon>
           <GoogleIcon />
+        </ButtonIcon>
+      )}
+      {!!share && (
+        <ButtonIcon>
+          <ShareIcon />
         </ButtonIcon>
       )}
       <Text title={title} size={size} weight={weight} color={color} />
