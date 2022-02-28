@@ -1,6 +1,6 @@
 import {Colors} from '@styles';
 import {Header, Space, Card, Text, CustomButton} from 'components';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {Avatar} from 'react-native-paper';
 
@@ -9,13 +9,28 @@ import {useSelector} from 'react-redux';
 import ProfileEdit from './ProfileEdit';
 import ProfileResearches from './ProfileResearches';
 import {Logout} from 'functions';
+import {useResearch} from 'hooks';
 
 const Profile = ({navigation}: any) => {
   const user = useSelector((state: any) => state.auth.user);
+  const {getResearchShare} = useResearch();
   const [state, setState] = useState('');
+  const [shares, setShares] = useState<any[]>([]);
+
+  useEffect(() => {
+    getResearchShare({
+      uid: user.uid,
+      onComplete: (list: any[]) => {
+        if (list.length !== 0) {
+          setShares(list);
+        }
+      },
+      onFail: (error: any) => {},
+    });
+  }, []);
 
   if (state === 'researches') {
-    return <ProfileResearches setState={setState} />;
+    return <ProfileResearches setState={setState} share={shares} />;
   }
   if (state === 'edit') {
     return <ProfileEdit setState={setState} />;
@@ -75,6 +90,7 @@ const Profile = ({navigation}: any) => {
         title="Pesquisas Recebidas"
         type="archive"
         onPress={() => setState('researches')}
+        alert={shares.length !== 0 ? true : false}
       />
       <Space vertical={8} />
       <CustomButton
@@ -82,7 +98,13 @@ const Profile = ({navigation}: any) => {
         type="edit"
         onPress={() => setState('edit')}
       />
-      <View style={{position: 'absolute', bottom: 25, alignSelf: 'center'}}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 25,
+          alignSelf: 'center',
+          width: '100%',
+        }}>
         <CustomButton
           title="Sair"
           type="logout"

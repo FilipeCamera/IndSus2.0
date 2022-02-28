@@ -1,12 +1,50 @@
 import {Colors} from '@styles';
 import {Header, Scroll, Text} from 'components';
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import {useGetUser, useResearch} from 'hooks';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ProfileResearches = ({setState}: any) => {
-  const [researches, setResearches] = useState([]);
+interface ProfileResearchesProps {
+  setState: any;
+  share: any[];
+}
+
+const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
+  const [researches, setResearches] = useState<any[]>([]);
+  const {getUser} = useGetUser();
+  const {getResearchById} = useResearch();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    share.map(item => {
+      getResearchById({
+        uid: item.research,
+        onComplete: (research: any) => {
+          if (research) {
+            getUser({
+              uid: item.from,
+              onComplete: (user: any) => {
+                if (user) {
+                  setResearches([...researches, {user, research}]);
+                }
+              },
+              onFail: err => {},
+            });
+          }
+        },
+        onFail: err => {},
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+  console.tron.log(researches);
   return (
     <Scroll>
       <Header
@@ -16,7 +54,12 @@ const ProfileResearches = ({setState}: any) => {
         back
         onBack={() => setState('')}
       />
-      {researches.length === 0 && (
+      {!!loading && (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </View>
+      )}
+      {!loading && researches.length === 0 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="alert" size={64} color={Colors.lightGray} />
           <Text
@@ -27,6 +70,15 @@ const ProfileResearches = ({setState}: any) => {
           />
         </View>
       )}
+      {!loading &&
+        researches.length !== 0 &&
+        researches.map(item => {
+          return (
+            <View>
+              <Text title={item.research.propertyName} size={14} weight={500} />
+            </View>
+          );
+        })}
     </Scroll>
   );
 };
