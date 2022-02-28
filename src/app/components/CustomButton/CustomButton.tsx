@@ -1,20 +1,21 @@
 import {Colors} from '@styles';
 import {Text} from 'components';
 import React from 'react';
-import {ButtonStyle, CustomButtonStyle} from './styles';
+import {Alert, ButtonStyle, CustomButtonStyle} from './styles';
 
 import ArchiveIcon from 'assets/svg/archive.svg';
 import EditIcon from 'assets/svg/edit.svg';
 import LogoutIcon from 'assets/svg/logout.svg';
-import Line from 'assets/svg/line.svg';
+import Line from 'assets/svg/Line.svg';
 
 interface CustomButtonProps {
   title: string;
   type: string;
   onPress: () => any;
+  alert: boolean;
 }
 
-const CustomButton = ({title, type, onPress}: CustomButtonProps) => {
+const CustomButton = ({title, type, alert, onPress}: CustomButtonProps) => {
   return (
     <CustomButtonStyle>
       <ButtonStyle onPress={onPress}>
@@ -22,8 +23,9 @@ const CustomButton = ({title, type, onPress}: CustomButtonProps) => {
         {type === 'archive' && <ArchiveIcon />}
         {type === 'edit' && <EditIcon />}
         {type === 'logout' && <LogoutIcon />}
+        {!!alert && <Alert />}
       </ButtonStyle>
-      <Line />
+      <Line width="100%" />
     </CustomButtonStyle>
   );
 };
