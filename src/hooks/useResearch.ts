@@ -33,6 +33,17 @@ const useResearch = () => {
       .catch(err => onFail(err));
   };
 
+  const getResearchById = async ({uid, onComplete, onFail}: any) => {
+    firestore()
+      .collection('researches')
+      .doc(uid)
+      .get()
+      .then(querySnapshot => {
+        const research = querySnapshot.data();
+        onComplete(research);
+      })
+      .catch(err => onFail(err));
+  };
   const getResearchesByUser = async ({userId, onComplete, onFail}: any) => {
     firestore()
       .collection('researches')
@@ -48,7 +59,31 @@ const useResearch = () => {
       })
       .catch(err => onFail(err));
   };
-  return {getResearchDataToken, getResearchesByUser, getResearchToken};
+
+  const getResearchShare = async ({uid, onComplete, onFail}: any) => {
+    firestore()
+      .collection('shares')
+      .where('to', '==', uid)
+      .get()
+      .then(querySnapshot => {
+        const list = querySnapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          };
+        });
+        onComplete(list);
+      })
+      .catch(error => onFail(error));
+  };
+
+  return {
+    getResearchDataToken,
+    getResearchesByUser,
+    getResearchToken,
+    getResearchShare,
+    getResearchById,
+  };
 };
 
 export default useResearch;
