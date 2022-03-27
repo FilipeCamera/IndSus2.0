@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import {ButtonResearch, ResearchBoxContainer} from './styles';
 import Line from 'assets/svg/line.svg';
 import moment from 'moment';
-import ResearchInfo from './ResearchInfo';
+import ResearchInfo from './Info/ResearchInfo';
 import Biomes from '@biomes';
 
 moment.updateLocale('pt', {
@@ -72,6 +72,11 @@ const Researches = () => {
       },
       onFail: (err: any) => {},
     });
+
+    return () => {
+      setResearches([]);
+      setLoading(true);
+    };
   }, []);
 
   if (info) {

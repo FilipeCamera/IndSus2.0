@@ -37,6 +37,10 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
         onFail: err => {},
       });
     });
+    return () => {
+      setResearches([]);
+      setLoading(true);
+    };
   }, []);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       setLoading(false);
     }, 1000);
   }, []);
-  console.tron.log(researches);
+
   return (
     <Scroll>
       <Header

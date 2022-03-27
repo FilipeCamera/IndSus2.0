@@ -107,7 +107,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
           }}
         />
         <Space vertical={10} />
-        <Row>
+        <Row style={{justifyContent: 'space-around'}}>
           <UploadImage image={image} setImage={setImage} />
           <BiomesDropdown
             error={errors.biome}

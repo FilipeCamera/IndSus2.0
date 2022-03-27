@@ -27,6 +27,10 @@ const Profile = ({navigation}: any) => {
       },
       onFail: (error: any) => {},
     });
+
+    return () => {
+      setShares([]);
+    };
   }, []);
 
   if (state === 'researches') {

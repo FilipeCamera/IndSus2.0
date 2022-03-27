@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import Form from './Form';
-import {Step1, Step2} from './Steps';
+import Step1 from './Steps/Step1';
+import Step2 from './Steps/Step2';
 import StepEdit from './Steps/StepEdit';
 
 const Research = ({navigation}: any) => {

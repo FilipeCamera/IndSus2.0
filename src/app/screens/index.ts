@@ -1,8 +1,19 @@
-export {default as Register} from './Register';
-export {default as Login} from './Login';
-export {default as Onboarding} from './Onboarding';
-export {default as Home} from './Home';
-export {default as Dashboard} from './Dashboard';
-export {default as Researches} from './Researches';
-export {default as Profile} from './Profile';
-export {default as Research} from './Research';
+import Register from './Register';
+import Login from './Login';
+import Onboarding from './Onboarding';
+import Home from './Home';
+import Dashboard from './Dashboard';
+import Researches from './Researches';
+import Profile from './Profile';
+import Research from './Research';
+
+export {
+  Register,
+  Login,
+  Onboarding,
+  Home,
+  Dashboard,
+  Researches,
+  Profile,
+  Research,
+};
