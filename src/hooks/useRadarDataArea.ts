@@ -24,6 +24,7 @@ const useRadarDataArea = () => {
       })
       .catch(err => onFail(err));
   };
+
   return {getRadarArea, getDataArea};
 };
 

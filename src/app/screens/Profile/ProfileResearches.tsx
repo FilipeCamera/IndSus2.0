@@ -1,8 +1,9 @@
 import {Colors} from '@styles';
-import {Header, Scroll, Text} from 'components';
-import {useGetUser, useResearch} from 'hooks';
+import {Header, Scroll, Space, Text} from 'components';
+import {useGetUser, useRadarDataArea, useResearch} from 'hooks';
+import moment from 'moment';
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, View, FlatList, Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -27,7 +28,7 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
               uid: item.from,
               onComplete: (user: any) => {
                 if (user) {
-                  setResearches([...researches, {user, research}]);
+                  setResearches([{user, research}]);
                 }
               },
               onFail: err => {},
@@ -49,8 +50,52 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
     }, 1000);
   }, []);
 
+  const renderItem = ({item}: any) => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          justifyContent: 'space-around',
+        }}>
+        <View style={{width: 40, height: 40, borderRadius: 20}}>
+          <Image
+            source={{uri: item.research.image}}
+            style={{width: '100%', height: '100%', borderRadius: 9999}}
+          />
+        </View>
+        <View>
+          <Text title={item.research.propertyName} size={16} weight={600} />
+          <Text
+            title={`${item.research.city}, ${item.research.uf}`}
+            size={14}
+            weight={400}
+          />
+          <View
+            style={{
+              backgroundColor: Colors.lightBlue,
+              borderRadius: 2,
+              padding: 2,
+            }}>
+            <Text
+              title={moment.unix(item.research.createDate).format('DD/MM/YYYY')}
+              size={15}
+              weight={600}
+              color={Colors.blue}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
   return (
-    <Scroll>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.background,
+        padding: 16,
+        alignItems: 'center',
+      }}>
       <Header
         title="Pesquisas Recebidas"
         mode="common"
@@ -58,11 +103,7 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
         back
         onBack={() => setState('')}
       />
-      {!!loading && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color={Colors.blue} />
-        </View>
-      )}
+      <Space vertical={16} />
       {!loading && researches.length === 0 && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="alert" size={64} color={Colors.lightGray} />
@@ -74,16 +115,12 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
           />
         </View>
       )}
-      {!loading &&
-        researches.length !== 0 &&
-        researches.map(item => {
-          return (
-            <View>
-              <Text title={item.research.propertyName} size={14} weight={500} />
-            </View>
-          );
-        })}
-    </Scroll>
+      <FlatList
+        data={researches}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+      />
+    </View>
   );
 };
 
