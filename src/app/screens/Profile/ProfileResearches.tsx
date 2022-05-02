@@ -1,11 +1,19 @@
 import {Colors} from '@styles';
-import {Header, Scroll, Space, Text} from 'components';
+import {Button, Header, Scroll, Space, Text} from 'components';
 import {useGetUser, useRadarDataArea, useResearch} from 'hooks';
 import moment from 'moment';
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, View, FlatList, Image} from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import VisibleIcon from 'assets/svg/visible.svg';
 
 interface ProfileResearchesProps {
   setState: any;
@@ -57,8 +65,9 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
           flexDirection: 'row',
           width: '100%',
           justifyContent: 'space-around',
+          alignItems: 'center',
         }}>
-        <View style={{width: 40, height: 40, borderRadius: 20}}>
+        <View style={{width: 60, height: 60, borderRadius: 30}}>
           <Image
             source={{uri: item.research.image}}
             style={{width: '100%', height: '100%', borderRadius: 9999}}
@@ -74,8 +83,12 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
           <View
             style={{
               backgroundColor: Colors.lightBlue,
-              borderRadius: 2,
-              padding: 2,
+              borderRadius: 5,
+              padding: 2.5,
+              maxWidth: 90,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 6,
             }}>
             <Text
               title={moment.unix(item.research.createDate).format('DD/MM/YYYY')}
@@ -84,6 +97,20 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
               color={Colors.blue}
             />
           </View>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.lightBlue2,
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => {}}>
+            <VisibleIcon />
+          </TouchableOpacity>
         </View>
       </View>
     );

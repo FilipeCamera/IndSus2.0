@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Row, Text, Button, Space} from 'components';
 import {BoardStyle, ButtonTap, styles} from './styles';
@@ -15,6 +15,10 @@ const Board = ({title, navigation}: BoardProps) => {
     today: true,
     week: false,
   });
+  const loadResearches = async () => {};
+  useEffect(() => {
+    loadResearches();
+  }, []);
   return (
     <BoardStyle style={styles.shadow}>
       <Row noMargin>
