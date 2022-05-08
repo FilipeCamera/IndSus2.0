@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import VisibleIcon from 'assets/svg/visible.svg';
+import ProfileResearchVisualization from './ProfileReasearchVisualization';
 
 interface ProfileResearchesProps {
   setState: any;
@@ -25,7 +26,8 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
   const {getUser} = useGetUser();
   const {getResearchById} = useResearch();
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [visualization, setVisualization] = useState<boolean>(false);
+  const [research, setResearch] = useState<any>();
   useEffect(() => {
     share.map(item => {
       getResearchById({
@@ -50,13 +52,13 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       setResearches([]);
       setLoading(true);
     };
-  }, []);
+  }, [visualization]);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [visualization]);
 
   const renderItem = ({item}: any) => {
     return (
@@ -108,7 +110,10 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onPress={() => {}}>
+            onPress={() => {
+              setResearch(item.research);
+              setVisualization(true);
+            }}>
             <VisibleIcon />
           </TouchableOpacity>
         </View>
@@ -120,7 +125,7 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       style={{
         flex: 1,
         backgroundColor: Colors.background,
-        padding: 16,
+        padding: !!visualization ? 0 : 16,
         alignItems: 'center',
       }}>
       <Header
@@ -130,23 +135,36 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
         back
         onBack={() => setState('')}
       />
-      <Space vertical={16} />
-      {!loading && researches.length === 0 && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Icon name="alert" size={64} color={Colors.lightGray} />
-          <Text
-            title="Nenhuma pesquisa recebida"
-            size={18}
-            weight={500}
-            color={Colors.lightGray}
+      {!!visualization && (
+        <Scroll>
+          <ProfileResearchVisualization
+            onBack={() => setVisualization(false)}
+            researh={research}
           />
-        </View>
+        </Scroll>
       )}
-      <FlatList
-        data={researches}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
-      />
+      {!visualization && (
+        <>
+          <Space vertical={16} />
+          {!loading && researches.length === 0 && (
+            <View
+              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Icon name="alert" size={64} color={Colors.lightGray} />
+              <Text
+                title="Nenhuma pesquisa recebida"
+                size={18}
+                weight={500}
+                color={Colors.lightGray}
+              />
+            </View>
+          )}
+          <FlatList
+            data={researches}
+            keyExtractor={item => item.id}
+            renderItem={renderItem}
+          />
+        </>
+      )}
     </View>
   );
 };
