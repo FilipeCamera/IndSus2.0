@@ -145,7 +145,6 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       )}
       {!visualization && (
         <>
-          <Space vertical={16} />
           {!loading && researches.length === 0 && (
             <View
               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -158,11 +157,13 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
               />
             </View>
           )}
-          <FlatList
-            data={researches}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-          />
+          {!loading && researches.length !== 0 && (
+            <FlatList
+              data={researches}
+              keyExtractor={item => item.id}
+              renderItem={renderItem}
+            />
+          )}
         </>
       )}
     </View>

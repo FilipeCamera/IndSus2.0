@@ -10,14 +10,14 @@ export const HeaderStyle = styled.View`
 export const HeaderCommonStyle = styled.View`
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 8px;
   width: 100%;
 `;
 
 export const HeaderCommonButton = styled.TouchableOpacity`
   position: absolute;
-  ${props => (props.back ? 'left: 0' : '')};
-  ${props => (props.alert ? 'right: 0' : '')};
+  ${(props: any) => (props.back ? 'left: 0' : '')};
+  ${(props: any) => (props.alert ? 'right: 0' : '')};
   padding: 8px;
 `;
 
