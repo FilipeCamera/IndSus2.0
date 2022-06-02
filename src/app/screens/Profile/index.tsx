@@ -41,81 +41,83 @@ const Profile = ({navigation}: any) => {
   }
 
   return (
-    <View style={{backgroundColor: Colors.background, padding: 16, flex: 1}}>
+    <>
       <Header mode="profile" alert />
-      <Space vertical={15} />
-      <Card style={{width: '100%', elevation: 6}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-          }}>
-          <View style={{flexDirection: 'column', alignItems: 'center'}}>
-            <Avatar.Image size={64} source={{uri: user.avatar}} />
-            <Space vertical={5} />
-            <View
-              style={{
-                padding: 8,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: Colors.lightGreen,
-                borderRadius: 8,
-              }}>
+      <View style={{backgroundColor: Colors.background, padding: 16, flex: 1}}>
+        <Space vertical={15} />
+        <Card style={{width: '100%', elevation: 6}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+            }}>
+            <View style={{flexDirection: 'column', alignItems: 'center'}}>
+              <Avatar.Image size={64} source={{uri: user.avatar}} />
+              <Space vertical={5} />
+              <View
+                style={{
+                  padding: 8,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: Colors.lightGreen,
+                  borderRadius: 8,
+                }}>
+                <Text
+                  title="online"
+                  size={13}
+                  weight={600}
+                  color={Colors.green}
+                />
+              </View>
+            </View>
+            <Space horizontal={15} />
+            <View style={{flexDirection: 'column', alignItems: 'flex-start'}}>
               <Text
-                title="online"
-                size={13}
-                weight={600}
-                color={Colors.green}
+                title={user.name}
+                size={18}
+                weight={700}
+                color={Colors.textBlack}
               />
+              <Text
+                title={user.work}
+                size={14}
+                weight={500}
+                color={Colors.textGray}
+              />
+              <Space vertical={8} />
+              <GraphIcon />
             </View>
           </View>
-          <Space horizontal={15} />
-          <View style={{flexDirection: 'column', alignItems: 'flex-start'}}>
-            <Text
-              title={user.name}
-              size={18}
-              weight={700}
-              color={Colors.textBlack}
-            />
-            <Text
-              title={user.work}
-              size={14}
-              weight={500}
-              color={Colors.textGray}
-            />
-            <Space vertical={8} />
-            <GraphIcon />
-          </View>
-        </View>
-      </Card>
-      <Space vertical={40} />
-      <CustomButton
-        title="Pesquisas Recebidas"
-        type="archive"
-        onPress={() => setState('researches')}
-        alert={shares.length !== 0 ? true : false}
-      />
-      <Space vertical={8} />
-      <CustomButton
-        title="Editar Dados"
-        type="edit"
-        onPress={() => setState('edit')}
-      />
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 25,
-          alignSelf: 'center',
-          width: '100%',
-        }}>
+        </Card>
+        <Space vertical={40} />
         <CustomButton
-          title="Sair"
-          type="logout"
-          onPress={() => Logout().then(_ => navigation.navigate('Public'))}
+          title="Pesquisas Recebidas"
+          type="archive"
+          onPress={() => setState('researches')}
+          alert={shares.length !== 0 ? true : false}
         />
+        <Space vertical={8} />
+        <CustomButton
+          title="Editar Dados"
+          type="edit"
+          onPress={() => setState('edit')}
+        />
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 25,
+            alignSelf: 'center',
+            width: '100%',
+          }}>
+          <CustomButton
+            title="Sair"
+            type="logout"
+            onPress={() => Logout().then(_ => navigation.navigate('Public'))}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import Line from 'assets/svg/line.svg';
 import moment from 'moment';
 import ResearchInfo from './Info/ResearchInfo';
 import Biomes from '@biomes';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 moment.updateLocale('pt', {
   months: [
@@ -32,6 +33,7 @@ const Researches = () => {
   const user = useSelector((state: any) => state.auth.user);
   const [loading, setLoading] = useState<boolean>(true);
   const [researches, setResearches] = useState<any[]>([]);
+  const connection = useNetInfo();
   const {getResearchesByUser} = useResearch();
   const [research, setResearch] = useState<any>();
   const [info, setInfo] = useState<boolean>(false);
@@ -42,42 +44,46 @@ const Researches = () => {
   };
 
   useEffect(() => {
-    getResearchesByUser({
-      userId: user.uid,
-      onComplete: (res: any) => {
-        if (res) {
-          res.sort(function (item, item2) {
-            if (
-              moment.unix(item.research.createDate).format('DD/MM/YYYY') <
-              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-            ) {
-              return 1;
-            }
-            if (
-              moment.unix(item.research.createDate).format('DD/MM/YYYY') >
-              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-            ) {
-              return -1;
-            }
-            if (
-              moment.unix(item.research.createDate).format('DD/MM/YYYY') ===
-              moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-            ) {
-              return 0;
-            }
-          });
-          setResearches(res);
-          setLoading(false);
-        }
-      },
-      onFail: (err: any) => {},
-    });
+    if (connection.isConnected && connection.isInternetReachable) {
+      getResearchesByUser({
+        userId: user.uid,
+        onComplete: (res: any) => {
+          if (res) {
+            res.sort(function (item, item2) {
+              if (
+                moment.unix(item.research.createDate).format('DD/MM/YYYY') <
+                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
+              ) {
+                return 1;
+              }
+              if (
+                moment.unix(item.research.createDate).format('DD/MM/YYYY') >
+                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
+              ) {
+                return -1;
+              }
+              if (
+                moment.unix(item.research.createDate).format('DD/MM/YYYY') ===
+                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
+              ) {
+                return 0;
+              }
+            });
+            setResearches(res);
+            setLoading(false);
+          }
+        },
+        onFail: (err: any) => {},
+      });
 
-    return () => {
-      setResearches([]);
-      setLoading(true);
-    };
-  }, []);
+      return () => {
+        setResearches([]);
+        setLoading(true);
+      };
+    } else {
+      setTimeout(() => setLoading(false), 1000);
+    }
+  }, [connection.isConnected, connection.isInternetReachable]);
 
   if (info) {
     return <ResearchInfo researh={research} onBack={() => setInfo(false)} />;
@@ -90,19 +96,39 @@ const Researches = () => {
           <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       )}
-      {!loading && researches.length === 0 && (
+      {!loading && !connection.isConnected && !connection.isInternetReachable && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="alert" size={64} color={Colors.lightGray} />
           <Text
-            title="Nenhuma pesquisa encontrada"
+            title="Sem conexão com internet"
             size={18}
             weight={500}
             color={Colors.lightGray}
           />
         </View>
       )}
-      {!loading && researches.length !== 0 && <Space vertical={20} />}
       {!loading &&
+        !!connection.isConnected &&
+        !!connection.isInternetReachable &&
+        researches.length === 0 && (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Icon name="alert" size={64} color={Colors.lightGray} />
+            <Text
+              title="Nenhuma pesquisa encontrada"
+              size={18}
+              weight={500}
+              color={Colors.lightGray}
+            />
+          </View>
+        )}
+      {!loading &&
+        !!connection.isConnected &&
+        !!connection.isInternetReachable &&
+        researches.length !== 0 && <Space vertical={20} />}
+      {!loading &&
+        !!connection.isConnected &&
+        !!connection.isInternetReachable &&
         researches.length !== 0 &&
         researches.map(item => (
           <ResearchBoxContainer key={item.id}>

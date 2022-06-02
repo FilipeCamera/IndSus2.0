@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import VisibleIcon from 'assets/svg/visible.svg';
 import ProfileResearchVisualization from './ProfileReasearchVisualization';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 interface ProfileResearchesProps {
   setState: any;
@@ -27,6 +28,7 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
   const {getResearchById} = useResearch();
   const [loading, setLoading] = useState<boolean>(true);
   const [visualization, setVisualization] = useState<boolean>(false);
+  const connection = useNetInfo();
   const [research, setResearch] = useState<any>();
   useEffect(() => {
     share.map(item => {
@@ -143,18 +145,32 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
         back
         onBack={() => setState('')}
       />
-
-      {!loading && researches.length === 0 && (
+      {!loading && !connection.isConnected && !connection.isInternetReachable && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="alert" size={64} color={Colors.lightGray} />
           <Text
-            title="Nenhuma pesquisa recebida"
+            title="Sem conexão com internet"
             size={18}
             weight={500}
             color={Colors.lightGray}
           />
         </View>
       )}
+      {!loading &&
+        !!connection.isConnected &&
+        !!connection.isInternetReachable &&
+        researches.length === 0 && (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Icon name="alert" size={64} color={Colors.lightGray} />
+            <Text
+              title="Nenhuma pesquisa recebida"
+              size={18}
+              weight={500}
+              color={Colors.lightGray}
+            />
+          </View>
+        )}
       {!loading && researches.length !== 0 && (
         <FlatList
           style={{padding: 16}}

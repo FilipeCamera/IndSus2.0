@@ -1096,19 +1096,7 @@ const Step2 = ({
     );
   }
   return (
-    <Scroll>
-      <Modals
-        visible={visible}
-        setVisible={setVisible}
-        title="Deseja realmente voltar?"
-        desc="Caso queira voltar, os dados preenchidos serão perdidos"
-        textCancel="Cancelar"
-        textOk="Sair"
-        onFunction={() => {
-          setArea(area - 1);
-          setState('research');
-        }}
-      />
+    <>
       <Header
         mode="common"
         title="Dados"
@@ -1117,108 +1105,122 @@ const Step2 = ({
           setVisible(!visible);
         }}
       />
-      <Space vertical={20} />
-      {!!loading && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color={Colors.blue} />
-        </View>
-      )}
-      {!loading &&
-        info.map((indicator, indId) => (
-          <>
-            <View
-              key={`indId_${indId}`}
-              style={{
-                borderBottomWidth: 1,
-                width: '100%',
-                padding: 8,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderBottomColor: Colors.lightGray,
-              }}>
-              <Text
-                title={indicator.title}
-                size={18}
-                weight={700}
-                color={Colors.textSecundaryBlack}
-              />
-            </View>
-            <Space vertical={16} />
-            {indicator.data.map((item, dataId) => (
-              <TouchableOpacity
-                key={`indId_${indId}dataId_${dataId}`}
+      <Scroll>
+        <Modals
+          visible={visible}
+          setVisible={setVisible}
+          title="Deseja realmente voltar?"
+          desc="Caso queira voltar, os dados preenchidos serão perdidos"
+          textCancel="Cancelar"
+          textOk="Sair"
+          onFunction={() => {
+            setArea(area - 1);
+            setState('research');
+          }}
+        />
+        {!!loading && (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator size="large" color={Colors.blue} />
+          </View>
+        )}
+        {!loading &&
+          info.map((indicator, indId) => (
+            <>
+              <View
+                key={`indId_${indId}`}
                 style={{
-                  borderWidth: 1,
-                  borderStyle: 'dashed',
-                  borderColor: Colors.textGray,
-                  borderRadius: 20,
+                  borderBottomWidth: 1,
                   width: '100%',
-                  padding: 16,
-                  marginBottom: 32,
-                }}
-                onPress={() => {
-                  setDataForm(item.ind);
-                  setPercent(item);
-                  setTitle(item.title);
-                  setQuantInd(item.quantInd);
-                  setDados(!dados);
+                  padding: 8,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderBottomColor: Colors.lightGray,
                 }}>
                 <Text
-                  title={item.title}
+                  title={indicator.title}
                   size={18}
                   weight={700}
-                  color={Colors.textGray}
+                  color={Colors.textSecundaryBlack}
                 />
-                <Space vertical={8} />
-                {item.desc.map((ind, descId) => (
+              </View>
+              <Space vertical={16} />
+              {indicator.data.map((item, dataId) => (
+                <TouchableOpacity
+                  key={`indId_${indId}dataId_${dataId}`}
+                  style={{
+                    borderWidth: 1,
+                    borderStyle: 'dashed',
+                    borderColor: Colors.textGray,
+                    borderRadius: 20,
+                    width: '100%',
+                    padding: 16,
+                    marginBottom: 32,
+                  }}
+                  onPress={() => {
+                    setDataForm(item.ind);
+                    setPercent(item);
+                    setTitle(item.title);
+                    setQuantInd(item.quantInd);
+                    setDados(!dados);
+                  }}>
                   <Text
-                    key={`indId_${indId}dataId_${dataId}descId_${descId}`}
-                    title={`${ind.title} - ${ind.quant}`}
-                    size={16}
-                    weight={500}
+                    title={item.title}
+                    size={18}
+                    weight={700}
                     color={Colors.textGray}
                   />
-                ))}
-                <Space vertical={8} />
-                <Text
-                  title={item.complete}
-                  size={15}
-                  weight={600}
-                  color={
-                    item.complete === 'Sem preencher'
-                      ? Colors.secundaryTextGray
-                      : item.complete === 'Incompleto'
-                      ? Colors.red
-                      : item.complete === 'Parcialmente completo'
-                      ? Colors.blue
-                      : Colors.green
-                  }
-                />
-              </TouchableOpacity>
-            ))}
-            <Space vertical={15} />
+                  <Space vertical={8} />
+                  {item.desc.map((ind, descId) => (
+                    <Text
+                      key={`indId_${indId}dataId_${dataId}descId_${descId}`}
+                      title={`${ind.title} - ${ind.quant}`}
+                      size={16}
+                      weight={500}
+                      color={Colors.textGray}
+                    />
+                  ))}
+                  <Space vertical={8} />
+                  <Text
+                    title={item.complete}
+                    size={15}
+                    weight={600}
+                    color={
+                      item.complete === 'Sem preencher'
+                        ? Colors.secundaryTextGray
+                        : item.complete === 'Incompleto'
+                        ? Colors.red
+                        : item.complete === 'Parcialmente completo'
+                        ? Colors.blue
+                        : Colors.green
+                    }
+                  />
+                </TouchableOpacity>
+              ))}
+              <Space vertical={15} />
+            </>
+          ))}
+        {!loading && (
+          <>
+            <View style={{width: '100%'}}>
+              <Button
+                background={Colors.blue}
+                title="Concluir"
+                weight={600}
+                size={15}
+                shadow={4}
+                onPress={async () => {
+                  await setLoadRadarInfo();
+                  console.tron.log(infoRadar);
+                }}
+                color={Colors.background}
+              />
+            </View>
+            <Space vertical={4} />
           </>
-        ))}
-      {!loading && (
-        <>
-          <View style={{width: '100%'}}>
-            <Button
-              background={Colors.blue}
-              title="Concluir"
-              weight={600}
-              size={15}
-              shadow={4}
-              onPress={async () => {
-                await setLoadRadarInfo();
-                console.tron.log(infoRadar);
-              }}
-              color={Colors.background}
-            />
-          </View>
-          <Space vertical={4} />
-        </>
-      )}
-    </Scroll>
+        )}
+      </Scroll>
+    </>
   );
 };
 

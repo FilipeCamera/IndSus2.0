@@ -85,15 +85,15 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Header
+        mode="common"
+        title="Formulário"
+        back
+        onBack={() => setVisible(!visible)}
+      />
       <FormStyle
-        contentContainerStyle={{flexGrow: 1, padding: 16, paddingBottom: 16}}
+        contentContainerStyle={{flexGrow: 1, padding: 16, paddingBottom: 72}}
         showsVerticalScrollIndicator={false}>
-        <Header
-          mode="common"
-          title="Formulário"
-          back
-          onBack={() => setVisible(!visible)}
-        />
         <Modals
           visible={visible}
           setVisible={setVisible}
@@ -106,7 +106,6 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
             navigation.goBack();
           }}
         />
-        <Space vertical={10} />
         <Row style={{justifyContent: 'space-around'}}>
           <UploadImage image={image} setImage={setImage} />
           <BiomesDropdown
@@ -147,7 +146,7 @@ const Form = ({navigation, setState, setDataInfo}: FormProps) => {
         </Row>
         <Space vertical={8} />
         <DateTime createDate={createDate} setCreateDate={setCreateDate} />
-        <Space vertical={40} />
+        <Space vertical={26} />
         <Button
           title="Avançar"
           shadow={4}

@@ -22,7 +22,7 @@ interface HeaderProps {
   add?: boolean;
   onAdd?: () => any;
   onBack?: () => any;
-  title: string;
+  title?: string;
 }
 
 const Header = ({

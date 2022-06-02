@@ -9,13 +9,14 @@ import {
   Space,
   Text,
 } from 'components';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {Image, Platform, TouchableOpacity, View} from 'react-native';
 import {ActivityIndicator, Avatar} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 
 import GraphIcon from 'assets/svg/graph.svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {useResearch, useSendFile} from 'hooks';
 import {firestore} from 'firebase';
@@ -41,10 +42,9 @@ const Home = ({navigation}: any) => {
     ) {
       setCard(true);
     }
-    console.tron.log(research, radar);
   }, [research, radar]);
 
-  const handleSaveCloud = () => {
+  const handleSaveCloud = useCallback(() => {
     setLoadingCard(true);
     if (connection.isConnected && connection.isInternetReachable) {
       const {radar: radarInfo} = radar;
@@ -74,7 +74,7 @@ const Home = ({navigation}: any) => {
           city: city,
           uf: uf,
           biome: biome,
-          createDate: createDate,
+          createDate: new Date(createDate),
           userId: user.uid,
           token: token,
           createdAt: firestore.FieldValue.serverTimestamp(),
@@ -123,6 +123,12 @@ const Home = ({navigation}: any) => {
         description: 'Você não possui conexão com internet',
       });
     }
+  }, [connection.isConnected, connection.isInternetReachable]);
+
+  const handleRemoveResearch = async () => {
+    await deleteResearch();
+    await deleteRadar();
+    setCard(false);
   };
   return (
     <Scroll>
@@ -151,6 +157,16 @@ const Home = ({navigation}: any) => {
             )}
             {!loadingCard && !send && (
               <>
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'flex-end',
+                    marginBottom: 8,
+                  }}
+                  onPress={() => handleRemoveResearch()}>
+                  <IconSimple name="close" size={18} color={Colors.red} />
+                </TouchableOpacity>
                 <Text
                   title="Você tem uma pesquisa salva, deseja enviar para a nuvem?"
                   size={16}

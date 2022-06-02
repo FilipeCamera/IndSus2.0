@@ -1,9 +1,9 @@
 import {Colors} from '@styles';
-import {AvatarSelect, Button, Header, Input, Space} from 'components';
+import {AvatarSelect, Button, Header, Input, Scroll, Space} from 'components';
 import {firestore} from 'firebase';
 import {userPersist} from 'functions';
 import React, {useState} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
 import {fieldValidate} from 'validation';
@@ -52,10 +52,7 @@ const ProfileEdit = ({setState}: any) => {
       });
   };
   return (
-    <ScrollView
-      contentContainerStyle={{padding: 16}}
-      style={{backgroundColor: Colors.background, flexGrow: 1}}
-      showsVerticalScrollIndicator={false}>
+    <>
       <Header
         back
         alert
@@ -63,45 +60,49 @@ const ProfileEdit = ({setState}: any) => {
         mode="common"
         onBack={() => setState('')}
       />
-      <Space vertical={20} />
-      <AvatarSelect
-        avatar={avatar}
-        setAvatar={setAvatar}
-        error={errors.avatar}
-      />
-      <Space vertical={25} />
-      <Input
-        label="Nome Completo"
-        type="outlined"
-        value={name}
-        onText={e => setName(e)}
-        error={errors.name}
-      />
-      <Space vertical={4} />
-      <Input
-        label="Área em que atua"
-        type="outlined"
-        value={work}
-        onText={e => setWork(e)}
-        error={errors.work}
-      />
-      <Space vertical={30} />
-      <Button
-        title="Salvar"
-        background={Colors.blue}
-        weight={600}
-        size={16}
-        color={Colors.background}
-        shadow={4}
-        onPress={() => {
-          const verified = verify();
+      <Scroll>
+        <Space vertical={20} />
+        <AvatarSelect
+          avatar={avatar}
+          setAvatar={setAvatar}
+          error={errors.avatar}
+        />
+        <Space vertical={25} />
+        <Input
+          label="Nome Completo"
+          type="outlined"
+          value={name}
+          onText={e => setName(e)}
+          error={errors.name}
+        />
+        <Space vertical={4} />
+        <Input
+          label="Área em que atua"
+          type="outlined"
+          value={work}
+          onText={e => setWork(e)}
+          error={errors.work}
+        />
+        <Space vertical={30} />
+        <View style={{width: '100%'}}>
+          <Button
+            title="Salvar"
+            background={Colors.blue}
+            weight={600}
+            size={16}
+            color={Colors.background}
+            shadow={4}
+            onPress={() => {
+              const verified = verify();
 
-          if (verified) {
-            handleComplete();
-          }
-        }}
-      />
-    </ScrollView>
+              if (verified) {
+                handleComplete();
+              }
+            }}
+          />
+        </View>
+      </Scroll>
+    </>
   );
 };
 

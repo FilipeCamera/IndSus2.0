@@ -82,15 +82,15 @@ const ResearchInfoDetailsData = ({
   }, [data]);
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
+      <Header
+        mode="common"
+        title={title}
+        back
+        onBack={() => {
+          setDados(false);
+        }}
+      />
       <Scroll>
-        <Header
-          mode="common"
-          title={title}
-          back
-          onBack={() => {
-            setDados(false);
-          }}
-        />
         {!!loading && (
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -99,7 +99,6 @@ const ResearchInfoDetailsData = ({
         )}
         {!loading && (
           <>
-            <Space vertical={20} />
             {!!dataForm &&
               dataForm.map((item, indexData) => (
                 <>

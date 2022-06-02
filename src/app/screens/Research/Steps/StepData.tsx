@@ -83,15 +83,15 @@ const StepData = ({
   }, [data]);
   return (
     <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
+      <Header
+        mode="common"
+        title={title}
+        back
+        onBack={() => {
+          setDados(false);
+        }}
+      />
       <Scroll>
-        <Header
-          mode="common"
-          title={title}
-          back
-          onBack={() => {
-            setDados(false);
-          }}
-        />
         {!!loading && (
           <View
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -100,7 +100,6 @@ const StepData = ({
         )}
         {!loading && (
           <>
-            <Space vertical={20} />
             <View
               style={{
                 padding: 16,

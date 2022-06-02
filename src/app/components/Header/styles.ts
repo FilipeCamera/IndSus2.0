@@ -1,3 +1,4 @@
+import {Colors} from '@styles';
 import styled from 'styled-components/native';
 
 export const HeaderStyle = styled.View`
@@ -11,14 +12,17 @@ export const HeaderCommonStyle = styled.View`
   align-items: center;
   justify-content: center;
   padding: 16px;
+  background: ${Colors.background};
   width: 100%;
+  border-bottom-width: 1px;
+  border-bottom-color: ${Colors.backgroundLight};
 `;
 
 export const HeaderCommonButton = styled.TouchableOpacity`
   position: absolute;
-  ${(props: any) => (props.back ? 'left: 0' : '')};
-  ${(props: any) => (props.alert ? 'right: 0' : '')};
-  padding: 8px;
+  ${(props: any) => (props.back ? 'left: 20px' : '')};
+  ${(props: any) => (props.alert ? 'right: 20px' : '')};
+  /* padding: 8px; */
 `;
 
 export const HeaderButton = styled.TouchableOpacity``;

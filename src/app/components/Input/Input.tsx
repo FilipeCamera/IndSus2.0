@@ -5,14 +5,14 @@ import {TextInput} from 'react-native-paper';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 interface InputProps {
-  value: string;
-  label: string;
-  onText: any;
-  type: any;
-  keyType: string | any;
-  disabled: boolean;
-  password: boolean;
-  error: string;
+  value?: string;
+  label?: string;
+  onText?: any;
+  type?: any;
+  keyType?: string | any;
+  disabled?: boolean;
+  password?: boolean;
+  error?: string;
 }
 
 const Input = ({

@@ -76,7 +76,6 @@ const App = () => {
             </NavigationContainer>
           </SafeAreaView>
           <FlashMessage
-            statusBarHeight={getStatusBarHeight()}
             position="top"
             duration={3000}
             titleStyle={{
