@@ -10,7 +10,7 @@ export const HeaderStyle = styled.View`
 export const HeaderCommonStyle = styled.View`
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 16px;
   width: 100%;
 `;
 

@@ -30,7 +30,6 @@ const DetailsInfo = ({title, setDados, dataForm, quantInd}: StepDataProps) => {
   const [loading, setLoading] = useState(true);
   const [radar, setRadar] = useState(false);
   const [data, setData] = useState<any[]>([]);
-  console.tron.log(dataForm);
 
   const backChange = () => {
     setDados(false);
@@ -76,125 +75,135 @@ const DetailsInfo = ({title, setDados, dataForm, quantInd}: StepDataProps) => {
     }
   }, [data]);
   return (
-    <>
-      {!!loading && (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color={Colors.blue} />
-        </View>
-      )}
-      {!loading && (
-        <>
-          {!!dataForm &&
-            dataForm.map((item, indexData) => (
-              <>
-                <View
-                  key={item.title}
-                  style={{
-                    borderBottomWidth: 1,
-                    borderColor: Colors.lightGray,
-                    width: '100%',
-                    padding: 8,
-                  }}>
-                  <Text
-                    title={item.title}
-                    weight={600}
-                    size={18}
-                    center
-                    color={Colors.textMediumBlack}
-                  />
-                </View>
-                <Space vertical={16} />
-                {item.data.map((dta, dtaIndex) => (
-                  <>
+    <View style={{flex: 1, backgroundColor: Colors.background}}>
+      <Header
+        mode="common"
+        alert
+        back
+        onBack={() => setDados(false)}
+        title="Pesquisas recebidas"
+      />
+      <Scroll>
+        {!!loading && (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator size="large" color={Colors.blue} />
+          </View>
+        )}
+        {!loading && (
+          <>
+            {!!dataForm &&
+              dataForm.map((item, indexData) => (
+                <>
+                  <View
+                    key={item.title}
+                    style={{
+                      borderBottomWidth: 1,
+                      borderColor: Colors.lightGray,
+                      width: '100%',
+                      padding: 8,
+                    }}>
                     <Text
-                      title={dta.desc}
+                      title={item.title}
                       weight={600}
                       size={18}
                       center
                       color={Colors.textMediumBlack}
                     />
-                    <Space vertical={4} />
-                    {dta.cri.map((cr, index) => (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          width: '90%',
-                          marginVertical: 8,
-                        }}>
+                  </View>
+                  <Space vertical={16} />
+                  {item.data.map((dta, dtaIndex) => (
+                    <>
+                      <Text
+                        title={dta.desc}
+                        weight={600}
+                        size={18}
+                        center
+                        color={Colors.textMediumBlack}
+                      />
+                      <Space vertical={4} />
+                      {dta.cri.map((cr, index) => (
                         <View
                           style={{
                             flexDirection: 'row',
                             alignItems: 'center',
+                            justifyContent: 'space-between',
+                            width: '90%',
+                            marginVertical: 8,
                           }}>
                           <View
                             style={{
-                              width: 30,
-                              height: 30,
-                              borderRadius: 15,
-                              backgroundColor: Colors.textGray,
+                              flexDirection: 'row',
                               alignItems: 'center',
-                              justifyContent: 'center',
                             }}>
-                            <Text
-                              title={index + 1}
-                              size={16}
-                              weight={600}
-                              color={Colors.background}
-                            />
+                            <View
+                              style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 15,
+                                backgroundColor: Colors.textGray,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}>
+                              <Text
+                                title={index + 1}
+                                size={16}
+                                weight={600}
+                                color={Colors.background}
+                              />
+                            </View>
+                            <Space horizontal={5} />
+                            <View style={{width: 140}}>
+                              <Text
+                                title={cr.title}
+                                weight={600}
+                                size={15}
+                                color={Colors.textMediumBlack}
+                              />
+                            </View>
                           </View>
-                          <Space horizontal={5} />
-                          <View style={{width: 140}}>
-                            <Text
-                              title={cr.title}
-                              weight={600}
-                              size={15}
-                              color={Colors.textMediumBlack}
-                            />
+                          <View>
+                            <View
+                              style={{
+                                borderRadius: 8,
+                                borderWidth: 1,
+                                borderStyle: 'dashed',
+                                width: 80,
+                                height: 42,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderColor: Colors.secundaryTextGray,
+                              }}>
+                              <Text title={cr.value} weight={600} size={16} />
+                            </View>
                           </View>
                         </View>
-                        <View>
-                          <View
-                            style={{
-                              borderRadius: 8,
-                              borderWidth: 1,
-                              borderStyle: 'dashed',
-                              width: 80,
-                              height: 42,
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              borderColor: Colors.secundaryTextGray,
-                            }}>
-                            <Text title={cr.value} weight={600} size={16} />
-                          </View>
-                        </View>
-                      </View>
-                    ))}
+                      ))}
 
-                    <Space vertical={20} />
-                  </>
-                ))}
-              </>
-            ))}
-          {!radar && quantInd > 2 && (
-            <View style={{width: '100%'}}>
-              <Button
-                title="Gerar Gráfico"
-                size={15}
-                weight={600}
-                color={Colors.background}
-                shadow={4}
-                onPress={() => generateGraph()}
-              />
-            </View>
-          )}
-          {!!radar && data.length !== 0 && (
-            <RadarChartInd radarData={data} title={title} />
-          )}
-        </>
-      )}
-    </>
+                      <Space vertical={20} />
+                    </>
+                  ))}
+                </>
+              ))}
+            {!radar && quantInd > 2 && (
+              <View style={{width: '100%'}}>
+                <Button
+                  title="Gerar Gráfico"
+                  size={15}
+                  weight={600}
+                  color={Colors.background}
+                  shadow={4}
+                  onPress={() => generateGraph()}
+                />
+              </View>
+            )}
+            {!!radar && data.length !== 0 && (
+              <RadarChartInd radarData={data} title={title} />
+            )}
+          </>
+        )}
+      </Scroll>
+    </View>
   );
 };
 

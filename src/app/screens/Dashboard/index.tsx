@@ -19,11 +19,7 @@ import {Colors} from '@styles';
 const Dashboard = () => {
   return (
     <>
-      <StatusBar
-        translucent
-        barStyle="dark-content"
-        backgroundColor={Colors.background}
-      />
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.background} />
       <Tabs.Navigator
         initialRouteName="Home"
         screenOptions={{

@@ -16,12 +16,12 @@ import {Avatar} from 'react-native-paper';
 import {View} from 'react-native';
 
 interface HeaderProps {
-  mode: string;
-  alert: boolean;
-  back: boolean;
-  add: boolean;
-  onAdd: () => any;
-  onBack: () => any;
+  mode?: string;
+  alert?: boolean;
+  back?: boolean;
+  add?: boolean;
+  onAdd?: () => any;
+  onBack?: () => any;
   title: string;
 }
 

@@ -41,11 +41,11 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
                   setResearches([{user, research}]);
                 }
               },
-              onFail: err => {},
+              onFail: (err: any) => {},
             });
           }
         },
-        onFail: err => {},
+        onFail: (err: any) => {},
       });
     });
     return () => {
@@ -120,12 +120,20 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       </View>
     );
   };
+
+  if (visualization === true) {
+    return (
+      <ProfileResearchVisualization
+        onBack={() => setVisualization(false)}
+        researh={research}
+      />
+    );
+  }
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Colors.background,
-        padding: !!visualization ? 0 : 16,
         alignItems: 'center',
       }}>
       <Header
@@ -135,36 +143,25 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
         back
         onBack={() => setState('')}
       />
-      {!!visualization && (
-        <Scroll>
-          <ProfileResearchVisualization
-            onBack={() => setVisualization(false)}
-            researh={research}
+
+      {!loading && researches.length === 0 && (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Icon name="alert" size={64} color={Colors.lightGray} />
+          <Text
+            title="Nenhuma pesquisa recebida"
+            size={18}
+            weight={500}
+            color={Colors.lightGray}
           />
-        </Scroll>
+        </View>
       )}
-      {!visualization && (
-        <>
-          {!loading && researches.length === 0 && (
-            <View
-              style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              <Icon name="alert" size={64} color={Colors.lightGray} />
-              <Text
-                title="Nenhuma pesquisa recebida"
-                size={18}
-                weight={500}
-                color={Colors.lightGray}
-              />
-            </View>
-          )}
-          {!loading && researches.length !== 0 && (
-            <FlatList
-              data={researches}
-              keyExtractor={item => item.id}
-              renderItem={renderItem}
-            />
-          )}
-        </>
+      {!loading && researches.length !== 0 && (
+        <FlatList
+          style={{padding: 16}}
+          data={researches}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+        />
       )}
     </View>
   );
