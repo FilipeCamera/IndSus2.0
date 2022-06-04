@@ -204,43 +204,43 @@ const Step1 = ({
         }}
         add
       />
+      <Modals
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        title="Não foi possível finalizar"
+        desc="Você ainda não criou uma área de pesquisa"
+        textOk="Ok"
+        onFunction={() => setModalVisible(false)}
+      />
+      <Modals
+        visible={finalVisible}
+        setVisible={setFinalVisible}
+        title="Finalizando a pesquisa"
+        desc="Pesquisa concluída com sucesso"
+        textOk="Ok"
+        loading={finalLoading}
+        onFunction={() => {
+          setFinalVisible(false);
+          navigation.navigate('Dashboard');
+        }}
+      />
+      <Modals
+        title="Deseja voltar?"
+        desc="A pesquisa criada será perdida"
+        textCancel="Não"
+        textOk="Sim"
+        visible={visible}
+        setVisible={setVisible}
+        onFunction={() => {
+          deleteResearch();
+          setDataArea([]);
+          setDataRadar([]);
+          setArea(0);
+          setState('form');
+        }}
+      />
       <Scroll>
-        <Modals
-          visible={modalVisible}
-          setVisible={setModalVisible}
-          title="Não foi possível finalizar"
-          desc="Você ainda não criou uma área de pesquisa"
-          textOk="Ok"
-          onFunction={() => setModalVisible(false)}
-        />
-        <Modals
-          visible={finalVisible}
-          setVisible={setFinalVisible}
-          title="Finalizando a pesquisa"
-          desc="Pesquisa concluída com sucesso"
-          textOk="Ok"
-          loading={finalLoading}
-          onFunction={() => {
-            setFinalVisible(false);
-            navigation.navigate('Dashboard');
-          }}
-        />
-        <Modals
-          title="Deseja voltar?"
-          desc="A pesquisa criada será perdida"
-          textCancel="Não"
-          textOk="Sim"
-          visible={visible}
-          setVisible={setVisible}
-          onFunction={() => {
-            deleteResearch();
-            setDataArea([]);
-            setDataRadar([]);
-            setArea(0);
-            setState('form');
-          }}
-        />
-        {!!cardPlus && <Space vertical={20} />}
+        {!!cardPlus && <Space vertical={4} />}
         {!!cardPlus && (
           <Card style={{width: '100%'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -302,7 +302,7 @@ const Step1 = ({
             </View>
           </Card>
         )}
-        <Space vertical={20} />
+        {!!cardPlus ? <Space vertical={20} /> : <Space vertical={4} />}
         <Card style={{width: '100%'}}>
           {!!cardPlus && (
             <View

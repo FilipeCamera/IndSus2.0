@@ -29,7 +29,7 @@ moment.updateLocale('pt', {
   ],
 });
 
-const Researches = () => {
+const Researches = ({navigation}: any) => {
   const user = useSelector((state: any) => state.auth.user);
   const [loading, setLoading] = useState<boolean>(true);
   const [researches, setResearches] = useState<any[]>([]);
@@ -90,7 +90,7 @@ const Researches = () => {
   }
   return (
     <Scroll>
-      <Header mode="avatar" />
+      <Header mode="avatar" navigation={navigation} />
       {!!loading && (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <ActivityIndicator size="large" color={Colors.blue} />

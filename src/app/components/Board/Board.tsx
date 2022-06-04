@@ -1,28 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {Row, Text, Button, Space} from 'components';
-import {BoardStyle, ButtonTap, styles} from './styles';
-import {View} from 'react-native';
+import {BoardStyle, BoxResearch, styles} from './styles';
+import {Image, View} from 'react-native';
 import {Colors} from '@styles';
+
+import Biomes from '@biomes';
 
 interface BoardProps {
   title: string;
   navigation: any;
+  researches: any[] | undefined;
 }
 
-const Board = ({title, navigation}: BoardProps) => {
-  const [active, setActive] = useState({
-    today: true,
-    week: false,
-  });
-  const loadResearches = async () => {};
-  useEffect(() => {
-    loadResearches();
-  }, []);
+const Board = ({title, navigation, researches}: BoardProps) => {
+  console.tron.log(researches);
   return (
     <BoardStyle style={styles.shadow}>
       <Row noMargin>
-        <Text title={title} size={20} weight={600} color="#090A0A" />
+        <Text title={title} size={20} weight={600} color={Colors.textBlack} />
         <Button
           title="Visualizar todos"
           size={13}
@@ -33,28 +29,89 @@ const Board = ({title, navigation}: BoardProps) => {
         />
       </Row>
       <Space vertical={6} />
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <ButtonTap
-          active={active.today}
-          onPress={() => setActive({today: true, week: false})}>
+      {!researches && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 16,
+          }}>
           <Text
-            title="Hoje"
-            size={15}
+            title="Nenhuma pesquisa encontrada"
             weight={500}
-            color={active.today ? Colors.blue : Colors.secundaryTextGray}
+            size={11}
+            color={Colors.textGray2}
           />
-        </ButtonTap>
-        <ButtonTap
-          active={active.week}
-          onPress={() => setActive({today: false, week: true})}>
+        </View>
+      )}
+      {!!researches && researches.length === 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 16,
+          }}>
           <Text
-            title="Semana"
-            size={15}
+            title="Nenhuma pesquisa encontrada"
             weight={500}
-            color={active.week ? Colors.blue : Colors.secundaryTextGray}
+            size={11}
+            color={Colors.textGray2}
           />
-        </ButtonTap>
-      </View>
+        </View>
+      )}
+      {!!researches &&
+        researches.length !== 0 &&
+        researches.map(item => (
+          <BoxResearch>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{width: 40, height: 40, borderRadius: 20}}>
+                <Image
+                  source={{uri: item._data.image}}
+                  style={{width: '100%', height: '100%', borderRadius: 9999}}
+                />
+              </View>
+              <Space horizontal={4} />
+              <View>
+                <Text
+                  title={item._data.propertyName}
+                  size={13}
+                  weight={700}
+                  color={Colors.secundaryText}
+                />
+                <Text
+                  title={`${item._data.city}, ${item._data.uf}`}
+                  size={11}
+                  weight={500}
+                  color={Colors.secundaryText}
+                />
+              </View>
+            </View>
+            {Biomes.map(biome => {
+              if (biome.value === item._data.biome) {
+                return (
+                  <View
+                    style={{
+                      backgroundColor: Colors.backgroundLight,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingVertical: 8,
+                      borderRadius: 16,
+                      width: 80,
+                    }}>
+                    <Text
+                      title={item._data.biome}
+                      size={12}
+                      weight={600}
+                      color={biome.color}
+                    />
+                  </View>
+                );
+              }
+            })}
+          </BoxResearch>
+        ))}
     </BoardStyle>
   );
 };

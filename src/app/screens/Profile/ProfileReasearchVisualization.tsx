@@ -24,7 +24,6 @@ import Biomes from '@biomes';
 
 import StarIcon from 'assets/svg/star.svg';
 import VisibleIcon from 'assets/svg/visible.svg';
-//import ResearchInfoDetails from './ResearchInfoDetails';
 
 import {BackHandler} from 'react-native';
 
@@ -150,13 +149,7 @@ const ProfileResearchVisualization = ({onBack, researh}: Props) => {
         users={usersShare}
         onSearch={e => handleSearchUser(e)}
       />
-      <Header
-        mode="common"
-        title="Pesquisas Recebidas"
-        back
-        alert
-        onBack={onBack}
-      />
+      <Header mode="common" title="Pesquisas Recebidas" back onBack={onBack} />
 
       <Scroll>
         {!!loading && (
@@ -212,7 +205,9 @@ const ProfileResearchVisualization = ({onBack, researh}: Props) => {
                     />
                     <Space horizontal={4} />
                     <Text
-                      title={moment(researh.createDate).format('DD/MM/YYYY')}
+                      title={moment
+                        .unix(researh.createDate.seconds)
+                        .format('DD/MM/YYYY')}
                       weight={400}
                       size={15}
                       color={Colors.secundaryText2}

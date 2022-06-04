@@ -1,4 +1,12 @@
-import {Dashboard, Home, Login, Onboarding, Register, Research} from 'screens';
+import {
+  Dashboard,
+  Home,
+  Login,
+  Onboarding,
+  Register,
+  Research,
+  Warnings,
+} from 'screens';
 
 const publicFeatures: PublicFeatureGroup = {
   Register: {
@@ -30,6 +38,10 @@ const privateFeatures: PrivateFeatureGroup = {
   Research: {
     enabled: true,
     component: Research,
+  },
+  Warnings: {
+    enabled: true,
+    component: Warnings,
   },
 };
 

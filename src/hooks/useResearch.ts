@@ -60,6 +60,28 @@ const useResearch = () => {
       .catch(err => onFail(err));
   };
 
+  const getResearchesByUserDateNow = async ({
+    userId,
+    onComplete,
+    onFail,
+  }: any) => {
+    firestore()
+      .collection('researches')
+      .orderBy('createDate', 'desc')
+      .startAfter(firestore.Timestamp.now())
+      .limit(3)
+      .get()
+      .then(querySnapshot => {
+        const researches = querySnapshot.docs.filter(research => {
+          const res = research.data();
+          if (res.userId === userId) return {res, id: research.id};
+        });
+
+        onComplete(researches);
+      })
+      .catch(err => onFail(err));
+  };
+
   const getResearchShare = async ({uid, onComplete, onFail}: any) => {
     firestore()
       .collection('shares')
@@ -83,6 +105,7 @@ const useResearch = () => {
     getResearchToken,
     getResearchShare,
     getResearchById,
+    getResearchesByUserDateNow,
   };
 };
 

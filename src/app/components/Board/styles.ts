@@ -31,3 +31,11 @@ export const styles = StyleSheet.create({
     elevation: 6,
   },
 });
+
+export const BoxResearch = styled.View`
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+`;

@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const privateFeature = ['Onboarding', 'Dashboard', 'Research'];
+const privateFeature = ['Onboarding', 'Dashboard', 'Research', 'Warnings'];
 
 const routes = Object.keys(privateFeatures).map(
   (feature: keyof PublicFeatureGroup) => {

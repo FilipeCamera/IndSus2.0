@@ -9,6 +9,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,6 +31,19 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
   const [visualization, setVisualization] = useState<boolean>(false);
   const connection = useNetInfo();
   const [research, setResearch] = useState<any>();
+
+  const backChange = () => {
+    setState('');
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
+
   useEffect(() => {
     share.map(item => {
       getResearchById({
@@ -95,7 +109,9 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
               marginTop: 6,
             }}>
             <Text
-              title={moment.unix(item.research.createDate).format('DD/MM/YYYY')}
+              title={moment
+                .unix(item.research.createDate.seconds)
+                .format('DD/MM/YYYY')}
               size={15}
               weight={600}
               color={Colors.blue}
@@ -141,7 +157,6 @@ const ProfileResearches = ({setState, share}: ProfileResearchesProps) => {
       <Header
         title="Pesquisas Recebidas"
         mode="common"
-        alert
         back
         onBack={() => setState('')}
       />

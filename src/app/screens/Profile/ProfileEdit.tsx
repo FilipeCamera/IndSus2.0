@@ -2,8 +2,8 @@ import {Colors} from '@styles';
 import {AvatarSelect, Button, Header, Input, Scroll, Space} from 'components';
 import {firestore} from 'firebase';
 import {userPersist} from 'functions';
-import React, {useState} from 'react';
-import {ScrollView, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {BackHandler, ScrollView, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {useSelector} from 'react-redux';
 import {fieldValidate} from 'validation';
@@ -14,6 +14,18 @@ const ProfileEdit = ({setState}: any) => {
   const [work, setWork] = useState(user.work);
   const [avatar, setAvatar] = useState(user.avatar);
   const [errors, setErrors] = useState({name: '', work: '', avatar: ''});
+
+  const backChange = () => {
+    setState('');
+    return true;
+  };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backChange,
+    );
+    return () => backHandler.remove();
+  }, []);
 
   const verify = () => {
     const nameVerified = fieldValidate(name);
@@ -55,7 +67,6 @@ const ProfileEdit = ({setState}: any) => {
     <>
       <Header
         back
-        alert
         title="Editar Dados"
         mode="common"
         onBack={() => setState('')}

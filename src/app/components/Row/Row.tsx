@@ -3,7 +3,8 @@ import {RowStyle} from './styles';
 
 interface RowProps {
   children: any;
-  noMarginBottom: boolean;
+  noMarginBottom?: boolean;
+  noMargin?: boolean;
 }
 
 const Row = ({children, ...props}: RowProps) => {

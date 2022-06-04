@@ -25,7 +25,8 @@ import {deleteRadar, deleteResearch} from 'functions';
 
 const Home = ({navigation}: any) => {
   const {sendFile} = useSendFile();
-  const {getResearchDataToken, getResearchToken} = useResearch();
+  const {getResearchDataToken, getResearchToken, getResearchesByUserDateNow} =
+    useResearch();
   const user = useSelector((state: any) => state.auth.user);
   const research = useSelector((state: any) => state.research.research);
   const radar = useSelector((state: any) => state.radar);
@@ -33,6 +34,7 @@ const Home = ({navigation}: any) => {
   const [card, setCard] = useState(false);
   const [loadingCard, setLoadingCard] = useState(false);
   const [send, setSend] = useState(false);
+  const [researches, setResearches] = useState<any[]>();
 
   useEffect(() => {
     if (
@@ -44,6 +46,20 @@ const Home = ({navigation}: any) => {
     }
   }, [research, radar]);
 
+  useEffect(() => {
+    getResearchesByUserDateNow({
+      userId: user.uid,
+      onComplete: (researchs: any[]) => {
+        if (researchs) {
+          console.tron.log(researchs);
+          setResearches(researchs);
+        }
+      },
+      onFail: (err: any) => {},
+    });
+
+    return () => setResearches([]);
+  }, []);
   const handleSaveCloud = useCallback(() => {
     setLoadingCard(true);
     if (connection.isConnected && connection.isInternetReachable) {
@@ -133,7 +149,7 @@ const Home = ({navigation}: any) => {
   return (
     <Scroll>
       <View style={{flex: 1, width: '100%', marginBottom: 40}}>
-        <Header />
+        <Header navigation={navigation} />
         {!!card && <Space vertical={15} />}
         {!!card && (
           <Card style={{width: '100%'}}>
@@ -318,7 +334,11 @@ const Home = ({navigation}: any) => {
           </View>
         </Card>
         <Space vertical={25} />
-        <Board title="Pesquisas" navigation={navigation} />
+        <Board
+          title="Pesquisas Recentes"
+          navigation={navigation}
+          researches={researches}
+        />
       </View>
       <RoundedButton onPress={() => navigation.navigate('Research')}>
         <Icon name="add" size={36} color={Colors.background} />

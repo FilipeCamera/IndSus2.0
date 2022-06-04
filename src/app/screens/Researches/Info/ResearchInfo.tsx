@@ -171,7 +171,7 @@ const ResearchInfo = ({onBack, researh}: Props) => {
   }
   return (
     <>
-      <Header title="Pesquisa" back alert onBack={onBack} mode="common" />
+      <Header title="Pesquisa" back onBack={onBack} mode="common" />
       <Scroll>
         <BottomModal
           visible={modalShare}

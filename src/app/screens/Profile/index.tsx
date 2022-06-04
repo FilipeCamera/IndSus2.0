@@ -42,7 +42,7 @@ const Profile = ({navigation}: any) => {
 
   return (
     <>
-      <Header mode="profile" alert />
+      <Header mode="profile" alert navigation={navigation} />
       <View style={{backgroundColor: Colors.background, padding: 16, flex: 1}}>
         <Space vertical={15} />
         <Card style={{width: '100%', elevation: 6}}>

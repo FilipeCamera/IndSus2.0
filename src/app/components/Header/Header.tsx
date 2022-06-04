@@ -23,6 +23,7 @@ interface HeaderProps {
   onAdd?: () => any;
   onBack?: () => any;
   title?: string;
+  navigation?: any;
 }
 
 const Header = ({
@@ -33,6 +34,7 @@ const Header = ({
   add,
   onBack,
   onAdd,
+  navigation,
 }: HeaderProps) => {
   const user = useSelector((state: any) => state.auth.user);
 
@@ -54,7 +56,9 @@ const Header = ({
           />
         </View>
         {!!alert && (
-          <HeaderCommonButton alert={alert} onPress={() => {}}>
+          <HeaderCommonButton
+            alert={alert}
+            onPress={() => navigation.navigate('Warnings')}>
             <AlertIcon />
           </HeaderCommonButton>
         )}
@@ -72,7 +76,9 @@ const Header = ({
       <HeaderCommonStyle>
         <Text title="Perfil" size={20} weight={700} color={Colors.textBlack} />
         {!!alert && (
-          <HeaderCommonButton alert={alert} onPress={() => {}}>
+          <HeaderCommonButton
+            alert={alert}
+            onPress={() => navigation.navigate('Warnings')}>
             <AlertIcon />
           </HeaderCommonButton>
         )}
@@ -108,7 +114,7 @@ const Header = ({
               />
             </Vertical>
           </View>
-          <HeaderButton onPress={() => {}}>
+          <HeaderButton onPress={() => navigation.navigate('Warnings')}>
             <AlertIcon />
           </HeaderButton>
         </View>
@@ -129,7 +135,7 @@ const Header = ({
               color={Colors.textBlack}
             />
           </Vertical>
-          <HeaderButton onPress={() => {}}>
+          <HeaderButton onPress={() => navigation.navigate('Warnings')}>
             <AlertIcon />
           </HeaderButton>
         </>
