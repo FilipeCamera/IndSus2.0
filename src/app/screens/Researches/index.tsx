@@ -49,26 +49,6 @@ const Researches = ({navigation}: any) => {
         userId: user.uid,
         onComplete: (res: any) => {
           if (res) {
-            res.sort(function (item, item2) {
-              if (
-                moment.unix(item.research.createDate).format('DD/MM/YYYY') <
-                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-              ) {
-                return 1;
-              }
-              if (
-                moment.unix(item.research.createDate).format('DD/MM/YYYY') >
-                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-              ) {
-                return -1;
-              }
-              if (
-                moment.unix(item.research.createDate).format('DD/MM/YYYY') ===
-                moment.unix(item2.research.createDate).format('DD/MM/YYYY')
-              ) {
-                return 0;
-              }
-            });
             setResearches(res);
             setLoading(false);
           }
@@ -149,7 +129,7 @@ const Researches = ({navigation}: any) => {
                 }}>
                 <Text
                   title={moment
-                    .unix(item.research.createDate.seconds)
+                    .unix(item.res.createDate.seconds)
                     .format('MMMM - YYYY')}
                   size={10}
                   weight={600}
@@ -158,19 +138,11 @@ const Researches = ({navigation}: any) => {
               </View>
               <Space horizontal={4} />
               {Biomes.map(biome => {
-                if (biome.value === item.research.biome) {
+                if (biome.value === item.res.biome) {
                   return (
-                    <View
-                      style={{
-                        backgroundColor: Colors.lightBlue2,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingVertical: 5,
-                        borderRadius: 12,
-                        width: 90,
-                      }}>
+                    <View>
                       <Text
-                        title={item.research.biome}
+                        title={item.res.biome}
                         size={10}
                         weight={600}
                         color={biome.color}
@@ -181,7 +153,7 @@ const Researches = ({navigation}: any) => {
               })}
             </View>
             <Space vertical={5} />
-            <ButtonResearch onPress={() => handleResearch(item.research)}>
+            <ButtonResearch onPress={() => handleResearch(item.res)}>
               <View
                 style={{
                   flexDirection: 'column',
@@ -216,9 +188,7 @@ const Researches = ({navigation}: any) => {
                         justifyContent: 'center',
                       }}>
                       <Text
-                        title={moment
-                          .unix(item.research.createDate)
-                          .format('DD')}
+                        title={moment.unix(item.res.createDate).format('DD')}
                         size={16}
                         weight={600}
                         color={Colors.blue}
@@ -232,13 +202,13 @@ const Researches = ({navigation}: any) => {
                       alignItems: 'flex-start',
                     }}>
                     <Text
-                      title={item.research.propertyName}
+                      title={item.res.propertyName}
                       size={16}
                       weight={600}
                       color={Colors.textMediumBlack}
                     />
                     <Text
-                      title={`${item.research.city}, ${item.research.uf}`}
+                      title={`${item.res.city}, ${item.res.uf}`}
                       size={14}
                       weight={500}
                       color={Colors.textGray}

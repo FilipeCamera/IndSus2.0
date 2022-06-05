@@ -14,7 +14,6 @@ interface BoardProps {
 }
 
 const Board = ({title, navigation, researches}: BoardProps) => {
-  console.tron.log(researches);
   return (
     <BoardStyle style={styles.shadow}>
       <Row noMargin>
@@ -64,24 +63,24 @@ const Board = ({title, navigation, researches}: BoardProps) => {
       {!!researches &&
         researches.length !== 0 &&
         researches.map(item => (
-          <BoxResearch>
+          <BoxResearch key={item.id}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={{width: 40, height: 40, borderRadius: 20}}>
                 <Image
-                  source={{uri: item._data.image}}
+                  source={{uri: item.res.image}}
                   style={{width: '100%', height: '100%', borderRadius: 9999}}
                 />
               </View>
               <Space horizontal={4} />
               <View>
                 <Text
-                  title={item._data.propertyName}
+                  title={item.res.propertyName}
                   size={13}
                   weight={700}
                   color={Colors.secundaryText}
                 />
                 <Text
-                  title={`${item._data.city}, ${item._data.uf}`}
+                  title={`${item.res.city}, ${item.res.uf}`}
                   size={11}
                   weight={500}
                   color={Colors.secundaryText}
@@ -89,19 +88,11 @@ const Board = ({title, navigation, researches}: BoardProps) => {
               </View>
             </View>
             {Biomes.map(biome => {
-              if (biome.value === item._data.biome) {
+              if (biome.value === item.res.biome) {
                 return (
-                  <View
-                    style={{
-                      backgroundColor: Colors.backgroundLight,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      paddingVertical: 8,
-                      borderRadius: 16,
-                      width: 80,
-                    }}>
+                  <View>
                     <Text
-                      title={item._data.biome}
+                      title={item.res.biome}
                       size={12}
                       weight={600}
                       color={biome.color}

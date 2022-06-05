@@ -47,13 +47,17 @@ const useResearch = () => {
   const getResearchesByUser = async ({userId, onComplete, onFail}: any) => {
     firestore()
       .collection('researches')
-      .where('userId', '==', userId)
+      .orderBy('createDate', 'desc')
+      .startAfter(firestore.Timestamp.now())
       .get()
       .then(querySnapshot => {
-        const researches = querySnapshot.docs.map(research => ({
-          research: research.data(),
-          id: research.id,
-        }));
+        const researches: any[] = [];
+        querySnapshot.docs.filter(research => {
+          const res = research.data();
+          if (res.userId === userId) {
+            researches.push({res, id: research.id});
+          }
+        });
 
         onComplete(researches);
       })
@@ -69,12 +73,14 @@ const useResearch = () => {
       .collection('researches')
       .orderBy('createDate', 'desc')
       .startAfter(firestore.Timestamp.now())
-      .limit(3)
       .get()
       .then(querySnapshot => {
-        const researches = querySnapshot.docs.filter(research => {
+        const researches: any[] = [];
+        querySnapshot.docs.filter(research => {
           const res = research.data();
-          if (res.userId === userId) return {res, id: research.id};
+          if (res.userId === userId && researches.length !== 3) {
+            researches.push({res, id: research.id});
+          }
         });
 
         onComplete(researches);
