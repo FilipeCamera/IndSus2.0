@@ -11,6 +11,7 @@ import {firebase, firestore, messaging} from 'firebase';
 import {showMessage} from 'react-native-flash-message';
 import {useGetUser} from 'hooks';
 import axios from 'axios';
+import {serVerKey} from 'server-key';
 
 interface BottomModalProps {
   visible: boolean;
@@ -23,6 +24,8 @@ interface BottomModalProps {
 }
 
 const {width, height} = Dimensions.get('window');
+
+const key = 'key=' + serVerKey;
 
 const BottomModal = ({
   user,
@@ -75,8 +78,7 @@ const BottomModal = ({
               await axios.post('https://fcm.googleapis.com/fcm/send', message, {
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization:
-                    'key=AAAAZY3jqmw:APA91bF5P9bkQfBDvfqyQ1_V4ZoDjdpNo6xvpozVq8Q9iZDSSGp8CxV-L92yAmiQIfblOK1ai6g9cFIHKXf2nJvHlDvmCtM1qc50NO-nAVssOvTrhppnGjQoei3Km1tU3mhpCSPNxNQl',
+                  Authorization: key,
                 },
               });
             }
