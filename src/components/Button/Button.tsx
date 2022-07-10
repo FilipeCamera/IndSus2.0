@@ -7,16 +7,16 @@ import GoogleIcon from 'assets/svg/google.svg';
 import ShareIcon from 'assets/svg/telegram.svg';
 interface ButtonProps {
   background: string;
-  shadow: number;
+  shadow?: number;
   title: string;
   size: number;
   weight: number;
-  mode: string;
+  mode?: string;
   color: string;
   onPress: () => any;
-  border: boolean;
-  google: boolean;
-  share: boolean;
+  border?: boolean;
+  google?: boolean;
+  share?: boolean;
 }
 
 const Button = ({

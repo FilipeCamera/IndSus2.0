@@ -1,5 +1,5 @@
-import {auth, firebase, firestore, storage} from './firebase';
+import {auth, firebase, firestore, storage, messaging} from './firebase';
 
 import Reactotron from './ReactotronConfig';
 
-export {auth, firebase, firestore, storage, Reactotron};
+export {auth, firebase, firestore, storage, messaging, Reactotron};

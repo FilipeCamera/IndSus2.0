@@ -7,8 +7,10 @@ import {ButtonShare} from './styles';
 
 import ShareIcon from 'assets/svg/telegram.svg';
 import LineIcon from 'assets/svg/line.svg';
-import {firestore} from 'firebase';
+import {firebase, firestore, messaging} from 'firebase';
 import {showMessage} from 'react-native-flash-message';
+import {useGetUser} from 'hooks';
+import axios from 'axios';
 
 interface BottomModalProps {
   visible: boolean;
@@ -31,6 +33,7 @@ const BottomModal = ({
   setVisible,
   onSearch,
 }: BottomModalProps) => {
+  const {getUser} = useGetUser();
   const handleShareResearch = async (
     researchId: string,
     userShareId: string,
@@ -53,7 +56,33 @@ const BottomModal = ({
           });
         }
       })
-      .finally(() => {
+      .finally(async () => {
+        await getUser({
+          uid: userShareId,
+          onComplete: async (userShare: any) => {
+            if (userShare) {
+              const message = {
+                to: userShare.fcmToken[0],
+                notification: {
+                  body: `Você acabou de receber uma pesquisa.`,
+                  title: 'Pesquisa compartilhada',
+                },
+                data: {
+                  body: 'Notification Body',
+                  title: 'Notification Title',
+                },
+              };
+              await axios.post('https://fcm.googleapis.com/fcm/send', message, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization:
+                    'key=AAAAZY3jqmw:APA91bF5P9bkQfBDvfqyQ1_V4ZoDjdpNo6xvpozVq8Q9iZDSSGp8CxV-L92yAmiQIfblOK1ai6g9cFIHKXf2nJvHlDvmCtM1qc50NO-nAVssOvTrhppnGjQoei3Km1tU3mhpCSPNxNQl',
+                },
+              });
+            }
+          },
+          onFail: () => {},
+        });
         setVisible(false);
         showMessage({
           type: 'success',

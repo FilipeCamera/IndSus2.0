@@ -38,13 +38,13 @@
     "baseUrl": "./", /* Base directory to resolve non-absolute module names. */
     "paths": {
       "screens": [
-        "src/app/screens"
+        "src/screens"
       ],
       "routes": [
         "src/routes"
       ],
       "components": [
-        "src/app/components"
+        "src/components"
       ],
       "features": [
         "src/utils/clients"

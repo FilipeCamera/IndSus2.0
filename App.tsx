@@ -6,7 +6,6 @@ import Routes from 'routes';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import FlashMessage from 'react-native-flash-message';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -18,6 +17,7 @@ import {permissions, userPersist} from 'functions';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 import {LogBox} from 'react-native';
+import {auth, firestore, messaging} from 'firebase';
 
 LogBox.ignoreLogs([
   'Warning: Each child in a list should have a unique "key" prop.',
@@ -57,14 +57,40 @@ const App = () => {
   useEffect(() => {
     permissions();
     getLogged({
-      onComplete: (user: any) => {
+      onComplete: async (user: any) => {
         if (user) {
+          const token = await messaging().getToken();
+          await firestore()
+            .collection('users')
+            .doc(user.uid)
+            .update({fcmToken: firestore.FieldValue.arrayUnion(token)});
           saveUser(user);
         } else {
           SplashScreen.hide();
         }
       },
     });
+    return messaging().onTokenRefresh(async token => {
+      const uid = auth().currentUser?.uid;
+      if (!!uid) {
+        await firestore()
+          .collection('users')
+          .doc(uid)
+          .update({fcmToken: firestore.FieldValue.arrayUnion(token)});
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.tron.log(
+        'A new FCM message arrived!',
+
+        JSON.stringify(remoteMessage),
+      );
+    });
+
+    return unsubscribe;
   }, []);
   return (
     <Provider store={store}>

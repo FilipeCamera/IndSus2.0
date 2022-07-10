@@ -16,9 +16,9 @@ const plugins = [
       ],
       alias: {
         features: './src/utils/clients',
-        components: './src/app/components/',
+        components: './src/components/',
         assets: './src/assets/',
-        screens: './src/app/screens/',
+        screens: './src/screens/',
         routes: './src/routes',
         'assets/*': './src/assets',
         firebase: './src/config',

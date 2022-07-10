@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import firebase from '@react-native-firebase/app';
+import messaging from '@react-native-firebase/messaging';
 
 const firebaseCredentials = {
   apiKey: 'AIzaSyCmP6NsdghXu8SHdCkGB4YP-VD11FRry4c',
@@ -22,4 +23,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseCredentials);
 }
 
-export {firebase, firestore, auth, storage};
+export {firebase, firestore, auth, storage, messaging};
